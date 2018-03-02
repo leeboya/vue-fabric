@@ -6,6 +6,33 @@
         <m-lfbar></m-lfbar>
       </div>
       <div class="wrap">
+            <div class="bar-nav">
+                <div class="optin-box">
+                    <span id="filter" class="optionElem">
+                    <img src="@/assets/icon/filter.png">
+                </span>
+                <span id="cut" class="optionElem">
+                    <img src="@/assets/icon/cut.png">
+                </span>
+                <span id="copy" class="optionElem">
+                    <img src="@/assets/icon/copy.png">
+                </span>
+                <span id="lock" class="optionElem">
+                    <img src="@/assets/icon/lockOpen.png">
+                </span>
+                <span id="del" class="optionElem">
+                    <img src="@/assets/icon/del.png">
+                </span>
+                </div>
+                <div class="cutOptin" id="cutOptin">
+                <span id="cancle" class="optionElem">
+                    <img src="@/assets/icon/cancle.png">
+                </span>
+                <span id="sure" class="optionElem">
+                    <img src="@/assets/icon/sure.png">
+                </span>
+                </div>
+            </div>
            <canvas id="canvas" width='761' height='589'></canvas>
             <img src="@/assets/pro/pic1.jpeg" id="img1" class="img1">
       </div>
@@ -29,6 +56,36 @@
   margin-left: 20px;
   border: #eee 1px solid;
   height: 1000px;
+}
+.bar-nav {
+    /* display: none; */
+    background: #eee;
+    padding:10px;
+    
+    
+}
+.optin-box  span {
+    display: inline-block;
+    width:25px;
+    margin-right:20px;
+    cursor: pointer;
+}
+.optin-box  span:first-child{
+    margin-left:50px;
+}
+.optin-box  span img ,.cutOptin span img {
+    display: inline-block;
+    float:left;
+    width:100%;
+}
+.cutOptin{
+  display: none;
+}
+.cutOptin span  {
+    display: inline-block;
+    width:25px;
+    margin-right:20px;
+    cursor: pointer;
 }
 </style>
 <script>

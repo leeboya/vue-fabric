@@ -6,7 +6,7 @@
      height: 60px;
   background: #000;
   color:#fff;
-  margin-bottom:20px;
+ 
   text-align: center;
   padding:10px;
 }
