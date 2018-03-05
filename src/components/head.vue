@@ -9,5 +9,6 @@
  
   text-align: center;
   padding:10px;
+  margin-bottom:10px;
 }
 </style>
