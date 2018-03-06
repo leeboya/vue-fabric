@@ -1,12 +1,18 @@
 <template>
+<div>
+  <header>
+    <button class="btn" @click="copy">复制</button>
+  </header>
   <div class="contain">
     <div class="leftBar">
       <img :src="imgInstance[0].pic" draggable="true" id="dragImg" @dragstart="dragstart($event)" @dragend="dragend($event)" />
     </div>
     <!-- <div class="rigth-canvas"> -->
     
-      <canvas class="canvas"  width="600" id="canvas"  height="600" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
+      <canvas class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
     <!-- </div> -->
+    
+  </div>
   </div>
   
 </template>
@@ -14,9 +20,13 @@
 .contain{
   display: flex;
 }
+.btn{
+  line-height: 30px;
+  min-width: 60px;
+}
 .leftBar{
   width: 400px;
-  height: 600px;
+  height: 400px;
   /* background:#ccc; */
   border:1px solid red;
 }
@@ -25,7 +35,6 @@
 }
 </style>
 <script>
-
 export default {
   data() {
     return {
@@ -82,7 +91,43 @@ export default {
     dragover(ev){
       // console.log('拖拽元素在目标元素头上移动的时候');
       ev.preventDefault();
-    }
+    },
+    paste(_clipboard){
+        // clone again, so you can do multiple copies.
+        let canvas = this.canvas;
+        _clipboard.clone(function(clonedObj) {
+            canvas.discardActiveObject();
+            clonedObj.set({
+                left: clonedObj.left + 20,
+                top: clonedObj.top + 20,
+                evented: true,
+            });
+            if (clonedObj.type === 'activeSelection') {
+                // active selection needs a reference to the canvas.
+                clonedObj.canvas = canvas;
+                clonedObj.forEachObject(function(obj) {
+                    canvas.add(obj);
+                });
+                // this should solve the unselectability
+                clonedObj.setCoords();
+            } else {
+                canvas.add(clonedObj);
+            }
+            _clipboard.top += 10;
+            _clipboard.left += 10;
+            canvas.setActiveObject(clonedObj);
+            // canvas.requestRenderAll();
+        });
+    }, 
+    copy(){
+       let canvas = this.canvas;
+       var _self = this;
+        canvas.getActiveObject().clone(function(cloned){
+            // let _clipboard = cloned;
+              _self.paste(cloned);
+            
+        })
+    },
   }
 };
 </script>
