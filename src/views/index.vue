@@ -3,7 +3,7 @@
      <m-head></m-head>
     <div class="container">
       <div class="leftBar">
-        <m-lfbar></m-lfbar>
+        <m-lfbar :canvas="canvas" :imgInstanceNew="imgInstance"  v-on:newImage="newImage"></m-lfbar>
       </div>
       <div class="wrap">
             <div class="bar-nav" >
@@ -168,6 +168,11 @@ export default {
   },
   created() {},
   methods: {
+    newImage(imgId, pos){
+      // console.log(imgId, pos);
+      // debugger
+      // this.fabricAction.bindSeletUnSelectEvent();
+    },
     updateImg() {
       var _this = this;
       this.canvas = this.fabricAction.createCanvas("canvas");

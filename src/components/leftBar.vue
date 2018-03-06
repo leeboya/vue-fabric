@@ -30,7 +30,8 @@
 </style>
 <script>
 
-export default {
+export default { 
+  props: ['canvas', 'imgInstanceNew'],
   data() {
     return {
       imgInstance: [
@@ -40,53 +41,60 @@ export default {
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
         }
       ],
-      canvas: new fabric.Canvas('canvas')
+      
     };
   },
   mounted() {
     //绘制画布
-          
+         console.log(this.imgInstanceNew)
     
   },
   created() {
-    // var canvas = new fabric.Canvas('canvas');
   },
   methods: { 
     dragstart(ev){
       /*拖拽开始*/
       console.log('鼠标拖拽点在图片的位置');
-      
       ev.dataTransfer.setData("url",ev.target.src);
+      ev.dataTransfer.setData("id",ev.target.id);
       let url = ev.dataTransfer.getData("url");
-      // console.log(url)
-      // var canvas = new fabric.Canvas('canvas');
     },
     dragend(ev){
       /*拖拽结束*/
-      console.log('我放下图片了');
-      console.log(ev.target.style.width);
-      let url = ev.path[0].currentSrc
-      // let url = ev.dataTransfer.getData("url");
-      console.log(ev.offsetX);
-      // var canvas = new fabric.Canvas('canvas');
+      let url = ev.path[0].currentSrc;
+      let imgId = ev.path[0].id + new Date().getTime();
       // this.$emit('childMethod','childParam'); 
       //第一个参数名为调用的方法名，第二个参数为需要传递的参数
+      let pos = {
+        left:10,
+        top:10,
+        width: 100,
+        height: 100,
+        angle: 0
+      }
       if(ev.offsetX > 300){
-        fabric.Image.fromURL(url, function(oImg){
-            oImg.left = 10;
-            oImg.top = 10;
-            // oImg.width = 100
-            // oImg.height = 100
-            oImg.scale(1);
-            canvas.add(oImg);
+        // this.$emit('newImage', imgId, pos);
+        this.imgInstanceNew.push({
+          key:imgId,
+          pic:url,
+          position: pos
         })
-          // this.cover(url, ev);
+        var imgObj = this.fabricAction.createFabricObj(imgId, pos);
+
+        this.canvas.add(imgObj);
+        this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
+        // fabric.Image.fromURL(url, function(oImg){
+        //     oImg.left = 10;
+        //     oImg.top = 10;
+        //     // oImg.width = 100
+        //     // oImg.height = 100
+        //     oImg.scale(1);
+        //     canvas.add(oImg);
+        // })
       }
     },
     cover(url,ev){
-
-      console.log(url)
-        
+      console.log(url)  
     },
     drop(ev){
       // ev.preventDefault();
