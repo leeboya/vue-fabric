@@ -108,13 +108,13 @@
   cursor: pointer;
 }
 .filter-list-c {
-  width: 300px;
-  height: 200px;
   position: absolute;
   background: #fff;
-  top: 30px;
-  border: 1px solid #ccc;
+  top: 20px;
+  right:10px;
+  border: 1px solid #eee;
   z-index: 999;
+  padding:20px 20px 30px 20px;
 }
 </style>
 <script>
@@ -212,8 +212,7 @@ export default {
     cutSure() {
       this.optionSelect = true;
       this.cutSelect = false;
-
-   this.fabricAction.crop(this);
+      this.fabricAction.crop(this);
     },
     showFilters:function(){
     	if(this.showFilterList){
@@ -276,7 +275,10 @@ export default {
 				obj.filters[index] = filter;
 				obj.applyFilters();
 				canvas.renderAll();
-			}
+      },
+      lock(){
+        this.fabricAction.lockOption(this);
+      }
 
   }
 };
