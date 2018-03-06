@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     updateImg(){
-      this.canvas = new fabric.Canvas('canvas');
+      // this.canvas = new fabric.Canvas('canvas');
     },
     dragstart(ev){
       /*拖拽开始*/

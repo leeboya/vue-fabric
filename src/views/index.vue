@@ -171,7 +171,6 @@ export default {
     updateImg() {
       var _this = this;
       this.canvas = this.fabricAction.createCanvas("canvas");
-
       //初始化可编辑图片
       this.imgInstance.forEach(function(k, i) {
         _this.imgInstanceObj[

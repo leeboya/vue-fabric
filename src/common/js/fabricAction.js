@@ -13,6 +13,7 @@ const createFabricObj = function (imgId, pos) {
 const bindSeletUnSelectEvent = function (imgObj, _this) {
   imgObj
     .on("selected", function (options) {
+      debugger
       _this.optionSelect = true;
       if (_this.canvas.getActiveObject().lockMovementX) {
         _this.unclock = false;
