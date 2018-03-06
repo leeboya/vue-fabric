@@ -61,6 +61,7 @@ export default {
     },
     dragend(ev){
       /*拖拽结束*/
+     
       let url = ev.path[0].currentSrc;
       let imgId = ev.path[0].id + new Date().getTime();
       // this.$emit('childMethod','childParam'); 
@@ -80,14 +81,17 @@ export default {
           pic:url,
           position: pos
         })
-        // var imgObj = this.fabricAction.createFabricObj(imgId, pos);       
-        // this.canvas.add(imgObj);
-        // this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
-        this.cover(url, ev, canvas)
+        var imgObj = this.cover(url, ev, canvas);
+        setTimeout(()=>{
+            this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
+        },50)
+      
+       
+        
       }
     },
     cover(url, ev, canvas){
-      new fabric.Image.fromURL(url, function(oImg){
+       return new fabric.Image.fromURL(url, function(oImg){
             oImg.left = 10;
             oImg.top = 10;
             oImg.scale(1);
