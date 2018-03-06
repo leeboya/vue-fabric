@@ -81,6 +81,8 @@ export default {
         })
         var imgObj = this.fabricAction.createFabricObj(imgId, pos);
 
+
+
         this.canvas.add(imgObj);
         this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
         // fabric.Image.fromURL(url, function(oImg){
