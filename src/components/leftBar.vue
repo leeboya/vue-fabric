@@ -72,6 +72,7 @@ export default {
         height: 100,
         angle: 0
       }
+      let  canvas = this.canvas;
       if(ev.offsetX > 300){
         // this.$emit('newImage', imgId, pos);
         this.imgInstanceNew.push({
@@ -79,24 +80,20 @@ export default {
           pic:url,
           position: pos
         })
-        var imgObj = this.fabricAction.createFabricObj(imgId, pos);
-
-
-
-        this.canvas.add(imgObj);
-        this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
-        // fabric.Image.fromURL(url, function(oImg){
-        //     oImg.left = 10;
-        //     oImg.top = 10;
-        //     // oImg.width = 100
-        //     // oImg.height = 100
-        //     oImg.scale(1);
-        //     canvas.add(oImg);
-        // })
+        // var imgObj = this.fabricAction.createFabricObj(imgId, pos);       
+        // this.canvas.add(imgObj);
+        // this.fabricAction.bindSeletUnSelectEvent(imgObj, this);
+        this.cover(url, ev, canvas)
       }
     },
-    cover(url,ev){
-      console.log(url)  
+    cover(url, ev, canvas){
+      new fabric.Image.fromURL(url, function(oImg){
+            oImg.left = 10;
+            oImg.top = 10;
+            oImg.scale(1);
+            canvas.add(oImg);
+        })
+        
     },
     drop(ev){
       // ev.preventDefault();

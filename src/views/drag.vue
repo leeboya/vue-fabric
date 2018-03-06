@@ -36,12 +36,12 @@ export default {
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
         }
       ],
-      canvas:null
+      canvas:""
     };
   },
   mounted() {
     //绘制画布
-          
+          this.canvas = new fabric.Canvas('canvas')
     
   },
   created() {
@@ -53,27 +53,20 @@ export default {
     },
     dragstart(ev){
       /*拖拽开始*/
-      // console.log('鼠标拖拽点在图片的位置');
       ev.dataTransfer.setData("url",ev.target.src);
-      // let url = ev.dataTransfer.getData("url");
     },
     dragend(ev){
       /*拖拽结束*/
       console.log('我放下图片了');
       let url = ev.path[0].currentSrc;
       // let url = ev.dataTransfer.getData("url");
-      // console.log(ev.offsetX);
-      let canvas = this.canvas;
-      // var canvas = new fabric.Canvas('canvas');
+      let  canvas = this.canvas;
       if(ev.offsetX > 300){
         this.cover(url,ev, canvas);
       }
     },
     cover(url,ev, canvas){
       // var canvas = new fabric.Canvas('canvas');
-      // let _self = this;
-      // var  canvas = this.canvas;
-      console.log(canvas)
       new fabric.Image.fromURL(url, function(oImg){
             oImg.left = 10;
             oImg.top = 10;
