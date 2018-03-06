@@ -9,7 +9,19 @@
             <div class="bar-nav" >
                 <div class="optin-box" :class=" optionSelect ? 'select' : '' ">
                     <span id="filter" class="optionElem">
-                    <img src="@/assets/icon/filter.png">
+                    <img src="@/assets/icon/filter.png" @click="showFilters">
+                    <div class="filter-list-c" v-show="showFilterList">
+                    		亮度<input type="range" max="1" min="-1" @input="changeBright" step="0.01"   v-model="lightnum"  />
+						          	<span>{{lightnum}}</span><br />
+						          	对比度<input type="range" max="1" min="-1" @input="changeContrast" step="0.01"   v-model="contrastnum"  />
+						          	<span>{{contrastnum}}</span><br />
+						          	饱和度<input type="range" max="1" min="-1" @input="changeSaturationnum" step="0.01"   v-model="saturationnum"  />
+						          	<span>{{saturationnum}}</span><br />
+						          	清晰度<input type="range" max="1" min="0" @input="changeBlurnum" step="0.01"   v-model="blurnum"  />
+						          	<span>{{blurnum}}</span><br />
+						          	透明度<input type="range" max="100" min="0" @input="changeOpacity" step="0.01"   v-model="opacitynum"  />
+						          	<span>{{opacitynum}}</span><br />
+                    </div>	
                 </span>
                 <span id="cut" class="optionElem" @click="cut()">
                     <img src="@/assets/icon/cut.png">
@@ -65,6 +77,7 @@
 }
 .optin-box {
   display: none;
+  position: relative;
 }
 .cutOptin {
   display: none;
@@ -94,6 +107,15 @@
   margin-right: 20px;
   cursor: pointer;
 }
+.filter-list-c{
+	width:300px;
+	height:200px;
+	position: absolute;
+	background: #fff;
+	top:30px;
+	border:1px solid #ccc;
+	z-index: 999;
+}
 </style>
 <script>
 import mHead from "@/components/head";
@@ -107,6 +129,14 @@ export default {
       _clipboard: "", //剪贴对象
       optionSelect: false, //
       cutSelect: false, //是否进行剪切操作
+      showFilterList:false,
+      lightnum:0,
+      contrastnum:0,
+      saturationnum:0,
+      blurnum:0,
+      colornum:0,
+      opacitynum:0,
+      filter:fabric.Image.filters,
       imgInstance: [
         {
           key: "img1",
@@ -115,7 +145,7 @@ export default {
         },
         {
           key: "img2",
-          pic: "http://ovfllimsi.bkt.clouddn.com/fabricPic2.jpeg",
+          pic: "../../static/2.jpg",
           position: { left: 400, top: 200, width: 200, height: 198, angle: 10 }
         }
       ],
@@ -318,7 +348,69 @@ export default {
       this.optionSelect = true;
       this.cutSelect = false;
       this.crop();
-    }
+    },
+    showFilters:function(){
+    	if(this.showFilterList){
+    		this.showFilterList = false;
+    	}else{
+    		this.showFilterList = true;
+    	}
+    },
+    getObject:function(){
+    		var obj = this.canvas.getActiveObject();
+    		return obj;
+    	},
+    	changeOpacity:function(){
+    		var obj = this.getObject();
+    		obj.opacity = parseFloat(1-this.opacitynum/100)
+    		this.canvas.renderAll();
+    	},
+    	changeBlurnum:function(){
+    		var obj = this.getObject();
+    		obj.filters[3] = new this.filter.Blur({
+					blur: parseFloat(this.blurnum)
+				})
+    		obj.applyFilters();
+    		this.canvas.renderAll();
+    	},
+    	changeSaturationnum:function(){
+    		var obj = this.getObject();
+    		obj.filters[2] = new this.filter.Saturation({
+					saturation: parseFloat(this.saturationnum)
+				})
+    		obj.applyFilters();
+    		this.canvas.renderAll();
+    	},
+    	changeContrast:function(){
+    		var obj = this.getObject();
+    		obj.filters[1] = new this.filter.Contrast({
+					contrast: parseFloat(this.contrastnum)
+				})
+    		obj.applyFilters();
+    		this.canvas.renderAll();
+    	},
+    	changeBright:function(){
+    		var obj = this.getObject();
+    		obj.filters[0] = new this.filter.Brightness({
+					brightness: parseFloat(this.lightnum)
+				})
+    		obj.applyFilters();
+    		this.canvas.renderAll();
+			},
+			applyFilterValue:function(index, prop, value) {
+		    var obj = this.canvas.getActiveObject();
+		    if (obj.filters[index]) {
+		      obj.filters[index][prop] = value;
+		      obj.applyFilters();
+		      this.canvas.renderAll();
+		    }
+		 	},
+		 	applyFilter:function(index, filter) {
+				var obj = canvas.getActiveObject();
+				obj.filters[index] = filter;
+				obj.applyFilters();
+				canvas.renderAll();
+			}
   }
 };
 </script>
