@@ -77,10 +77,12 @@ export default {
     cover(url,ev, canvas){
       // var canvas = new fabric.Canvas('canvas');
       new fabric.Image.fromURL(url, function(oImg){
-            oImg.left = 10;
-            oImg.top = 10;
-            oImg.scale(1);
-            canvas.add(oImg);
+          oImg.set({
+            left:20,
+            top:20,
+          });
+          oImg.scale(1);
+          canvas.add(oImg);
         })
         
     },
