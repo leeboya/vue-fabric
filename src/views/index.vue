@@ -17,8 +17,8 @@
                 <span id="copy" class="optionElem" @click="clone()">
                     <img src="@/assets/icon/copy.png">
                 </span>
-                <span id="lock" class="optionElem">
-                    <img src="@/assets/icon/lockOpen.png">
+                <span id="lock" class="optionElem" @click="lock()">
+                    <img :src="unclock?'http://ovfllimsi.bkt.clouddn.com/lockOpen.png':'http://ovfllimsi.bkt.clouddn.com/lockClose.png'">
                 </span>
                 <span id="del" class="optionElem" @click="del()">
                     <img src="@/assets/icon/del.png">
@@ -107,6 +107,7 @@ export default {
       _clipboard: "", //剪贴对象
       optionSelect: false, //
       cutSelect: false, //是否进行剪切操作
+      unclock: true,
       imgInstance: [
         {
           key: "img1",
@@ -139,77 +140,29 @@ export default {
   methods: {
     updateImg() {
       var _this = this;
-      this.canvas = this.createCanvas("canvas");
+      this.canvas = this.fabricAction.createCanvas("canvas");
 
       //初始化可编辑图片
       this.imgInstance.forEach(function(k, i) {
-        _this.imgInstanceObj["instance" + k.key] = _this.createFabricObj(
-          k.key,
-          k.position
-        );
+        _this.imgInstanceObj[
+          "instance" + k.key
+        ] = _this.fabricAction.createFabricObj(k.key, k.position);
         setTimeout(function() {
           _this.canvas.add(_this.imgInstanceObj["instance" + k.key]);
-          _this.bindSeletUnSelectEvent(
-            _this.imgInstanceObj["instance" + k.key]
+          _this.fabricAction.bindSeletUnSelectEvent(
+            _this.imgInstanceObj["instance" + k.key],
+            _this
           );
         }, 100);
       });
     },
-    createFabricObj(imgId, pos) {
-      var dom = document.getElementById(imgId);
-      return new fabric.Image(dom, {
-        //设置图片在canvas中的位置和样子
-        left: pos.left,
-        top: pos.top,
-        width: pos.width,
-        height: pos.height,
-        angle: pos.angle
-      });
-    },
-    createCanvas(canvasId) {
-      return new fabric.Canvas(canvasId); //声明画布
-    },
-    Copy() {
-      var _this = this;
-      this.canvas.getActiveObject().clone(function(cloned) {
-        _this._clipboard = cloned;
-      });
-    },
-    Paste() {
-      var _this = this;
-      // clone again, so you can do multiple copies.
-      this._clipboard.clone(function(clonedObj) {
-        _this.canvas.discardActiveObject();
-        clonedObj.set({
-          left: clonedObj.left + 50,
-          top: clonedObj.top + 50,
-          evented: true
-        });
-        if (clonedObj.type === "activeSelection") {
-          // active selection needs a reference to the canvas.
-          clonedObj.canvas = this.canvas;
-          clonedObj.forEachObject(function(obj) {
-            this.canvas.add(obj);
-          });
-          // this should solve the unselectability
-          clonedObj.setCoords();
-        } else {
-          _this.canvas.add(clonedObj);
-        }
-        _this._clipboard.top += 30;
-        _this._clipboard.left += 30;
-        _this.canvas.setActiveObject(clonedObj);
-        _this.canvas.requestRenderAll();
-        _this.bindSeletUnSelectEvent(clonedObj);
-        _this.optionSelect = true;
-      });
-    },
+
     clone() {
       var _this = this;
       var timestamp = Date.parse(new Date());
-      _this.Copy();
+      _this.fabricAction.Copy(this);
       setTimeout(function() {
-        _this.Paste();
+        _this.fabricAction.Paste(_this);
         return;
       }, 5);
     },
@@ -217,99 +170,78 @@ export default {
       var el = this.canvas.getActiveObject();
       this.canvas.remove(el);
     },
-    bindSeletUnSelectEvent(imgObj) {
-      var _this = this;
-      imgObj
-        .on("selected", function(options) {
-          // option.style.display = "block";
-          _this.optionSelect = true;
-        })
-        .on("deselected", function(options) {
-          // option.style.display = "none";
-          _this.optionSelect = false;
-        });
-    },
-    startCrop() {
-      var _this = this;
-      this.canvas.remove(this.cutRect.el);
-      if (this.canvas.getActiveObject()) {
-        this.cutRect.object = this.canvas.getActiveObject();
 
-        if (this.cutRect.lastActive !== this.cutRect.object) {
-          console.log("different object");
-        } else {
-          console.log("same object");
-        }
-        if (
-          this.cutRect.lastActive &&
-          this.cutRect.lastActive !== this.cutRect.object
-        ) {
-          this.cutRect.lastActive.clipTo = null;
-        }
+    // startCrop() {
+    //   var _this = this;
+    //   this.canvas.remove(this.cutRect.el);
+    //   if (this.canvas.getActiveObject()) {
+    //     this.cutRect.object = this.canvas.getActiveObject();
 
-        this.cutRect.el = new fabric.Rect({
-          fill: "rgba(0,0,0,0.3)",
-          originX: "left",
-          originY: "top",
-          stroke: "#ccc",
-          strokeDashArray: [2, 2],
-          opacity: 1,
-          width: 1,
-          height: 1,
-          borderColor: "#36fd00",
-          cornerColor: "green",
-          hasRotatingPoint: false
-        });
-        this.cutRect.el.left = this.canvas.getActiveObject().left;
-        this.cutRect.selection_object_left = this.canvas.getActiveObject().left;
-        this.cutRect.selection_object_top = this.canvas.getActiveObject().top;
-        this.cutRect.el.top = this.canvas.getActiveObject().top;
-        this.cutRect.el.width =
-          this.canvas.getActiveObject().width *
-          this.canvas.getActiveObject().scaleX;
-        this.cutRect.el.height =
-          this.canvas.getActiveObject().height *
-          this.canvas.getActiveObject().scaleY;
-        this.canvas.add(this.cutRect.el);
-        this.canvas.setActiveObject(this.cutRect.el);
+    //     if (this.cutRect.lastActive !== this.cutRect.object) {
+    //       console.log("different object");
+    //     } else {
+    //       console.log("same object");
+    //     }
+    //     if (
+    //       this.cutRect.lastActive &&
+    //       this.cutRect.lastActive !== this.cutRect.object
+    //     ) {
+    //       this.cutRect.lastActive.clipTo = null;
+    //     }
 
-        var layer = document.getElementById("#layers");
-        // for (var i = 0; i < $("#layers li").size(); i++) {
-        //   this.canvas.item(i).selectable = false;
-        // }
-      } else {
-        alert("Please select an object or layer");
-      }
-    },
-    crop() {
-      var _this=this;
-      var left = this.cutRect.el.left - this.cutRect.object.left;
-      var top = this.cutRect.el.top - this.cutRect.object.top;
-      left *= 1;
-      top *= 1;
-      var width = this.cutRect.el.width * 1;
-      var height = this.cutRect.el.height * 1;
-      this.cutRect.object.clipTo = function(ctx) {
-        ctx.rect(
-          -(_this.cutRect.el.width / 2) + left,
-          -(_this.cutRect.el.height / 2) + top,
-          parseInt(width * _this.cutRect.el.scaleX),
-          parseInt(_this.cutRect.el.scaleY * height)
-        );
-      };
-      // for (var i = 0; i < $("#layers li").size(); i++) {
-      //   this.canvas.item(i).selectable = true;
-      // }
-      // disabled = true;
-
-      this.canvas.remove(this.canvas.getActiveObject());
-      this.cutRect.lastActive = this.cutRect.object;
-      this.canvas.renderAll();
-    },
+    //     this.cutRect.el = new fabric.Rect({
+    //       fill: "rgba(0,0,0,0.3)",
+    //       originX: "left",
+    //       originY: "top",
+    //       stroke: "#ccc",
+    //       strokeDashArray: [2, 2],
+    //       opacity: 1,
+    //       width: 1,
+    //       height: 1,
+    //       borderColor: "#36fd00",
+    //       cornerColor: "green",
+    //       hasRotatingPoint: false
+    //     });
+    //     this.cutRect.el.left = this.canvas.getActiveObject().left;
+    //     this.cutRect.selection_object_left = this.canvas.getActiveObject().left;
+    //     this.cutRect.selection_object_top = this.canvas.getActiveObject().top;
+    //     this.cutRect.el.top = this.canvas.getActiveObject().top;
+    //     this.cutRect.el.width =
+    //     this.canvas.getActiveObject().width *
+    //     this.canvas.getActiveObject().scaleX;
+    //     this.cutRect.el.height =
+    //     this.canvas.getActiveObject().height *
+    //     this.canvas.getActiveObject().scaleY;
+    //     this.canvas.add(this.cutRect.el);
+    //     this.canvas.setActiveObject(this.cutRect.el);
+    //   } else {
+    //     alert("Please select an object or layer");
+    //   }
+    // },
+    // crop() {
+    //   var _this = this;
+    //   var left = this.cutRect.el.left - this.cutRect.object.left;
+    //   var top = this.cutRect.el.top - this.cutRect.object.top;
+    //   left *= 1;
+    //   top *= 1;
+    //   var width = this.cutRect.el.width * 1;
+    //   var height = this.cutRect.el.height * 1;
+    //   this.cutRect.object.clipTo = function(ctx) {
+    //     ctx.rect(
+    //       -(_this.cutRect.el.width / 2) + left,
+    //       -(_this.cutRect.el.height / 2) + top,
+    //       parseInt(width * _this.cutRect.el.scaleX),
+    //       parseInt(_this.cutRect.el.scaleY * height)
+    //     );
+    //   };
+    //   this.canvas.remove(this.canvas.getActiveObject());
+    //   this.cutRect.lastActive = this.cutRect.object;
+    //   this.canvas.renderAll();
+    // },
     cut() {
       this.optionSelect = false;
       this.cutSelect = true;
-      this.startCrop();
+      this.fabricAction.startCrop(this);
     },
     cutCancle() {
       this.canvas.remove(this.cutRect.el);
@@ -317,7 +249,24 @@ export default {
     cutSure() {
       this.optionSelect = true;
       this.cutSelect = false;
-      this.crop();
+      this.fabricAction.crop(this);
+    },
+    lock() {
+      if (this.unclock) {
+        this.canvas.getActiveObject().lockMovementX = true;
+        this.canvas.getActiveObject().lockMovementY = true;
+        this.canvas.getActiveObject().lockRotation = true;
+        this.canvas.getActiveObject().lockScalingX = true;
+        this.canvas.getActiveObject().lockScalingY = true;
+        this.unclock = false;
+        return;
+      }
+      this.canvas.getActiveObject().lockMovementX = false;
+      this.canvas.getActiveObject().lockMovementY = false;
+      this.canvas.getActiveObject().lockRotation = false;
+      this.canvas.getActiveObject().lockScalingX = false;
+      this.canvas.getActiveObject().lockScalingY = false;
+      this.unclock = true;
     }
   }
 };
