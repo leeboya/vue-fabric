@@ -107,14 +107,14 @@
   margin-right: 20px;
   cursor: pointer;
 }
-.filter-list-c{
-	width:300px;
-	height:200px;
-	position: absolute;
-	background: #fff;
-	top:30px;
-	border:1px solid #ccc;
-	z-index: 999;
+.filter-list-c {
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  background: #fff;
+  top: 30px;
+  border: 1px solid #ccc;
+  z-index: 999;
 }
 </style>
 <script>
@@ -129,9 +129,7 @@ export default {
       _clipboard: "", //剪贴对象
       optionSelect: false, //
       cutSelect: false, //是否进行剪切操作
-<<<<<<< HEAD
       unclock: true,
-=======
       showFilterList:false,
       lightnum:0,
       contrastnum:0,
@@ -140,7 +138,6 @@ export default {
       colornum:0,
       opacitynum:0,
       filter:fabric.Image.filters,
->>>>>>> 95aae07b6857bacd8883d96bfc0829a2196da203
       imgInstance: [
         {
           key: "img1",
@@ -204,73 +201,6 @@ export default {
       this.canvas.remove(el);
     },
 
-    // startCrop() {
-    //   var _this = this;
-    //   this.canvas.remove(this.cutRect.el);
-    //   if (this.canvas.getActiveObject()) {
-    //     this.cutRect.object = this.canvas.getActiveObject();
-
-    //     if (this.cutRect.lastActive !== this.cutRect.object) {
-    //       console.log("different object");
-    //     } else {
-    //       console.log("same object");
-    //     }
-    //     if (
-    //       this.cutRect.lastActive &&
-    //       this.cutRect.lastActive !== this.cutRect.object
-    //     ) {
-    //       this.cutRect.lastActive.clipTo = null;
-    //     }
-
-    //     this.cutRect.el = new fabric.Rect({
-    //       fill: "rgba(0,0,0,0.3)",
-    //       originX: "left",
-    //       originY: "top",
-    //       stroke: "#ccc",
-    //       strokeDashArray: [2, 2],
-    //       opacity: 1,
-    //       width: 1,
-    //       height: 1,
-    //       borderColor: "#36fd00",
-    //       cornerColor: "green",
-    //       hasRotatingPoint: false
-    //     });
-    //     this.cutRect.el.left = this.canvas.getActiveObject().left;
-    //     this.cutRect.selection_object_left = this.canvas.getActiveObject().left;
-    //     this.cutRect.selection_object_top = this.canvas.getActiveObject().top;
-    //     this.cutRect.el.top = this.canvas.getActiveObject().top;
-    //     this.cutRect.el.width =
-    //     this.canvas.getActiveObject().width *
-    //     this.canvas.getActiveObject().scaleX;
-    //     this.cutRect.el.height =
-    //     this.canvas.getActiveObject().height *
-    //     this.canvas.getActiveObject().scaleY;
-    //     this.canvas.add(this.cutRect.el);
-    //     this.canvas.setActiveObject(this.cutRect.el);
-    //   } else {
-    //     alert("Please select an object or layer");
-    //   }
-    // },
-    // crop() {
-    //   var _this = this;
-    //   var left = this.cutRect.el.left - this.cutRect.object.left;
-    //   var top = this.cutRect.el.top - this.cutRect.object.top;
-    //   left *= 1;
-    //   top *= 1;
-    //   var width = this.cutRect.el.width * 1;
-    //   var height = this.cutRect.el.height * 1;
-    //   this.cutRect.object.clipTo = function(ctx) {
-    //     ctx.rect(
-    //       -(_this.cutRect.el.width / 2) + left,
-    //       -(_this.cutRect.el.height / 2) + top,
-    //       parseInt(width * _this.cutRect.el.scaleX),
-    //       parseInt(_this.cutRect.el.scaleY * height)
-    //     );
-    //   };
-    //   this.canvas.remove(this.canvas.getActiveObject());
-    //   this.cutRect.lastActive = this.cutRect.object;
-    //   this.canvas.renderAll();
-    // },
     cut() {
       this.optionSelect = false;
       this.cutSelect = true;
@@ -282,28 +212,8 @@ export default {
     cutSure() {
       this.optionSelect = true;
       this.cutSelect = false;
-<<<<<<< HEAD
-      this.fabricAction.crop(this);
-    },
-    lock() {
-      if (this.unclock) {
-        this.canvas.getActiveObject().lockMovementX = true;
-        this.canvas.getActiveObject().lockMovementY = true;
-        this.canvas.getActiveObject().lockRotation = true;
-        this.canvas.getActiveObject().lockScalingX = true;
-        this.canvas.getActiveObject().lockScalingY = true;
-        this.unclock = false;
-        return;
-      }
-      this.canvas.getActiveObject().lockMovementX = false;
-      this.canvas.getActiveObject().lockMovementY = false;
-      this.canvas.getActiveObject().lockRotation = false;
-      this.canvas.getActiveObject().lockScalingX = false;
-      this.canvas.getActiveObject().lockScalingY = false;
-      this.unclock = true;
-    }
-=======
-      this.crop();
+
+   this.fabricAction.crop(this);
     },
     showFilters:function(){
     	if(this.showFilterList){
@@ -367,7 +277,7 @@ export default {
 				obj.applyFilters();
 				canvas.renderAll();
 			}
->>>>>>> 95aae07b6857bacd8883d96bfc0829a2196da203
+
   }
 };
 </script>
