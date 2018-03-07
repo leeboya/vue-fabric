@@ -2,6 +2,12 @@
 <div>
   <header>
     <button class="btn" @click="copy">复制</button>
+    <button class="btn" @click="clip">裁剪</button>
+    <button class="btn" @click="del">删除</button>
+    <button class="btn" @click="toJson">toJSON</button>
+    <button class="btn" @click="toSVG">toSVG</button>
+    <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
+
   </header>
   <div class="contain">
     <div class="leftBar" ref="getLeftBarWidth">
@@ -54,17 +60,47 @@ export default {
             width:this.$refs.getLeftBarWidth.offsetWidth,
             height:this.$refs.getLeftBarWidth.offsetHeight
           };
+          
+          // this.$refs.canvas.screen.availWidth;
           this.canvasPos={
             width:this.$refs.canvas.offsetWidth,
             height:this.$refs.canvas.offsetHeight
           };
+          /**@augments
+           * mouse:down :鼠标按下时
+                  mouse:move :鼠标移动时
+                  mouse:up :鼠标抬起时
+                  after:render :画布重绘后
+                  object:selected:对象被选中
+                  object:moving:对象移动
+                  object:rotating:对象被旋转
+                  object:added:对象被加入
+                  object:removed对象被移除
+                  fabric 组合
+                  var group = new fabric.Group([要组合的对象, 要组合的对象], {
+                      组合对象的公用属性
+                  })
+                  canvas.add(group);
+                  组合对象的单个对象修改
+                  group.item(0).set({
+                    属性修改
+                  })
+           */
+          this.canvas.on('mouse:down', function(options) {
+            
+              console.log(options.e.clientX, options.e.clientY)
+          })
           
   },
   created() {
-      this.updateImg();
   },
   methods: {
-    updateImg(){
+    getCanvasImg(){
+      if(this.canvas.getActiveObject()){
+        this.canvas.on('mouse:down', function(options) {
+          console.log(options.e.clientX, options.e.clientY)
+        })
+      }
     },
     dragstart(ev){
       /*拖拽开始*/
@@ -76,11 +112,9 @@ export default {
     },
     dragend(ev){
       /*拖拽结束*/
-      console.log('我放下图片了');
       let url = ev.path[0].currentSrc;
       // let url = ev.dataTransfer.getData("url");
       let  canvas = this.canvas;
-      console.log(ev.offsetX);
       if(ev.offsetX > this.leftBar.width && ev.offsetX < (this.leftBar.width+this.canvasPos.width)){
         this.cover(url,ev, canvas);
       }
@@ -125,8 +159,8 @@ export default {
             } else {
                 canvas.add(clonedObj);
             }
-            _clipboard.top += 10;
-            _clipboard.left += 10;
+            _clipboard.top += 20;
+            _clipboard.left += 20;
             canvas.setActiveObject(clonedObj);
             // canvas.requestRenderAll();
         });
@@ -140,6 +174,33 @@ export default {
             
         })
     },
+    clip(){
+     },
+    del() {
+      var el = this.canvas.getActiveObject();
+      this.canvas.remove(el);
+    },
+    toJson(){
+      alert(JSON.stringify(this.canvas.toJSON()))
+    },
+    toSVG(){
+      alert(this.canvas.toSVG());
+    },
+    //把JSON字符串恢复到Canvas上，loadFromJSON()：
+    toSVGLocal(){
+      let fso;
+        try { 
+          fso=new ActiveXObject("Scripting.FileSystemObject"); 
+
+        } catch (e) { 
+          alert("当前浏览器不支持");
+          return;
+        } 
+        alert("方法已执行2");
+        var f1 = fso.createtextfile("D:\\1.svg", true);
+        f1.write(this.canvas.toSVG());  
+        f1.close();
+    }
   }
 };
 </script>
