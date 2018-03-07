@@ -4,14 +4,10 @@
     <button class="btn" @click="copy">复制</button>
   </header>
   <div class="contain">
-    <div class="leftBar">
+    <div class="leftBar" ref="getLeftBarWidth">
       <img :src="imgInstance[0].pic" draggable="true" id="dragImg" @dragstart="dragstart($event)" @dragend="dragend($event)" />
-    </div>
-    <!-- <div class="rigth-canvas"> -->
-    
-      <canvas class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
-    <!-- </div> -->
-    
+    </div>   
+      <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
   </div>
   
@@ -45,24 +41,38 @@ export default {
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
         }
       ],
-      canvas:""
+      canvas:"",
+      leftBar:{},  //左侧宽高
+      canvasPos:{}, //canvas 宽高
+      mouseImgPos:{} // 鼠标拖拽相对图片的位置
     };
   },
   mounted() {
     //绘制画布
-          this.canvas = new fabric.Canvas('canvas')
-    
+          this.canvas = new fabric.Canvas('canvas');
+          this.leftBar={
+            width:this.$refs.getLeftBarWidth.offsetWidth,
+            height:this.$refs.getLeftBarWidth.offsetHeight
+          };
+          this.canvasPos={
+            width:this.$refs.canvas.offsetWidth,
+            height:this.$refs.canvas.offsetHeight
+          };
+          
   },
   created() {
       this.updateImg();
   },
   methods: {
     updateImg(){
-      // this.canvas = new fabric.Canvas('canvas');
     },
     dragstart(ev){
       /*拖拽开始*/
       ev.dataTransfer.setData("url",ev.target.src);
+      this.mouseImgPos={
+        x: ev.offsetX,
+        y: ev.offsetY
+      }
     },
     dragend(ev){
       /*拖拽结束*/
@@ -70,17 +80,17 @@ export default {
       let url = ev.path[0].currentSrc;
       // let url = ev.dataTransfer.getData("url");
       let  canvas = this.canvas;
-      if(ev.offsetX > 300){
+      console.log(ev.offsetX);
+      if(ev.offsetX > this.leftBar.width && ev.offsetX < (this.leftBar.width+this.canvasPos.width)){
         this.cover(url,ev, canvas);
       }
     },
     cover(url,ev, canvas){
       // var canvas = new fabric.Canvas('canvas');
-      new fabric.Image.fromURL(url, function(oImg){
-          oImg.set({
-            left:20,
-            top:20,
-          });
+      let _self = this;
+      return new fabric.Image.fromURL(url, function(oImg){
+          oImg.left = ev.offsetX -  _self.leftBar.width - _self.mouseImgPos.x ;
+          oImg.top = ev.offsetY - _self.mouseImgPos.y;
           oImg.scale(1);
           canvas.add(oImg);
         })
