@@ -95,7 +95,6 @@ const startCrop = function (_this) {
     _this.$store.state.fabricObj.canvas.getActiveObject().scaleY;
     _this.$store.state.fabricObj.canvas.add(_this.cutRect.el);
     _this.$store.state.fabricObj.canvas.setActiveObject(_this.cutRect.el);
-
     return
   }
   alert("Please select an object or layer");
