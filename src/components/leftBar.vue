@@ -1,5 +1,5 @@
 <template>
-  <div class="m-lfbar">
+  <div class="m-lfbar" ref="getLeftBarWidth">
     <div class="leftBar">
       <img :src="imgInstance[0].pic" draggable="true" id="dragImg" @dragstart="dragstart($event)" @dragend="dragend($event)" />
     </div>
@@ -38,12 +38,28 @@ export default {
           pic: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
         }
-      ]
+      ],
+      leftBar:{},  //左侧宽高
+      canvasPos:{}, //canvas 宽高
+      mouseImgPos:{} // 鼠标拖拽相对图片的位置
     };
   },
   mounted() {
     //绘制画布
-
+    this.leftBar={
+      width:this.$refs.getLeftBarWidth.offsetWidth,
+      height:this.$refs.getLeftBarWidth.offsetHeight
+    };
+    this.canvasPos={
+        x : document.querySelector('canvas').getBoundingClientRect().left,
+        y : document.querySelector('canvas').getBoundingClientRect().top,
+        w : document.querySelector('canvas').getBoundingClientRect().width,
+        h : document.querySelector('canvas').getBoundingClientRect().height,
+        l : document.querySelector('canvas').getBoundingClientRect().left,
+        t : document.querySelector('canvas').getBoundingClientRect().top,
+        r : document.querySelector('canvas').getBoundingClientRect().right,
+        b : document.querySelector('canvas').getBoundingClientRect().bottom
+    }
   },
   created() {},
   methods: {
@@ -52,6 +68,10 @@ export default {
       ev.dataTransfer.setData("url", ev.target.src);
       ev.dataTransfer.setData("id", ev.target.id);
       let url = ev.dataTransfer.getData("url");
+      this.mouseImgPos={
+        x: ev.offsetX,
+        y: ev.offsetY
+      }
     },
     dragend(ev) {
       /*拖拽结束*/
@@ -67,17 +87,16 @@ export default {
         height: 100,
         angle: 0
       };
-
-      if (ev.offsetX > 300) {
-
-        this.cover(url, ev, canvas);
+      if(ev.offsetX > this.canvasPos.x && ev.offsetX < this.canvasPos.r && ev.offsetY > this.canvasPos.y && ev.offsetY < this.canvasPos.b ){
+              this.cover(url,ev, canvas);
       }
     },
     cover(url, ev, canvas) {
       var _this = this;
+      //- _this.mouseImgPos.y
       new fabric.Image.fromURL(url, function(oImg) {
-        oImg.left = 10;
-        oImg.top = 10;
+        oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x;
+        oImg.top = ev.offsetY - _this.canvasPos.y ;
         oImg.scale(1);
         _this.$store.state.fabricObj.canvas.add(oImg);
         setTimeout(function() {

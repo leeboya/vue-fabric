@@ -11,7 +11,11 @@
   </header>
   <div class="contain">
     <div class="leftBar" ref="getLeftBarWidth">
-      <img :src="imgInstance[0].pic" draggable="true" id="dragImg" @dragstart="dragstart($event)" @dragend="dragend($event)" />
+      <div class="imgBox" ref="imgBox">
+        <span class="floatText" ref="floatText" @click="imgToCanvas($event)">到画布</span>
+        <img :src="imgInstance[0].pic" draggable="true"   @dragstart="dragstart($event)" @dragend="dragend($event)" />
+      </div>
+      
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
@@ -32,11 +36,25 @@
   /* background:#ccc; */
   border:1px solid red;
 }
+.imgBox{
+  position: relative;
+  width:200px;
+  height: 198px;
+}
+.floatText{
+  position: absolute;
+  right: 0;
+  display: none;
+   /* opacity: 0; */
+   cursor: pointer;
+  background: deeppink;
+}
 .canvas{
     border: 1px solid red;
 }
 </style>
 <script>
+
 export default {
   data() {
     return {
@@ -55,17 +73,27 @@ export default {
   },
   mounted() {
     //绘制画布
+    let _self = this;
           this.canvas = new fabric.Canvas('canvas');
           this.leftBar={
             width:this.$refs.getLeftBarWidth.offsetWidth,
             height:this.$refs.getLeftBarWidth.offsetHeight
           };
-          
-          // this.$refs.canvas.screen.availWidth;
           this.canvasPos={
             width:this.$refs.canvas.offsetWidth,
             height:this.$refs.canvas.offsetHeight
           };
+          this.$refs.imgBox.onmouseover = function(e){
+            e.preventDefault()
+            _self.$refs.floatText.style.display = 'block';
+            // _self.$refs.floatText.style.opacity = '1';
+          }
+          this.$refs.imgBox.onmouseout = function(e){
+            e.preventDefault()
+            _self.$refs.floatText.style.display = 'none';
+            // _self.$refs.floatText.style.opacity = '0';
+          }
+
           /**@augments
            * mouse:down :鼠标按下时
                   mouse:move :鼠标移动时
@@ -181,7 +209,8 @@ export default {
       this.canvas.remove(el);
     },
     toJson(){
-      alert(JSON.stringify(this.canvas.toJSON()))
+      alert(JSON.stringify(this.canvas.toJSON()));
+      console.log(JSON.stringify(this.canvas.toJSON()));
     },
     toSVG(){
       alert(this.canvas.toSVG());
@@ -200,6 +229,10 @@ export default {
         var f1 = fso.createtextfile("D:\\1.svg", true);
         f1.write(this.canvas.toSVG());  
         f1.close();
+    },
+    imgToCanvas(e){
+      // console.log(e.nextElementSibling)
+      console.log(this.$refs)
     }
   }
 };
