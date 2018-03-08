@@ -87,7 +87,8 @@ export default {
         height: 100,
         angle: 0
       };
-      if(ev.offsetX > this.canvasPos.x && ev.offsetX < this.canvasPos.r && ev.offsetY > this.canvasPos.y && ev.offsetY < this.canvasPos.b ){
+      // && ev.offsetY > this.canvasPos.y && ev.offsetY < this.canvasPos.b 
+      if(ev.offsetX > this.canvasPos.x && ev.offsetX < this.canvasPos.r ){
               this.cover(url,ev, canvas);
       }
     },
@@ -105,7 +106,7 @@ export default {
       });
     },
     drop(ev) {
-      // ev.preventDefault();
+      ev.preventDefault();
     }
   }
 };
