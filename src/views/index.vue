@@ -3,7 +3,7 @@
      <m-head></m-head>
     <div class="container">
       <div class="leftBar">
-        <m-lfbar  v-on:newImage="newImage"></m-lfbar>
+        <m-lfbar  ></m-lfbar>
       </div>
       <div class="wrap">
             <div class="bar-nav" >
@@ -163,27 +163,18 @@ export default {
   },
   created() {},
   methods: {
-    newImage(imgId, pos) {
-      // console.log(imgId, pos);
-      // debugger
-      // this.fabricAction.bindSeletUnSelectEvent();
-    },
     updateImg() {
       var _this = this;
       // this.canvas = ;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
       //初始化可编辑图片
       this.imgInstance.forEach(function(k, i) {
-        _this.imgInstanceObj[
-          "instance" + k.key
-        ] = _this.fabricAction.createFabricObj(k.key, k.position);
+        _this.imgInstanceObj["instance" + k.key] = _this.fabricAction.createFabricObj(k.key, k.position);
         setTimeout(function() {
           _this.$store.state.fabricObj.canvas.add(
             _this.imgInstanceObj["instance" + k.key]
           );
-          _this.fabricAction.bindSeletUnSelectEvent(
-            _this.imgInstanceObj["instance" + k.key],_this
-          );
+          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
         }, 100);
       });
     },
@@ -204,36 +195,32 @@ export default {
 
     cut() {
       this.$store.commit("setOptionSelect", false);
-      // this.optionSelect = false;
-      //this.cutSelect = true;
-        this.$store.commit("setCutSelect", true);
+      this.$store.commit("setCutSelect", true);
       this.fabricAction.startCrop(this);
     },
     cutCancle() {
-      this.canvas.remove(this.cutRect.el);
+      this.$store.state.fabricObj.canvas.remove(this.cutRect.el);
     },
     cutSure() {
       this.$store.commit("setOptionSelect", true);
-      // this.optionSelect = true;
-      //this.cutSelect = false;
-       this.$store.commit("setCutSelect", false);
+      this.$store.commit("setCutSelect", false);
       this.fabricAction.crop(this);
     },
     showFilters: function() {
       if (this.showFilterList) {
         this.showFilterList = false;
-      } else {
-        this.showFilterList = true;
-      }
+        return
+      } 
+       this.showFilterList = true;
     },
     getObject: function() {
-      var obj = this.canvas.getActiveObject();
-      return obj;
+      return this.$store.state.fabricObj.canvas.getActiveObject();
+  
     },
     changeOpacity: function() {
       var obj = this.getObject();
       obj.opacity = parseFloat(1 - this.opacitynum / 100);
-      this.canvas.renderAll();
+      this.$store.state.fabricObj.canvas.renderAll();
     },
     changeBlurnum: function() {
       var obj = this.getObject();
@@ -241,7 +228,7 @@ export default {
         blur: parseFloat(this.blurnum)
       });
       obj.applyFilters();
-      this.canvas.renderAll();
+      this.$store.state.fabricObj.canvas.renderAll();
     },
     changeSaturationnum: function() {
       var obj = this.getObject();
@@ -249,7 +236,7 @@ export default {
         saturation: parseFloat(this.saturationnum)
       });
       obj.applyFilters();
-      this.canvas.renderAll();
+      this.$store.state.fabricObj.canvas.renderAll();
     },
     changeContrast: function() {
       var obj = this.getObject();
@@ -257,7 +244,7 @@ export default {
         contrast: parseFloat(this.contrastnum)
       });
       obj.applyFilters();
-      this.canvas.renderAll();
+      this.$store.state.fabricObj.canvas.renderAll();
     },
     changeBright: function() {
       var obj = this.getObject();
@@ -265,14 +252,14 @@ export default {
         brightness: parseFloat(this.lightnum)
       });
       obj.applyFilters();
-      this.canvas.renderAll();
+      this.$store.state.fabricObj.canvas.renderAll();
     },
     applyFilterValue: function(index, prop, value) {
       var obj = this.canvas.getActiveObject();
       if (obj.filters[index]) {
         obj.filters[index][prop] = value;
         obj.applyFilters();
-        this.canvas.renderAll();
+        this.$store.state.fabricObj.canvas.renderAll();
       }
     },
     applyFilter: function(index, filter) {

@@ -134,14 +134,13 @@ const crop = function (_this) {
   _this.$store.state.fabricObj.canvas.renderAll();
 }
 const lockOption = function (_this) {
-
-  if (_this.$store.state.unclock) {
+  if (_this.$store.state.fabricObj.unclock) {
     _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementX = true;
     _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementY = true;
     _this.$store.state.fabricObj.canvas.getActiveObject().lockRotation = true;
     _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingX = true;
     _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingY = true;
-    this.$store.commit("setUnclock",false);
+    _this.$store.commit("setUnclock",false);
     // _this.unclock = false;
     return;
   }
@@ -150,7 +149,7 @@ const lockOption = function (_this) {
   _this.$store.state.fabricObj.canvas.getActiveObject().lockRotation = false;
   _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingX = false;
   _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingY = false;
-  this.$store.commit("setUnclock",true);
+  _this.$store.commit("setUnclock",true);
   //_this.unclock = true;
 
 
