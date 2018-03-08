@@ -1,5 +1,5 @@
 const getters = {
-    userInfo:state=>state.userInfo.data,
+    fabricObj:state=>state.fabricObj.data,
 
   };
   

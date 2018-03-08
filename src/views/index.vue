@@ -3,11 +3,11 @@
      <m-head></m-head>
     <div class="container">
       <div class="leftBar">
-        <m-lfbar :canvas="canvas" :imgInstanceNew="imgInstance"  v-on:newImage="newImage"></m-lfbar>
+        <m-lfbar  v-on:newImage="newImage"></m-lfbar>
       </div>
       <div class="wrap">
             <div class="bar-nav" >
-                <div class="optin-box" :class=" optionSelect ? 'select' : '' ">
+                <div class="optin-box" :class="$store.state.fabricObj.optionSelect ? 'select' : '' ">
                     <span id="filter" class="optionElem">
                     <img src="@/assets/icon/filter.png" @click="showFilters">
                     <div class="filter-list-c" v-show="showFilterList">
@@ -30,13 +30,13 @@
                     <img src="@/assets/icon/copy.png">
                 </span>
                 <span id="lock" class="optionElem" @click="lock()">
-                    <img :src="unclock?'http://ovfllimsi.bkt.clouddn.com/lockOpen.png':'http://ovfllimsi.bkt.clouddn.com/lockClose.png'">
+                    <img :src="$store.state.fabricObj.unclock?'http://ovfllimsi.bkt.clouddn.com/lockOpen.png':'http://ovfllimsi.bkt.clouddn.com/lockClose.png'">
                 </span>
                 <span id="del" class="optionElem" @click="del()">
                     <img src="@/assets/icon/del.png">
                 </span>
                 </div>
-                <div class="cutOptin" id="cutOptin" :class=" cutSelect ? 'select' : '' ">
+                <div class="cutOptin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' ">
                 <span id="cancle" class="optionElem" @click="cutCancle()">
                     <img src="@/assets/icon/cancle.png">
                 </span>
@@ -111,10 +111,10 @@
   position: absolute;
   background: #fff;
   top: 20px;
-  right:10px;
+  right: 10px;
   border: 1px solid #eee;
   z-index: 999;
-  padding:20px 20px 30px 20px;
+  padding: 20px 20px 30px 20px;
 }
 </style>
 <script>
@@ -124,20 +124,15 @@ export default {
   components: { mHead, mLfbar },
   data() {
     return {
-      canvas: "",
       imgInstanceObj: {}, //图片剪辑对象
-      _clipboard: "", //剪贴对象
-      optionSelect: false, //
-      cutSelect: false, //是否进行剪切操作
-      unclock: true,
-      showFilterList:false,
-      lightnum:0,
-      contrastnum:0,
-      saturationnum:0,
-      blurnum:0,
-      colornum:0,
-      opacitynum:0,
-      filter:fabric.Image.filters,
+      showFilterList: false,
+      lightnum: 0,
+      contrastnum: 0,
+      saturationnum: 0,
+      blurnum: 0,
+      colornum: 0,
+      opacitynum: 0,
+      filter: fabric.Image.filters,
       imgInstance: [
         {
           key: "img1",
@@ -168,24 +163,26 @@ export default {
   },
   created() {},
   methods: {
-    newImage(imgId, pos){
+    newImage(imgId, pos) {
       // console.log(imgId, pos);
       // debugger
       // this.fabricAction.bindSeletUnSelectEvent();
     },
     updateImg() {
       var _this = this;
-      this.canvas = this.fabricAction.createCanvas("canvas");
+      // this.canvas = ;
+      this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
       //初始化可编辑图片
       this.imgInstance.forEach(function(k, i) {
         _this.imgInstanceObj[
           "instance" + k.key
         ] = _this.fabricAction.createFabricObj(k.key, k.position);
         setTimeout(function() {
-          _this.canvas.add(_this.imgInstanceObj["instance" + k.key]);
+          _this.$store.state.fabricObj.canvas.add(
+            _this.imgInstanceObj["instance" + k.key]
+          );
           _this.fabricAction.bindSeletUnSelectEvent(
-            _this.imgInstanceObj["instance" + k.key],
-            _this
+            _this.imgInstanceObj["instance" + k.key],_this
           );
         }, 100);
       });
@@ -201,89 +198,92 @@ export default {
       }, 5);
     },
     del() {
-      var el = this.canvas.getActiveObject();
-      this.canvas.remove(el);
+      var el = this.$store.state.fabricObj.canvas.getActiveObject();
+      this.$store.state.fabricObj.canvas.remove(el);
     },
 
     cut() {
-      this.optionSelect = false;
-      this.cutSelect = true;
+      this.$store.commit("setOptionSelect", false);
+      // this.optionSelect = false;
+      //this.cutSelect = true;
+        this.$store.commit("setCutSelect", true);
       this.fabricAction.startCrop(this);
     },
     cutCancle() {
       this.canvas.remove(this.cutRect.el);
     },
     cutSure() {
-      this.optionSelect = true;
-      this.cutSelect = false;
+      this.$store.commit("setOptionSelect", true);
+      // this.optionSelect = true;
+      //this.cutSelect = false;
+       this.$store.commit("setCutSelect", false);
       this.fabricAction.crop(this);
     },
-    showFilters:function(){
-    	if(this.showFilterList){
-    		this.showFilterList = false;
-    	}else{
-    		this.showFilterList = true;
-    	}
-    },
-    getObject:function(){
-    		var obj = this.canvas.getActiveObject();
-    		return obj;
-    	},
-    	changeOpacity:function(){
-    		var obj = this.getObject();
-    		obj.opacity = parseFloat(1-this.opacitynum/100)
-    		this.canvas.renderAll();
-    	},
-    	changeBlurnum:function(){
-    		var obj = this.getObject();
-    		obj.filters[3] = new this.filter.Blur({
-					blur: parseFloat(this.blurnum)
-				})
-    		obj.applyFilters();
-    		this.canvas.renderAll();
-    	},
-    	changeSaturationnum:function(){
-    		var obj = this.getObject();
-    		obj.filters[2] = new this.filter.Saturation({
-					saturation: parseFloat(this.saturationnum)
-				})
-    		obj.applyFilters();
-    		this.canvas.renderAll();
-    	},
-    	changeContrast:function(){
-    		var obj = this.getObject();
-    		obj.filters[1] = new this.filter.Contrast({
-					contrast: parseFloat(this.contrastnum)
-				})
-    		obj.applyFilters();
-    		this.canvas.renderAll();
-    	},
-    	changeBright:function(){
-    		var obj = this.getObject();
-    		obj.filters[0] = new this.filter.Brightness({
-					brightness: parseFloat(this.lightnum)
-				})
-    		obj.applyFilters();
-    		this.canvas.renderAll();
-			},
-			applyFilterValue:function(index, prop, value) {
-		    var obj = this.canvas.getActiveObject();
-		    if (obj.filters[index]) {
-		      obj.filters[index][prop] = value;
-		      obj.applyFilters();
-		      this.canvas.renderAll();
-		    }
-		 	},
-		 	applyFilter:function(index, filter) {
-				var obj = canvas.getActiveObject();
-				obj.filters[index] = filter;
-				obj.applyFilters();
-				canvas.renderAll();
-      },
-      lock(){
-        this.fabricAction.lockOption(this);
+    showFilters: function() {
+      if (this.showFilterList) {
+        this.showFilterList = false;
+      } else {
+        this.showFilterList = true;
       }
-
+    },
+    getObject: function() {
+      var obj = this.canvas.getActiveObject();
+      return obj;
+    },
+    changeOpacity: function() {
+      var obj = this.getObject();
+      obj.opacity = parseFloat(1 - this.opacitynum / 100);
+      this.canvas.renderAll();
+    },
+    changeBlurnum: function() {
+      var obj = this.getObject();
+      obj.filters[3] = new this.filter.Blur({
+        blur: parseFloat(this.blurnum)
+      });
+      obj.applyFilters();
+      this.canvas.renderAll();
+    },
+    changeSaturationnum: function() {
+      var obj = this.getObject();
+      obj.filters[2] = new this.filter.Saturation({
+        saturation: parseFloat(this.saturationnum)
+      });
+      obj.applyFilters();
+      this.canvas.renderAll();
+    },
+    changeContrast: function() {
+      var obj = this.getObject();
+      obj.filters[1] = new this.filter.Contrast({
+        contrast: parseFloat(this.contrastnum)
+      });
+      obj.applyFilters();
+      this.canvas.renderAll();
+    },
+    changeBright: function() {
+      var obj = this.getObject();
+      obj.filters[0] = new this.filter.Brightness({
+        brightness: parseFloat(this.lightnum)
+      });
+      obj.applyFilters();
+      this.canvas.renderAll();
+    },
+    applyFilterValue: function(index, prop, value) {
+      var obj = this.canvas.getActiveObject();
+      if (obj.filters[index]) {
+        obj.filters[index][prop] = value;
+        obj.applyFilters();
+        this.canvas.renderAll();
+      }
+    },
+    applyFilter: function(index, filter) {
+      var obj = canvas.getActiveObject();
+      obj.filters[index] = filter;
+      obj.applyFilters();
+      canvas.renderAll();
+    },
+    lock() {
+      this.fabricAction.lockOption(this);
+    }
   }
 };
 </script>

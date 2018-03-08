@@ -1,3 +1,4 @@
+
 const createFabricObj = function (imgId, pos) {
   var dom = document.getElementById(imgId);
   return new fabric.Image(dom, {
@@ -13,16 +14,19 @@ const createFabricObj = function (imgId, pos) {
 const bindSeletUnSelectEvent = function (imgObj, _this) {
   imgObj
     .on("selected", function (options) {
-      debugger
-      _this.optionSelect = true;
-      if (_this.canvas.getActiveObject().lockMovementX) {
-        _this.unclock = false;
+      _this.$store.commit("setOptionSelect",true);
+         //_this.optionSelect = true;
+      if (_this.$store.state.fabricObj.canvas.getActiveObject().lockMovementX) {
+        _this.$store.commit("setUnclock",false);
+        //_this.unclock = false;
         return
       }
-      _this.unclock = true;
+      _this.$store.commit("setUnclock",true);
+      //_this.unclock = true;
     })
     .on("deselected", function (options) {
-      _this.optionSelect = false;
+      _this.$store.commit("setOptionSelect",false);
+      //_this.optionSelect = false;
     });
 }
 const createCanvas = function (canvasId) {
@@ -30,13 +34,14 @@ const createCanvas = function (canvasId) {
 }
 
 const Copy = function (_this) {
-  _this.canvas.getActiveObject().clone(function (cloned) {
-    _this._clipboard = cloned;
+  _this.$store.state.fabricObj.canvas.getActiveObject().clone(function (cloned) {
+    _this.$store.commit("setClipboard",cloned);
+    //_this._clipboard = cloned;
   });
 }
 const Paste = function (_this) {
-  _this._clipboard.clone(function (clonedObj) {
-    _this.canvas.discardActiveObject();
+ _this.$store.state.fabricObj._clipboard.clone(function (clonedObj) {
+    _this.$store.state.fabricObj.canvas.discardActiveObject();
     clonedObj.set({
       left: clonedObj.left + 50,
       top: clonedObj.top + 50,
@@ -44,28 +49,29 @@ const Paste = function (_this) {
     });
     if (clonedObj.type === "activeSelection") {
       // active selection needs a reference to the canvas.
-      clonedObj.canvas = _this.canvas;
+      clonedObj.canvas = _this.$store.state.fabricObj.canvas;
       clonedObj.forEachObject(function (obj) {
-        this.canvas.add(obj);
+        _this.$store.state.fabricObj.canvas.add(obj);
       });
       // this should solve the unselectability
       clonedObj.setCoords();
     } else {
-      _this.canvas.add(clonedObj);
+      _this.$store.state.fabricObj.canvas.add(clonedObj);
     }
-    _this._clipboard.top += 30;
-    _this._clipboard.left += 30;
-    _this.canvas.setActiveObject(clonedObj);
-    _this.canvas.requestRenderAll();
+   _this.$store.state.fabricObj._clipboard.top += 30;
+   _this.$store.state.fabricObj._clipboard.left += 30;
+    _this.$store.state.fabricObj.canvas.setActiveObject(clonedObj);
+    _this.$store.state.fabricObj.canvas.requestRenderAll();
     _this.fabricAction.bindSeletUnSelectEvent(clonedObj, _this);
-    _this.optionSelect = true;
+    _this.$store.commit("setOptionSelect",true);
+    //_this.optionSelect = true;
   });
 }
 
 const startCrop = function (_this) {
-  _this.canvas.remove(_this.cutRect.el);
-  if (_this.canvas.getActiveObject()) {
-    _this.cutRect.object = _this.canvas.getActiveObject();
+  _this.$store.state.fabricObj.canvas.remove(_this.cutRect.el);
+  if (_this.$store.state.fabricObj.canvas.getActiveObject()) {
+    _this.cutRect.object = _this.$store.state.fabricObj.canvas.getActiveObject();
 
     if (_this.cutRect.lastActive !== _this.cutRect.object) {
       console.log("different object");
@@ -92,18 +98,18 @@ const startCrop = function (_this) {
       cornerColor: "green",
       hasRotatingPoint: false
     });
-    _this.cutRect.el.left = _this.canvas.getActiveObject().left;
-    _this.cutRect.selection_object_left = _this.canvas.getActiveObject().left;
-    _this.cutRect.selection_object_top = _this.canvas.getActiveObject().top;
-    _this.cutRect.el.top = _this.canvas.getActiveObject().top;
+    _this.cutRect.el.left = _this.$store.state.fabricObj.canvas.getActiveObject().left;
+    _this.cutRect.selection_object_left = _this.$store.state.fabricObj.canvas.getActiveObject().left;
+    _this.cutRect.selection_object_top = _this.$store.state.fabricObj.canvas.getActiveObject().top;
+    _this.cutRect.el.top = _this.$store.state.fabricObj.canvas.getActiveObject().top;
     _this.cutRect.el.width =
-      _this.canvas.getActiveObject().width *
-      _this.canvas.getActiveObject().scaleX;
+      _this.$store.state.fabricObj.canvas.getActiveObject().width *
+      _this.$store.state.fabricObj.canvas.getActiveObject().scaleX;
     _this.cutRect.el.height =
-      _this.canvas.getActiveObject().height *
-      _this.canvas.getActiveObject().scaleY;
-    _this.canvas.add(_this.cutRect.el);
-    _this.canvas.setActiveObject(_this.cutRect.el);
+      _this.$store.state.fabricObj.canvas.getActiveObject().height *
+      _this.$store.state.fabricObj.canvas.getActiveObject().scaleY;
+    _this.$store.state.fabricObj.canvas.add(_this.cutRect.el);
+    _this.$store.state.fabricObj.canvas.setActiveObject(_this.cutRect.el);
   } else {
     alert("Please select an object or layer");
   }
@@ -123,27 +129,29 @@ const crop = function (_this) {
       parseInt(_this.cutRect.el.scaleY * height)
     );
   };
-  _this.canvas.remove(_this.canvas.getActiveObject());
+  _this.$store.state.fabricObj.canvas.remove(_this.$store.state.fabricObj.canvas.getActiveObject());
   _this.cutRect.lastActive = _this.cutRect.object;
-  _this.canvas.renderAll();
+  _this.$store.state.fabricObj.canvas.renderAll();
 }
 const lockOption = function (_this) {
 
-  if (_this.unclock) {
-    _this.canvas.getActiveObject().lockMovementX = true;
-    _this.canvas.getActiveObject().lockMovementY = true;
-    _this.canvas.getActiveObject().lockRotation = true;
-    _this.canvas.getActiveObject().lockScalingX = true;
-    _this.canvas.getActiveObject().lockScalingY = true;
-    _this.unclock = false;
+  if (_this.$store.state.unclock) {
+    _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementX = true;
+    _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementY = true;
+    _this.$store.state.fabricObj.canvas.getActiveObject().lockRotation = true;
+    _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingX = true;
+    _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingY = true;
+    this.$store.commit("setUnclock",false);
+    // _this.unclock = false;
     return;
   }
-  _this.canvas.getActiveObject().lockMovementX = false;
-  _this.canvas.getActiveObject().lockMovementY = false;
-  _this.canvas.getActiveObject().lockRotation = false;
-  _this.canvas.getActiveObject().lockScalingX = false;
-  _this.canvas.getActiveObject().lockScalingY = false;
-  _this.unclock = true;
+  _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementX = false;
+  _this.$store.state.fabricObj.canvas.getActiveObject().lockMovementY = false;
+  _this.$store.state.fabricObj.canvas.getActiveObject().lockRotation = false;
+  _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingX = false;
+  _this.$store.state.fabricObj.canvas.getActiveObject().lockScalingY = false;
+  this.$store.commit("setUnclock",true);
+  //_this.unclock = true;
 
 
 }
