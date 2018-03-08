@@ -141,7 +141,6 @@ export default {
     dragend(ev){
       /*拖拽结束*/
       let url = ev.path[0].currentSrc;
-      // let url = ev.dataTransfer.getData("url");
       let  canvas = this.canvas;
       if(ev.offsetX > this.leftBar.width && ev.offsetX < (this.leftBar.width+this.canvasPos.width)){
         this.cover(url,ev, canvas);
