@@ -93,9 +93,10 @@ export default {
     },
     cover(url, ev, canvas) {
       var _this = this;
+      //- _this.mouseImgPos.y
       new fabric.Image.fromURL(url, function(oImg) {
         oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x;
-        oImg.top = ev.offsetY - _this.canvasPos.y - _this.mouseImgPos.y;
+        oImg.top = ev.offsetY - _this.canvasPos.y ;
         oImg.scale(1);
         _this.$store.state.fabricObj.canvas.add(oImg);
         setTimeout(function() {
