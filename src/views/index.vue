@@ -35,6 +35,12 @@
                 <span id="del" class="optionElem" @click="del()">
                     <img src="@/assets/icon/del.png">
                 </span>
+                  <span id="group" class="optionElem" @click="group()">
+                    <img src="@/assets/icon/group.png">
+                </span>
+                <span id="ungroup" class="optionElem" @click="ungroup()">
+                    <img src="@/assets/icon/ungroup.png">
+                </span>
                 </div>
                 <div class="cutOptin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' ">
                 <span id="cancle" class="optionElem" @click="cutCancle()">
@@ -43,6 +49,7 @@
                 <span id="sure" class="optionElem" @click="cutSure()">
                     <img src="@/assets/icon/sure.png">
                 </span>
+              
                 </div>
             </div>
            <canvas id="canvas" width='761' height='589'></canvas>
@@ -197,6 +204,12 @@ export default {
       this.$store.commit("setOptionSelect", false);
       this.$store.commit("setCutSelect", true);
       this.fabricAction.startCrop(this);
+    },
+    group(){
+      this.fabricAction.fabricObjGroup(this);
+    },
+    ungroup(){
+      this.fabricAction.fabricObjUnGroup(this);
     },
     cutCancle() {
       this.$store.state.fabricObj.canvas.remove(this.cutRect.el);

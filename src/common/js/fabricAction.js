@@ -133,4 +133,26 @@ const lockOption = function (_this) {
 
 
 }
-export default { createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop ,lockOption}
+
+const fabricObjGroup=function(_this){
+  if (!_this.$store.state.fabricObj.canvas.getActiveObject()) {
+    return;
+  }
+  if (_this.$store.state.fabricObj.canvas.getActiveObject().type !== 'activeSelection') {
+    return;
+  }
+  _this.$store.state.fabricObj.canvas.getActiveObject().toGroup();
+  _this.$store.state.fabricObj.canvas.requestRenderAll();
+}
+
+const fabricObjUnGroup=function(_this){
+  if (!_this.$store.state.fabricObj.canvas.getActiveObject()) {
+    return;
+  }
+  if (_this.$store.state.fabricObj.canvas.getActiveObject().type !== 'group') {
+    return;
+  }
+  _this.$store.state.fabricObj.canvas.getActiveObject().toActiveSelection();
+  _this.$store.state.fabricObj.canvas.requestRenderAll();
+}
+export default { createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop ,lockOption,fabricObjGroup,fabricObjUnGroup}
