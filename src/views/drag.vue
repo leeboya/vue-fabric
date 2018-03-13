@@ -7,6 +7,8 @@
     <button class="btn" @click="toJson">toJSON</button>
     <button class="btn" @click="toSVG">toSVG</button>
     <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
+    <button class="btn" type="button" ref="reback" id="reback" disabled @click="clearCanvasAndLoadCanvas">回退历史</button>
+    <!-- <button class="btn" type="button" id="redo" disabled >撤销</button> -->
 
   </header>
   <div class="contain">
@@ -68,7 +70,9 @@ export default {
       canvas:"",
       leftBar:{},  //左侧宽高
       canvasPos:{}, //canvas 宽高
-      mouseImgPos:{} // 鼠标拖拽相对图片的位置
+      mouseImgPos:{}, // 鼠标拖拽相对图片的位置
+      dataCanvasJson:[],
+      rebackNum: 0
     };
   },
   mounted() {
@@ -93,43 +97,12 @@ export default {
             _self.$refs.floatText.style.display = 'none';
             // _self.$refs.floatText.style.opacity = '0';
           }
-
-          /**@augments
-           * mouse:down :鼠标按下时
-                  mouse:move :鼠标移动时
-                  mouse:up :鼠标抬起时
-                  after:render :画布重绘后
-                  object:selected:对象被选中
-                  object:moving:对象移动
-                  object:rotating:对象被旋转
-                  object:added:对象被加入
-                  object:removed对象被移除
-                  fabric 组合
-                  var group = new fabric.Group([要组合的对象, 要组合的对象], {
-                      组合对象的公用属性
-                  })
-                  canvas.add(group);
-                  组合对象的单个对象修改
-                  group.item(0).set({
-                    属性修改
-                  })
-           */
-          this.canvas.on('mouse:down', function(options) {
-            
-              console.log(options.e.clientX, options.e.clientY)
-          })
+          this.canvasDataChange();
           
   },
   created() {
   },
   methods: {
-    getCanvasImg(){
-      if(this.canvas.getActiveObject()){
-        this.canvas.on('mouse:down', function(options) {
-          console.log(options.e.clientX, options.e.clientY)
-        })
-      }
-    },
     dragstart(ev){
       /*拖拽开始*/
       ev.dataTransfer.setData("url",ev.target.src);
@@ -215,6 +188,8 @@ export default {
       alert(this.canvas.toSVG());
     },
     //把JSON字符串恢复到Canvas上，loadFromJSON()：
+//     var canvas = new fabric.Canvas('canvas');
+// canvas.loadFromJSON(）
     toSVGLocal(){
       let fso;
         try { 
@@ -232,7 +207,58 @@ export default {
     imgToCanvas(e){
       // console.log(e.nextElementSibling)
       console.log(this.$refs)
-    }
+    },
+    //存储到 localStorage
+    getDataToLoacl(data){
+      // localStorage.setItem('data', data);
+      this.dataCanvasJson.push(data);
+      this.rebackNum +=1;
+      this.$refs.reback.disabled=false;
+      console.log('操作步骤'+this.rebackNum);
+      console.log('数组长度'+this.dataCanvasJson.length);
+    },
+    //清除画布 在加载 loacl数据
+    clearCanvasAndLoadCanvas(){
+      let _self = this;
+      // if(this.dataCanvasJson.length == 0){
+      //   this.canvas.clear();
+      //   this.rebackNum == 0;
+      //   this.$refs.reback.disabled=true;
+      // }
+      // if(this.dataCanvasJson.length >0){
+      //   this.$refs.reback.disabled=false;
+      //   this.dataCanvasJson.pop();
+      //   console.log(this.dataCanvasJson.length);
+      //   this.canvas.loadFromJSON(this.dataCanvasJson[this.dataCanvasJson.length -1]);
+      // } 
+      console.log('操作步骤长度'+this.rebackNum);
+      if(this.rebackNum == 0){
+        this.canvas.clear();
+        this.rebackNum == 0;
+        this.$refs.reback.disabled=true;
+      }
+      if(this.rebackNum >0){
+        this.$refs.reback.disabled=false;
+        this.canvas.clear();
+        this.rebackNum -=1 ;
+        this.canvas.loadFromJSON(this.dataCanvasJson[this.rebackNum]);
+      }     
+    },
+    canvasDataChange(){
+      let _self = this;
+      this.canvas.on('object:modified', function(){
+          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
+      });
+      this.canvas.on('object:added', function(){
+          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
+      });
+      this.canvas.on('object:removed', function(){
+          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
+      });
+      this.canvas.on('object:rotating', function(){
+          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
+      });
+    },
   }
 };
 </script>

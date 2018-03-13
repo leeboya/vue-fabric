@@ -5,6 +5,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
+const history = () => import('@/views/history');
 
 export default new Router({
   mode: 'history',
@@ -26,6 +27,12 @@ export default new Router({
       name: 'drag',
       component: drag,
       meta: {title: '设计IN-设计师严选平台', keepAlive: true}
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: history,
+      meta: {title: '设计IN-设计师严选平台'}
     },
    
   ],
