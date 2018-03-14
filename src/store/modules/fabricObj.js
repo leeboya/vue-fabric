@@ -5,7 +5,8 @@ const fabricObj = {
         optionSelect: false,
         cutSelect: false,
         unclock: false,
-        _clipboard: {}
+        _clipboard: {},
+        forWrodBoxShow:false,
     },
 
     mutations: {
@@ -23,6 +24,9 @@ const fabricObj = {
         },
         setClipboard: (state, data) => {
             state._clipboard = data
+        },
+        setForwordBox:(state,bool )=>{
+            state.forWrodBoxShow= bool
         }
 
     }

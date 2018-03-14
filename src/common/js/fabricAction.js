@@ -155,4 +155,28 @@ const fabricObjUnGroup=function(_this){
   _this.$store.state.fabricObj.canvas.getActiveObject().toActiveSelection();
   _this.$store.state.fabricObj.canvas.requestRenderAll();
 }
-export default { createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop ,lockOption,fabricObjGroup,fabricObjUnGroup}
+
+const fabricForward=function(_this,style){
+  // _this.$store.commit("setForwordBox",false);
+  _this.$store.state.fabricObj.canvas.preserveObjectStacking = true;
+  if(style=='forWard'){
+     
+    _this.$store.state.fabricObj.canvas.bringForward(_this.$store.state.fabricObj.canvas.getActiveObject());
+    return
+  }
+  if(style=='backWard'){
+    _this.$store.state.fabricObj.canvas.sendBackwards(_this.$store.state.fabricObj.canvas.getActiveObject());
+    
+    return
+  }
+  if(style=='toFront'){
+
+    _this.$store.state.fabricObj.canvas.bringToFront(_this.$store.state.fabricObj.canvas.getActiveObject());
+    return
+  }
+  if(style=='toBack'){
+    _this.$store.state.fabricObj.canvas.sendToBack(_this.$store.state.fabricObj.canvas.getActiveObject());
+    return
+  }
+}
+export default {createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop ,lockOption,fabricObjGroup,fabricObjUnGroup,fabricForward}

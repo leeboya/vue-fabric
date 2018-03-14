@@ -41,6 +41,24 @@
                 <span id="ungroup" class="optionElem" @click="ungroup()">
                     <img src="@/assets/icon/ungroup.png">
                 </span>
+                 <span id="ward" class="optionElem forWordOption" @click="showHideForWard()">
+                      <img src="@/assets/icon/forWard.png">
+                     
+                  </span>
+                    <div class="action" :class=" $store.state.fabricObj.forWrodBoxShow ? 'select' : '' ">
+                        <span id="forWard" class="elmForWard" @click="changeForWord('forWard')">
+                        <img src="@/assets/icon/forWard.png">
+                        </span>
+                        <span id="backWard" class="elmForWard" @click="changeForWord('backWard')">
+                        <img src="@/assets/icon/backWard.png">
+                        </span>
+                        <span id="toFront" class="elmForWard" @click="changeForWord('toFront')">
+                        <img src="@/assets/icon/toFront.png">
+                        </span>
+                        <span id="toBack" class="elmForWard" @click="changeForWord('toBack')">
+                        <img src="@/assets/icon/toBack.png">
+                        </span>
+                    </div>
                 </div>
                 <div class="cutOptin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' ">
                 <span id="cancle" class="optionElem" @click="cutCancle()">
@@ -49,8 +67,8 @@
                 <span id="sure" class="optionElem" @click="cutSure()">
                     <img src="@/assets/icon/sure.png">
                 </span>
-              
                 </div>
+                
             </div>
            <canvas id="canvas" width='761' height='589'></canvas>
             <img :src="item.pic" :id="item.key" class="imgPrev" v-for="item in imgInstance">
@@ -98,7 +116,7 @@
   margin-right: 20px;
   cursor: pointer;
 }
-.optin-box span:first-child {
+.optin-box > span:first-child {
   margin-left: 50px;
 }
 .optin-box span img,
@@ -122,6 +140,34 @@
   border: 1px solid #eee;
   z-index: 999;
   padding: 20px 20px 30px 20px;
+}
+
+.optin-box {
+  position: relative;
+  display: inline-block;
+}
+.optin-box .action {
+  width: 220px;
+  position: absolute;
+  background-color: #eee;
+  padding: 4px;
+  top: 10px;
+  left: 450px;
+  border: #ccc 1px solid;
+  display: none;
+}
+.optin-box .action.select {
+  display: block;
+}
+
+.optin-box .action > img {
+  width: 25px;
+}
+.aciton span {
+  display: inline-block;
+}
+.forWordOption .aciton span img {
+  display: inline-block;
 }
 </style>
 <script>
@@ -176,12 +222,17 @@ export default {
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
       //初始化可编辑图片
       this.imgInstance.forEach(function(k, i) {
-        _this.imgInstanceObj["instance" + k.key] = _this.fabricAction.createFabricObj(k.key, k.position);
+        _this.imgInstanceObj[
+          "instance" + k.key
+        ] = _this.fabricAction.createFabricObj(k.key, k.position);
         setTimeout(function() {
           _this.$store.state.fabricObj.canvas.add(
             _this.imgInstanceObj["instance" + k.key]
           );
-          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
+          _this.fabricAction.bindSeletUnSelectEvent(
+            _this.imgInstanceObj["instance" + k.key],
+            _this
+          );
         }, 100);
       });
     },
@@ -205,10 +256,10 @@ export default {
       this.$store.commit("setCutSelect", true);
       this.fabricAction.startCrop(this);
     },
-    group(){
+    group() {
       this.fabricAction.fabricObjGroup(this);
     },
-    ungroup(){
+    ungroup() {
       this.fabricAction.fabricObjUnGroup(this);
     },
     cutCancle() {
@@ -222,13 +273,12 @@ export default {
     showFilters: function() {
       if (this.showFilterList) {
         this.showFilterList = false;
-        return
-      } 
-       this.showFilterList = true;
+        return;
+      }
+      this.showFilterList = true;
     },
     getObject: function() {
       return this.$store.state.fabricObj.canvas.getActiveObject();
-  
     },
     changeOpacity: function() {
       var obj = this.getObject();
@@ -283,6 +333,16 @@ export default {
     },
     lock() {
       this.fabricAction.lockOption(this);
+    },
+    showHideForWard() {
+      this.$store.commit(
+        "setForwordBox",
+        !this.$store.state.fabricObj.forWrodBoxShow
+      );
+    },
+    changeForWord(style){
+         this.fabricAction.fabricForward(this,style);
+
     }
   }
 };
