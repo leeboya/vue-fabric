@@ -157,7 +157,7 @@ const fabricObjUnGroup=function(_this){
 }
 
 const fabricForward=function(_this,style){
-  // _this.$store.commit("setForwordBox",false);
+  _this.$store.commit("setForwordBox",false);
   _this.$store.state.fabricObj.canvas.preserveObjectStacking = true;
   if(style=='forWard'){
      
