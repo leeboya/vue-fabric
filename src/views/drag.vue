@@ -7,8 +7,7 @@
     <button class="btn" @click="toJson">toJSON</button>
     <button class="btn" @click="toSVG">toSVG</button>
     <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
-    <button class="btn" type="button" ref="reback" id="reback" disabled @click="clearCanvasAndLoadCanvas">回退历史</button>
-    <!-- <button class="btn" type="button" id="redo" disabled >撤销</button> -->
+    <button class="btn" @click="canvasToImage">转化为图片</button>
 
   </header>
   <div class="contain">
@@ -21,6 +20,8 @@
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
+
+  <img id="toImage" ref="toImage" src="" />  
   </div>
   
 </template>
@@ -97,7 +98,6 @@ export default {
             _self.$refs.floatText.style.display = 'none';
             // _self.$refs.floatText.style.opacity = '0';
           }
-          this.canvasDataChange();
           
   },
   created() {
@@ -185,11 +185,9 @@ export default {
       console.log(JSON.stringify(this.canvas.toJSON()));
     },
     toSVG(){
-      alert(this.canvas.toSVG());
+      // return this.canvas.toSVG()
+      console.log(this.canvas.toSVG());
     },
-    //把JSON字符串恢复到Canvas上，loadFromJSON()：
-//     var canvas = new fabric.Canvas('canvas');
-// canvas.loadFromJSON(）
     toSVGLocal(){
       let fso;
         try { 
@@ -204,61 +202,33 @@ export default {
         f1.write(this.canvas.toSVG());  
         f1.close();
     },
-    imgToCanvas(e){
-      // console.log(e.nextElementSibling)
-      console.log(this.$refs)
+    canvasToImage(){
+      // let data = this.canvas.toSVG();
+      let data = `
+     <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="400" viewBox="0 0 600 400" xml:space="preserve">
+      <desc>Created with Fabric.js 2.1.0</desc>
+      <defs>
+      </defs>
+      <g transform="translate(426 162)">
+        <image xlink:href="http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg" x="-100" y="-99" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" width="200" height="198"></image>
+      </g>
+      </svg>
+      `
+      let image = new Image();
+      image.src = data.toDataURL();
+      // image.src = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(data)));
+      // image.src = data;
+      console.log(image.src)
+      document.getElementsByTagName('body')[0].appendChild(image)
+      // image.crossOrigin = "Anonymous";
+      // this.canvas.deactivateAll().renderAll()
+      // window.open(this.canvas.toDataURL('png')); 
+      // let imageSrc = this.canvas.toDataURL("images/png");
+      // console.log( this.canvas.toDataURL("png"));
     },
-    //存储到 localStorage
-    getDataToLoacl(data){
-      // localStorage.setItem('data', data);
-      this.dataCanvasJson.push(data);
-      this.rebackNum +=1;
-      this.$refs.reback.disabled=false;
-      console.log('操作步骤'+this.rebackNum);
-      console.log('数组长度'+this.dataCanvasJson.length);
-    },
-    //清除画布 在加载 loacl数据
-    clearCanvasAndLoadCanvas(){
-      let _self = this;
-      // if(this.dataCanvasJson.length == 0){
-      //   this.canvas.clear();
-      //   this.rebackNum == 0;
-      //   this.$refs.reback.disabled=true;
-      // }
-      // if(this.dataCanvasJson.length >0){
-      //   this.$refs.reback.disabled=false;
-      //   this.dataCanvasJson.pop();
-      //   console.log(this.dataCanvasJson.length);
-      //   this.canvas.loadFromJSON(this.dataCanvasJson[this.dataCanvasJson.length -1]);
-      // } 
-      console.log('操作步骤长度'+this.rebackNum);
-      if(this.rebackNum == 0){
-        this.canvas.clear();
-        this.rebackNum == 0;
-        this.$refs.reback.disabled=true;
-      }
-      if(this.rebackNum >0){
-        this.$refs.reback.disabled=false;
-        this.canvas.clear();
-        this.rebackNum -=1 ;
-        this.canvas.loadFromJSON(this.dataCanvasJson[this.rebackNum]);
-      }     
-    },
-    canvasDataChange(){
-      let _self = this;
-      this.canvas.on('object:modified', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:added', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:removed', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:rotating', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-    },
+    
   }
 };
 </script>
