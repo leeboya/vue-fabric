@@ -8,13 +8,13 @@
     <button class="btn" @click="toSVG">toSVG</button>
     <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
     <button class="btn" @click="canvasToImage">转化为图片</button>
-
+<!-- canvasToImage -->
   </header>
   <div class="contain">
     <div class="leftBar" ref="getLeftBarWidth">
       <div class="imgBox" ref="imgBox">
         <span class="floatText" ref="floatText" @click="imgToCanvas($event)">到画布</span>
-        <img :src="imgInstance[0].pic" draggable="true"   @dragstart="dragstart($event)" @dragend="dragend($event)" />
+        <img class="imgSize" :src="imgInstance[1].pic" draggable="true"   @dragstart="dragstart($event)" @dragend="dragend($event)" />
       </div>
       
     </div>   
@@ -44,6 +44,9 @@
   width:200px;
   height: 198px;
 }
+.imgSize{
+  width: 200px ;
+}
 .floatText{
   position: absolute;
   right: 0;
@@ -66,7 +69,13 @@ export default {
           key: "img1",
           pic: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
-        }
+        },
+        {
+          key: "img1",
+          pic: "../../static/2.jpg",
+          position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
+        },
+        
       ],
       canvas:"",
       leftBar:{},  //左侧宽高
@@ -203,30 +212,55 @@ export default {
         f1.close();
     },
     canvasToImage(){
-      // let data = this.canvas.toSVG();
-      let data = `
-     <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="400" viewBox="0 0 600 400" xml:space="preserve">
-      <desc>Created with Fabric.js 2.1.0</desc>
-      <defs>
-      </defs>
-      <g transform="translate(426 162)">
-        <image xlink:href="http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg" x="-100" y="-99" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" width="200" height="198"></image>
-      </g>
-      </svg>
-      `
-      let image = new Image();
-      image.src = data.toDataURL();
-      // image.src = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(data)));
-      // image.src = data;
-      console.log(image.src)
-      document.getElementsByTagName('body')[0].appendChild(image)
-      // image.crossOrigin = "Anonymous";
-      // this.canvas.deactivateAll().renderAll()
-      // window.open(this.canvas.toDataURL('png')); 
-      // let imageSrc = this.canvas.toDataURL("images/png");
-      // console.log( this.canvas.toDataURL("png"));
+      var MIME_TYPE = "image/png";
+      //转换成base64
+      var imgURL = this.canvas.toDataURL(MIME_TYPE);
+  　　//创建一个a链接，模拟点击下载
+  　　var dlLink = document.createElement('a');
+      var filename = '个人画板_' + (new Date()).getTime() + '.png';
+  　　dlLink.download = filename;
+  　　dlLink.href = imgURL;
+  　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+  　　document.body.appendChild(dlLink);
+  　　dlLink.click();
+  　　document.body.removeChild(dlLink);  
+    },
+    downloadimage(event){
+      // 图片导出为 png 格式
+      var type = 'png';
+      // 返回一个包含JPG图片的<img>元素
+      var img_png_src = this.canvas.toDataURL("image/png");  //将画板保存为图片格式的函数
+      // 加工image data，替换mime type
+      var imgData = img_png_src.replace(this._fixType(type),'image/octet-stream');
+      // 下载后的问题名
+      var filename = '个人画板_' + (new Date()).getTime() + '.' + type;
+      // download
+      this.saveFile(imgData,filename);
+    },
+
+    /**
+    * 在本地进行文件保存
+    * @param  {String} data     要保存到本地的图片数据
+    * @param  {String} filename 文件名
+    */
+    saveFile(data, filename){
+      var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+      save_link.href = data;
+      save_link.download = filename;
+      var event = document.createEvent('MouseEvents');
+      event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      save_link.dispatchEvent(event);
+    },
+
+    /**
+    * 获取mimeType
+    * @param  {String} type the old mime-type
+    * @return the new mime-type
+    */
+    _fixType(type) {
+      type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+      var r = type.match(/png|jpeg|bmp|gif/)[0];
+      return 'image/' + r;
     },
     
   }
