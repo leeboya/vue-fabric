@@ -4,6 +4,9 @@
     <button class="btn" @click="copy">复制</button>
     <button type="button" class="btn" ref="undo" id="undo" @click="undo" >撤销</button>
     <button type="button" class="btn" ref="redo" id="redo"  @click="redo">重做</button>
+    <button type="button" class="btn" ref="display"   @click="display">可见</button>
+    <button type="button" class="btn" ref="hide"   @click="hide">不可见</button>
+    <button type="button" class="btn" ref="flip"   @click="flip">翻转</button>
     <!-- disabled -->
 
   </header>
@@ -17,7 +20,7 @@
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
-  </div>
+</div>
   
 </template>
 
@@ -79,6 +82,21 @@ export default {
   created() {
   },
   methods: {
+    hide(){
+        this.canvas.getActiveObject().set('opacity', 0).setCoords();
+        this.canvas.requestRenderAll()
+    },
+    display(){
+        this.canvas.getActiveObject().set('opacity', 1).setCoords();
+        this.canvas.requestRenderAll()
+    },
+    flip(){
+        //document.getElementById('target').style.transform = 'scaleX(-1)'; 
+        this.canvas.getActiveObject().set('scaleX', -1).setCoords();
+        this.canvas.requestRenderAll();
+    },
+
+
     canvasDataChange(){
       let _self = this;
       this.canvas.on('object:modified', function(){
