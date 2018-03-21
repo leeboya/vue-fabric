@@ -41,6 +41,22 @@
                 <span id="ungroup" class="optionElem" @click="ungroup()">
                     <img src="@/assets/icon/ungroup.png">
                 </span>
+                <span id="clip" class="optionElem" @click="clip()">
+                  <img src="http://ovfllimsi.bkt.clouddn.com/flip.jpg">
+                </span>
+                <span id="display" class="optionElem" @click="display()">
+                  显示
+                </span>
+                <span id="hide" class="optionElem" @click="hide()">
+                  隐藏
+                </span>
+                <span id="undo" class="optionElem" @click="undo()">
+                  <img src="http://ovfllimsi.bkt.clouddn.com/go-back.png">  
+                </span>
+                <span id="redo" class="optionElem" @click="redo()">
+                   <img src="http://ovfllimsi.bkt.clouddn.com/forword.jpg">
+                </span>
+                
                  <span id="ward" class="optionElem forWordOption" @click="showHideForWard()">
                       <img src="@/assets/icon/forWard.png">
                      
@@ -204,6 +220,8 @@ export default {
   mounted() {
     //绘制画布
     this.updateImg();
+    //监听canvas 事件
+    this.canvasDataChange();
   },
   created() {},
   methods: {
@@ -334,6 +352,31 @@ export default {
     changeForWord(style){
          this.fabricAction.fabricForward(this,style);
 
+    },
+    /**@augments
+     * anthor lifq
+     * @param
+     * @return 
+     */
+    clip(){
+      this.fabricAction.clip(this)
+    },
+    hide(){
+        this.fabricAction.hide(this)
+    },
+    display(){
+        this.fabricAction.display(this)
+    },
+    // canvas操作事件监听
+    canvasDataChange(){
+      this.fabricAction.canvasDataChange(this)
+    },
+    // 历史记录
+    undo(){
+      this.fabricAction.undo(this)
+    },
+    redo(){
+      this.fabricAction.redo(this)
     }
   }
 };
