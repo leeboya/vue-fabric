@@ -300,6 +300,7 @@ const undo = function(_this) {
       }
     }
   }
+}
 /**
  * function 历史记录前进
  */
