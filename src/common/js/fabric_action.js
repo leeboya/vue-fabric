@@ -180,4 +180,158 @@ const fabricForward=function(_this,style){
     return
   }
 }
-export default {createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop ,lockOption,fabricObjGroup,fabricObjUnGroup,fabricForward}
+
+/**
+ * author lifq
+ * function 水平翻转
+ * @param {string}
+ * @returns 
+ */
+const clip = function(_this){
+  _this.$store.state.fabricObj.canvas.getActiveObject().set('scaleX', -1).setCoords();
+  _this.$store.state.fabricObj.canvas.requestRenderAll();
+}
+
+/**
+ * fuction 不可见
+ */
+const hide = function(_this){
+  _this.$store.state.fabricObj.canvas.getActiveObject().set('opacity', 0).setCoords();
+  _this.$store.state.fabricObj.canvas.requestRenderAll()
+}
+
+/**
+ * fuction 可见
+ */
+const display = function(_this){
+  _this.$store.state.fabricObj.canvas.getActiveObject().set('opacity', 1).setCoords();
+  _this.$store.state.fabricObj.canvas.requestRenderAll()
+}
+
+/**
+ * function 监听canvas变动事件
+ */
+const canvasDataChange = function(_self){
+  _self.$store.state.fabricObj.canvas.on('object:modified', function(){
+      updateCanvasState(_self);
+  });
+  _self.$store.state.fabricObj.canvas.on('object:added', function(){
+      updateCanvasState(_self)
+  });
+  _self.$store.state.fabricObj.canvas.on('object:removed', function(){
+      updateCanvasState(_self)
+  });
+  _self.$store.state.fabricObj.canvas.on('object:rotating', function(){
+      updateCanvasState(_self)
+  });
+}
+
+// 定义一些数据常量
+var config = {
+  canvasState             : [],
+  currentStateIndex       : -1,
+  redoStatus              : false, //撤销状态
+  undoStatus              : false,  // 重做状态
+  undoFinishedStatus      : 1,
+  redoFinishedStatus      : 1,
+  undoButton              : null,
+  redoButton              : null,
+}
+/**
+ * function 存储操作数据状态
+ */
+const updateCanvasState = function(_this) {
+  var _self = _this;
+  _self.canvas = _this.$store.state.fabricObj.canvas;
+  if(config.undoStatus == false && config.redoStatus == false){
+    var jsonData  = _self.canvas.toJSON();
+    var canvasAsJson        = JSON.stringify(jsonData);
+    if(config.currentStateIndex < config.canvasState.length-1){
+      var indexToBeInserted                  = config.currentStateIndex+1;
+      config.canvasState[indexToBeInserted] = canvasAsJson;
+      var numberOfElementsToRetain           = indexToBeInserted+1;
+      config.canvasState                    = config.canvasState.splice(0,numberOfElementsToRetain);
+    }else{
+          config.canvasState.push(canvasAsJson);
+    }
+    config.currentStateIndex = config.canvasState.length-1;
+    if((config.currentStateIndex == config.canvasState.length-1) && config.currentStateIndex != -1){
+        // _self.config.redoButton.disabled= true
+    }
+  } 
+}
+/**
+ * function 历史记录回退
+ */
+const undo = function(_this) {
+  let _self = _this;
+  _self.canvas = _this.$store.state.fabricObj.canvas;
+  if(config.undoFinishedStatus){
+    if(config.currentStateIndex == -1){
+        config.undoStatus = false;
+    }
+    else{
+      if (config.canvasState.length >= 1) {
+          config.undoFinishedStatus = 0;
+          if(config.currentStateIndex != 0){
+              config.undoStatus = true;
+              _self.canvas.loadFromJSON(config.canvasState[config.currentStateIndex-1],function(){
+                var jsonData = JSON.parse(config.canvasState[config.currentStateIndex-1]);
+                _self.canvas.renderAll();
+                config.undoStatus = false;
+                config.currentStateIndex -= 1;
+                    // _self.config.undoButton.removeAttribute("disabled");
+                    // _self.config.undoButton.disabled = false;
+                    if(config.currentStateIndex !== config.canvasState.length-1){
+                        // _self.config.redoButton.removeAttribute('disabled');
+                        // _self.config.redoButton.disabled = false;
+                    }
+                config.undoFinishedStatus = 1;
+              });
+          }
+          else if(config.currentStateIndex == 0){
+              _self.canvas.clear();
+              config.undoFinishedStatus = 1;
+              // _self.config.undoButton.disabled= "disabled";
+              // _self.config.redoButton.removeAttribute('disabled');
+              // _self.config.redoButton.disabled = false;
+              config.currentStateIndex -= 1;
+          }
+      }
+    }
+  }
+}
+/**
+ * function 历史记录前进
+ */
+const redo = function(_this) {
+  let _self = _this;
+  _self.canvas = _this.$store.state.fabricObj.canvas;
+  if(config.redoFinishedStatus){
+    if((config.currentStateIndex == config.canvasState.length-1) && config.currentStateIndex != -1){
+      // this.config.redoButton.disabled= true;
+    }else{
+      if(config.canvasState.length > config.currentStateIndex && config.canvasState.length != 0){
+          config.redoFinishedStatus = 0;
+          config.redoStatus = true;
+          _self.canvas.loadFromJSON(config.canvasState[config.currentStateIndex+1],function(){
+              var jsonData = JSON.parse(config.canvasState[config.currentStateIndex+1]);
+              _self.canvas.renderAll();
+              config.redoStatus = false;
+              config.currentStateIndex += 1;
+              if(config.currentStateIndex != -1){
+              //    _self.config.redoButton.disabled = false;
+              }
+              config.redoFinishedStatus = 1;
+              if((config.currentStateIndex == config.canvasState.length-1) && config.currentStateIndex != -1){
+                  // _self.config.redoButton.disabled= true;
+              }
+          });
+        }
+      }
+  }
+}
+
+
+
+export default {createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop, lockOption, fabricObjGroup, fabricObjUnGroup, fabricForward, clip, hide, display, canvasDataChange, undo, redo}
