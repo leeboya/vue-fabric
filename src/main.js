@@ -7,7 +7,7 @@ import store from './store'
 require('@/styles/index.css');
 Vue.config.productionTip = false
 
-import fabricAction from '@/common/js/fabricAction'
+import fabricAction from '@/common/js/fabric_action'
 Vue.prototype.fabricAction=fabricAction;
 /* eslint-disable no-new */
 new Vue({

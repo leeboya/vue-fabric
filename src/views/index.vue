@@ -2,7 +2,7 @@
   <div class="pageIndex">
      <m-head></m-head>
     <div class="container">
-      <div class="leftBar">
+      <div class="left-bar">
         <m-lfbar  ></m-lfbar>
       </div>
       <div class="wrap">
@@ -60,7 +60,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="cutOptin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' ">
+                <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' ">
                 <span id="cancle" class="optionElem" @click="cutCancle()">
                     <img src="@/assets/icon/cancle.png">
                 </span>
@@ -71,66 +71,85 @@
                 
             </div>
            <canvas id="canvas" width='761' height='589'></canvas>
-            <img :src="item.pic" :id="item.key" class="imgPrev" v-for="item in imgInstance">
+            <img :src="item.pic" :id="item.key" class="img-prev" v-for="item in imgInstance">
       </div>
     </div>
   </div>
 </template>
-<style>
+
+<style rel="stylesheet/scss" lang="scss">
 .container {
   overflow: hidden;
-}
-.container .leftBar {
-  width: 400px;
-  float: left;
-}
-.imgPrev {
+    .left-bar {
+    width: 400px;
+    float: left;
+  }
+  .img-prev {
   display: none;
-}
-.wrap {
-  float: left;
-  width: 800px;
-  margin-left: 20px;
-  border: #eee 1px solid;
-  height: 1000px;
-}
-.bar-nav {
-  /* display: none; */
-  background: #eee;
-  padding: 10px;
-  height: 30px;
-}
-.optin-box {
-  display: none;
-  position: relative;
-}
-.cutOptin {
-  display: none;
-}
-.select {
-  display: block;
-}
-.optin-box span {
-  display: inline-block;
-  width: 25px;
-  margin-right: 20px;
-  cursor: pointer;
-}
-.optin-box > span:first-child {
-  margin-left: 50px;
-}
-.optin-box span img,
-.cutOptin span img {
-  display: inline-block;
-  float: left;
-  width: 100%;
-}
-
-.cutOptin span {
-  display: inline-block;
-  width: 25px;
-  margin-right: 20px;
-  cursor: pointer;
+  }
+    .wrap {
+    float: left;
+    width: 800px;
+    margin-left: 20px;
+    border: #eee 1px solid;
+    height: 1000px;
+    }
+    .bar-nav {
+      background: #eee;
+      padding: 10px;
+      height: 30px;
+    }
+    .optin-box {
+        display: none;
+        position: relative;
+        span {
+        display: inline-block;
+        width: 25px;
+        margin-right: 20px;
+        cursor: pointer;
+        img {
+          display: inline-block;
+          float: left;
+          width: 100%;
+          }
+      }
+    .action {
+    width: 220px;
+    position: absolute;
+    background-color: #eee;
+    padding: 4px;
+    top: 10px;
+    left: 450px;
+    border: #ccc 1px solid;
+    display: none;
+    &.select {
+    display: block;
+    }
+    span{
+        display: inline-block;
+        img {
+            width: 25px;
+        }
+    }
+        }
+    }
+    .cut-optin {
+      display: none;
+      span {
+        display: inline-block;
+        width: 25px;
+        margin-right: 20px;
+        cursor: pointer;
+        img {
+          display: inline-block;
+          float: left;
+          width: 100%;
+        }
+      }
+    }
+    .select {
+      display: block;
+    }
 }
 .filter-list-c {
   position: absolute;
@@ -141,38 +160,10 @@
   z-index: 999;
   padding: 20px 20px 30px 20px;
 }
-
-.optin-box {
-  position: relative;
-  display: inline-block;
-}
-.optin-box .action {
-  width: 220px;
-  position: absolute;
-  background-color: #eee;
-  padding: 4px;
-  top: 10px;
-  left: 450px;
-  border: #ccc 1px solid;
-  display: none;
-}
-.optin-box .action.select {
-  display: block;
-}
-
-.optin-box .action > img {
-  width: 25px;
-}
-.aciton span {
-  display: inline-block;
-}
-.forWordOption .aciton span img {
-  display: inline-block;
-}
 </style>
 <script>
 import mHead from "@/components/head";
-import mLfbar from "@/components/leftBar";
+import mLfbar from "@/components/left_bar";
 export default {
   components: { mHead, mLfbar },
   data() {
