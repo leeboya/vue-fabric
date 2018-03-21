@@ -1,3 +1,9 @@
-body 
-    background: #ccc
-    font-size: 12px
+.nest{
+    background: #f0f;
+    .test{
+        color: #0f0;
+        &:hover{
+            color: #ddd;
+        }
+    }
+}

@@ -300,7 +300,6 @@ const undo = function(_this) {
       }
     }
   }
-}
 /**
  * function 历史记录前进
  */
@@ -334,4 +333,4 @@ const redo = function(_this) {
 
 
 
-export default {createFabricObj, bindSeletUnSelectEvent, createCanvas, Copy, Paste, startCrop, crop, lockOption, fabricObjGroup, fabricObjUnGroup, fabricForward, clip, hide, display, canvasDataChange, undo, redo}
+export default {createFabricObj,bindSeletUnSelectEvent,createCanvas,Copy,Paste,startCrop,crop,lockOption,fabricObjGroup,fabricObjUnGroup,fabricForward,clip,hide,display,canvasDataChange,undo,redo} 
