@@ -3,10 +3,9 @@
 </template>
 <style>
 .m-head {
-     height: 60px;
+  height: 60px;
   background: #000;
   color:#fff;
- 
   text-align: center;
   padding:10px;
   margin-bottom:10px;

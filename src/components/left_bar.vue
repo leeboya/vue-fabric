@@ -1,6 +1,6 @@
 <template>
   <div class="m-lfbar" ref="getLeftBarWidth">
-    <div class="leftBar">
+    <div class="left_bar">
       <img :src="imgInstance[0].pic" draggable="true" id="dragImg" @dragstart="dragstart($event)" @dragend="dragend($event)" />
     </div>
     <!-- <div class="rigth-canvas">
@@ -18,7 +18,7 @@
   border: #eee 1px solid;
   padding: 10px;
 }
-.leftBar {
+.left_bar {
   width: 200px;
   height: 600px;
   /* background:#ccc; */
