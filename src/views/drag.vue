@@ -7,20 +7,21 @@
     <button class="btn" @click="toJson">toJSON</button>
     <button class="btn" @click="toSVG">toSVG</button>
     <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
-    <button class="btn" type="button" ref="reback" id="reback" disabled @click="clearCanvasAndLoadCanvas">回退历史</button>
-    <!-- <button class="btn" type="button" id="redo" disabled >撤销</button> -->
-
+    <button class="btn" @click="canvasToImage">转化为图片</button>
+<!-- canvasToImage -->
   </header>
   <div class="contain">
     <div class="leftBar" ref="getLeftBarWidth">
       <div class="imgBox" ref="imgBox">
         <span class="floatText" ref="floatText" @click="imgToCanvas($event)">到画布</span>
-        <img :src="imgInstance[0].pic" draggable="true"   @dragstart="dragstart($event)" @dragend="dragend($event)" />
+        <img class="imgSize" :src="imgInstance[1].pic" draggable="true"   @dragstart="dragstart($event)" @dragend="dragend($event)" />
       </div>
       
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
+
+  <img id="toImage" ref="toImage" src="" />  
   </div>
   
 </template>
@@ -42,6 +43,9 @@
   position: relative;
   width:200px;
   height: 198px;
+}
+.imgSize{
+  width: 200px ;
 }
 .floatText{
   position: absolute;
@@ -65,7 +69,13 @@ export default {
           key: "img1",
           pic: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
           position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
-        }
+        },
+        {
+          key: "img1",
+          pic: "../../static/2.jpg",
+          position: { left: 100, top: 100, width: 200, height: 198, angle: 10 }
+        },
+        
       ],
       canvas:"",
       leftBar:{},  //左侧宽高
@@ -97,7 +107,6 @@ export default {
             _self.$refs.floatText.style.display = 'none';
             // _self.$refs.floatText.style.opacity = '0';
           }
-          this.canvasDataChange();
           
   },
   created() {
@@ -185,11 +194,9 @@ export default {
       console.log(JSON.stringify(this.canvas.toJSON()));
     },
     toSVG(){
-      alert(this.canvas.toSVG());
+      // return this.canvas.toSVG()
+      console.log(this.canvas.toSVG());
     },
-    //把JSON字符串恢复到Canvas上，loadFromJSON()：
-//     var canvas = new fabric.Canvas('canvas');
-// canvas.loadFromJSON(）
     toSVGLocal(){
       let fso;
         try { 
@@ -204,61 +211,58 @@ export default {
         f1.write(this.canvas.toSVG());  
         f1.close();
     },
-    imgToCanvas(e){
-      // console.log(e.nextElementSibling)
-      console.log(this.$refs)
+    canvasToImage(){
+      var MIME_TYPE = "image/png";
+      //转换成base64
+      var imgURL = this.canvas.toDataURL(MIME_TYPE);
+  　　//创建一个a链接，模拟点击下载
+  　　var dlLink = document.createElement('a');
+      var filename = '个人画板_' + (new Date()).getTime() + '.png';
+  　　dlLink.download = filename;
+  　　dlLink.href = imgURL;
+  　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+  　　document.body.appendChild(dlLink);
+  　　dlLink.click();
+  　　document.body.removeChild(dlLink);  
     },
-    //存储到 localStorage
-    getDataToLoacl(data){
-      // localStorage.setItem('data', data);
-      this.dataCanvasJson.push(data);
-      this.rebackNum +=1;
-      this.$refs.reback.disabled=false;
-      console.log('操作步骤'+this.rebackNum);
-      console.log('数组长度'+this.dataCanvasJson.length);
+    downloadimage(event){
+      // 图片导出为 png 格式
+      var type = 'png';
+      // 返回一个包含JPG图片的<img>元素
+      var img_png_src = this.canvas.toDataURL("image/png");  //将画板保存为图片格式的函数
+      // 加工image data，替换mime type
+      var imgData = img_png_src.replace(this._fixType(type),'image/octet-stream');
+      // 下载后的问题名
+      var filename = '个人画板_' + (new Date()).getTime() + '.' + type;
+      // download
+      this.saveFile(imgData,filename);
     },
-    //清除画布 在加载 loacl数据
-    clearCanvasAndLoadCanvas(){
-      let _self = this;
-      // if(this.dataCanvasJson.length == 0){
-      //   this.canvas.clear();
-      //   this.rebackNum == 0;
-      //   this.$refs.reback.disabled=true;
-      // }
-      // if(this.dataCanvasJson.length >0){
-      //   this.$refs.reback.disabled=false;
-      //   this.dataCanvasJson.pop();
-      //   console.log(this.dataCanvasJson.length);
-      //   this.canvas.loadFromJSON(this.dataCanvasJson[this.dataCanvasJson.length -1]);
-      // } 
-      console.log('操作步骤长度'+this.rebackNum);
-      if(this.rebackNum == 0){
-        this.canvas.clear();
-        this.rebackNum == 0;
-        this.$refs.reback.disabled=true;
-      }
-      if(this.rebackNum >0){
-        this.$refs.reback.disabled=false;
-        this.canvas.clear();
-        this.rebackNum -=1 ;
-        this.canvas.loadFromJSON(this.dataCanvasJson[this.rebackNum]);
-      }     
+
+    /**
+    * 在本地进行文件保存
+    * @param  {String} data     要保存到本地的图片数据
+    * @param  {String} filename 文件名
+    */
+    saveFile(data, filename){
+      var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+      save_link.href = data;
+      save_link.download = filename;
+      var event = document.createEvent('MouseEvents');
+      event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      save_link.dispatchEvent(event);
     },
-    canvasDataChange(){
-      let _self = this;
-      this.canvas.on('object:modified', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:added', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:removed', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
-      this.canvas.on('object:rotating', function(){
-          _self.getDataToLoacl(JSON.stringify(_self.canvas.toJSON()))
-      });
+
+    /**
+    * 获取mimeType
+    * @param  {String} type the old mime-type
+    * @return the new mime-type
+    */
+    _fixType(type) {
+      type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+      var r = type.match(/png|jpeg|bmp|gif/)[0];
+      return 'image/' + r;
     },
+    
   }
 };
 </script>

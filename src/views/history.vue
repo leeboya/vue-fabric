@@ -3,7 +3,11 @@
   <header>
     <button class="btn" @click="copy">复制</button>
     <button type="button" class="btn" ref="undo" id="undo" @click="undo" >撤销</button>
-    <button type="button" class="btn" ref="redo" id="redo" disabled @click="redo">重做</button>
+    <button type="button" class="btn" ref="redo" id="redo"  @click="redo">重做</button>
+    <button type="button" class="btn" ref="display"   @click="display">可见</button>
+    <button type="button" class="btn" ref="hide"   @click="hide">不可见</button>
+    <button type="button" class="btn" ref="flip"   @click="flip">翻转</button>
+    <!-- disabled -->
 
   </header>
   <div class="contain">
@@ -16,7 +20,7 @@
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
-  </div>
+</div>
   
 </template>
 
@@ -39,8 +43,8 @@ export default {
         config : {
             canvasState             : [],
             currentStateIndex       : -1,
-            redoStatus              : false,
-            undoStatus              : false,
+            redoStatus              : false, //撤销状态
+            undoStatus              : false,  // 重做状态
             undoFinishedStatus      : 1,
             redoFinishedStatus      : 1,
             undoButton              : this.$refs.undo,
@@ -78,6 +82,21 @@ export default {
   created() {
   },
   methods: {
+    hide(){
+        this.canvas.getActiveObject().set('opacity', 0).setCoords();
+        this.canvas.requestRenderAll()
+    },
+    display(){
+        this.canvas.getActiveObject().set('opacity', 1).setCoords();
+        this.canvas.requestRenderAll()
+    },
+    flip(){
+        //document.getElementById('target').style.transform = 'scaleX(-1)'; 
+        this.canvas.getActiveObject().set('scaleX', -1).setCoords();
+        this.canvas.requestRenderAll();
+    },
+
+
     canvasDataChange(){
       let _self = this;
       this.canvas.on('object:modified', function(){
@@ -108,7 +127,7 @@ export default {
 			}
             _self.config.currentStateIndex = _self.config.canvasState.length-1;
             if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
-                _self.config.redoButton.disabled= true
+                // _self.config.redoButton.disabled= true
             }
 		}
     }, 
@@ -129,10 +148,10 @@ export default {
                                 _self.config.undoStatus = false;
                                 _self.config.currentStateIndex -= 1;
                                     // _self.config.undoButton.removeAttribute("disabled");
-                                    _self.config.undoButton.disabled = false;
+                                    // _self.config.undoButton.disabled = false;
                                     if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
                                         // _self.config.redoButton.removeAttribute('disabled');
-                                        _self.config.redoButton.disabled = false;
+                                        // _self.config.redoButton.disabled = false;
                                     }
                                 _self.config.undoFinishedStatus = 1;
                         });
@@ -140,9 +159,9 @@ export default {
                     else if(_self.config.currentStateIndex == 0){
                         _self.canvas.clear();
                         _self.config.undoFinishedStatus = 1;
-                        _self.config.undoButton.disabled= "disabled";
+                        // _self.config.undoButton.disabled= "disabled";
                         // _self.config.redoButton.removeAttribute('disabled');
-                        _self.config.redoButton.disabled = false;
+                        // _self.config.redoButton.disabled = false;
                         _self.config.currentStateIndex -= 1;
                     }
                 }
@@ -153,7 +172,7 @@ export default {
         let _self = this;
 		if(this.config.redoFinishedStatus){
 			if((this.config.currentStateIndex == this.config.canvasState.length-1) && this.config.currentStateIndex != -1){
-				this.config.redoButton.disabled= true;
+				// this.config.redoButton.disabled= true;
 			}else{
 		  	if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
                 this.config.redoFinishedStatus = 0;
@@ -164,11 +183,11 @@ export default {
                     _self.config.redoStatus = false;
                     _self.config.currentStateIndex += 1;
                     if(_self.config.currentStateIndex != -1){
-                       _self.config.redoButton.disabled = false;
+                    //    _self.config.redoButton.disabled = false;
                     }
                     _self.config.redoFinishedStatus = 1;
                     if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
-                        _self.config.redoButton.disabled= true;
+                        // _self.config.redoButton.disabled= true;
                     }
 		      });
 		    }
