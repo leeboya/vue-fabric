@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 
 Vue.use(Router)
+const start = () => import('@/views/start')
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
@@ -12,8 +13,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'start',
+      name: 'index',
       component: Index,
+      meta: {title: '设计IN-设计师严选平台'}
+    },
+    {
+      path: '/start',
+      name: 'start',
+      component: start,
       meta: {title: '设计IN-设计师严选平台'}
     },
     {
