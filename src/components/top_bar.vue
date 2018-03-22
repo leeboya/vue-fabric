@@ -1,6 +1,6 @@
 <template>
   <div class="m-topbar">
-    <div class="open">
+    <div class="large" v-if="!$store.state.fabricObj.jigsawIsOpen">
          <div class="logo">LOGO</div>
           <div class="classfily">
               <span class="active">单品</span>
@@ -13,7 +13,8 @@
               <span class="jigsaw">拼图</span>
           </div>
     </div>
-   
+    <div v-else cass="small"></div>
+  
   </div>
 </template>
 <script>
@@ -23,7 +24,7 @@ export default {};
     .m-topbar{
         background: #eee;
         height: 64px;
-        .open{
+        .large{
           position: relative;
            .classfily {
               width:464px;
@@ -71,6 +72,10 @@ export default {};
                 opacity: .85;
               }
             }
+        }
+        .small {
+          height: 64px;
+          background: #F2F2F3;
         }
        
     }

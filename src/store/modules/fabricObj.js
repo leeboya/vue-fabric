@@ -7,6 +7,8 @@ const fabricObj = {
         unclock: false,
         _clipboard: {},
         forWrodBoxShow:false,
+        jigsawIsOpen:true
+
     },
 
     mutations: {
@@ -23,10 +25,13 @@ const fabricObj = {
             state.unclock = bool;
         },
         setClipboard: (state, data) => {
-            state._clipboard = data
+            state._clipboard = data;
         },
         setForwordBox:(state,bool )=>{
-            state.forWrodBoxShow= bool
+            state.forWrodBoxShow= bool;
+        },
+        setJigsaw:(state,bool)=>{
+            state.jigsawIsOpen=bool;
         }
 
     }
