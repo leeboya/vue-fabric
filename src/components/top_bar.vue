@@ -10,21 +10,32 @@
           <div class="aside">
               <span><img src="" alt=""></span>
               <span class="user">用户名</span>
-              <span class="jigsaw">拼图</span>
+              <span class="pingtu" @click="changeJigsaw()">拼图</span>
           </div>
     </div>
     <div v-else class="small">
         <span class="menu"><img src="@/assets/icon/menu.png" alt=""></span>
         <div class="aside">
             <span class="person"><img src="@/assets/icon/person.png"alt=""></span>
-            <span class="change">切换</span>
+            <span class="change" @click="changeJigsaw()">切换</span>
         </div>
     </div>
   
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    changeJigsaw(){
+       this.$store.commit("setJigsaw", !this.$store.state.fabricObj.jigsawIsOpen);
+    }
+  }
+};
 </script>
 <style rel="stylesheet/scss" lang="scss">
     .m-topbar{
@@ -62,6 +73,7 @@ export default {};
               padding:0 24px;
             }
             .aside {
+              width:200px;
               position: absolute;
               right:25px;
               top:0;
@@ -69,13 +81,14 @@ export default {};
               .user {
                 font-size:14px;
               }
-              .jigsaw {
+              .pingtu {
                 margin-left:10px;
                 display: inline-block;
                 background: #d8d8d8;
                 border-radius: 65px;
-                padding:4px 40px;
+                padding:4px 30px;
                 opacity: .85;
+                cursor: pointer;
               }
             }
         }
