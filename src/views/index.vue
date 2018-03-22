@@ -41,7 +41,13 @@
                 <span id="ungroup" class="optionElem" @click="ungroup()">
                     <img src="@/assets/icon/ungroup.png">
                 </span>
-                <span id="clip" class="optionElem" @click="clip()">
+                
+                
+                 <span id="ward" class="optionElem forWordOption" @click="showHideForWard()">
+                      <img src="@/assets/icon/forWard.png">
+                     
+                  </span>
+                  <span id="clip" class="optionElem" @click="clip()">
                   <img src="http://ovfllimsi.bkt.clouddn.com/flip.jpg">
                 </span>
                 <span id="display" class="optionElem" @click="display()">
@@ -56,11 +62,9 @@
                 <span id="redo" class="optionElem" @click="redo()">
                    <img src="http://ovfllimsi.bkt.clouddn.com/forword.jpg">
                 </span>
-                
-                 <span id="ward" class="optionElem forWordOption" @click="showHideForWard()">
-                      <img src="@/assets/icon/forWard.png">
-                     
-                  </span>
+                <span id="canvasToImage" class="optionElem" @click="canvasToImage()">
+                   <img src="http://ovfllimsi.bkt.clouddn.com/down.jpg">
+                </span>
                     <div class="action" :class=" $store.state.fabricObj.forWrodBoxShow ? 'select' : '' ">
                         <span id="forWard" class="elmForWard" @click="changeForWord('forWard')">
                         <img src="@/assets/icon/forWard.png">
@@ -83,6 +87,7 @@
                 <span id="sure" class="optionElem" @click="cutSure()">
                     <img src="@/assets/icon/sure.png">
                 </span>
+                
                 </div>
                 
             </div>
@@ -376,7 +381,24 @@ export default {
     },
     redo(){
       this.fabricAction.redo(this)
-    }
+    },
+    /**@augments
+     * fucntion 转为图片并下载到本地
+     */
+    canvasToImage(){
+      var MIME_TYPE = "image/png";
+      //转换成base64
+      var imgURL = this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
+  　　//创建一个a链接，模拟点击下载
+  　　var dlLink = document.createElement('a');
+      var filename = '个人画板_' + (new Date()).getTime() + '.png';
+  　　dlLink.download = filename;
+  　　dlLink.href = imgURL;
+  　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+  　　document.body.appendChild(dlLink);
+  　　dlLink.click();
+  　　document.body.removeChild(dlLink);  
+    },
   }
 };
 </script>
