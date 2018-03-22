@@ -104,15 +104,15 @@ export default {
 .m-singp {
   background: #f5f5f5;
   .wrap {
-    width: 1140px;
+    max-width: 1440;
     padding: 48px 0;
     margin: 0 auto;
     .search-box {
-      width: 652px;
-      margin: 0 auto;
+      margin: 0 20px;
       overflow: hidden;
       .search {
-        width: 552px;
+        float:left;
+          width: 70%;
         border-radius: 4px;
         border: #d9d9d9 1px solid;
         line-height: 20px;
@@ -120,27 +120,22 @@ export default {
         float: left;
       }
       .btn {
+        float:left;
         padding: 9px 16px;
         border-radius: 4px;
         background: #fff;
         border: #ccc 1px solid;
         margin-left: 10px;
-        float: right;
+
       }
     }
     .container {
-        width: 1440px;
+        max-width: 1440px;
         margin: 20px auto;
         .waterfall {
-        -moz-column-count: 3;
-        -webkit-column-count: 3;
-        column-count: 3;
-        -moz-column-width: 24em;
-        -webkit-column-width: 24em;
-        column-width: 24em;
-        -moz-column-gap: 1em;
-        -webkit-column-gap: 1em;
-        column-gap: 1em;
+          column-count: 3;
+          column-width: 4em;
+          column-gap: 1em;
         .pin {
                 padding: 1em;
                 margin: 0 0.125em 1em;

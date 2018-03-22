@@ -1,6 +1,6 @@
 <template>
-  <div class="m-guide">
-      <div class="m" v-for="(item,index) in classFliy">
+  <div class="m-guide" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
+      <div class="m" v-for="(item,index) in classFliy" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
           <div class="img-box">
                <img src="@/assets/img/icon1.png">
           </div>   
@@ -83,6 +83,9 @@ export default {
     display: flex;
     /*换行（作用于容器）*/
     flex-wrap: wrap;
+    &.open {
+          margin:27px auto 0 auto;
+    }
     .m{
         width:100px;
         text-align: center;
@@ -90,6 +93,10 @@ export default {
         color:#677BAF;
         font-size:14px;
         margin-bottom:84px;
+        &.open {
+            width:80px;
+            margin-bottom:33px;
+        }
         .img-box {
             width:20px;
             margin: auto ;

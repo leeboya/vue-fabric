@@ -3,7 +3,7 @@
      <m-head></m-head>
     <div class="container">
       <div class="left-bar">
-        <m-lfbar  ></m-lfbar>
+        <m-lfbar></m-lfbar>
       </div>
       <div class="wrap">
             <div class="bar-nav" >
@@ -240,14 +240,13 @@ export default {
           "instance" + k.key
         ] = _this.fabricAction.createFabricObj(k.key, k.position);
         setTimeout(function() {
-          _this.$store.state.fabricObj.canvas.add(
-            _this.imgInstanceObj["instance" + k.key]
-          );
-          _this.fabricAction.bindSeletUnSelectEvent(
-            _this.imgInstanceObj["instance" + k.key],
-            _this
-          );
+          _this.$store.state.fabricObj.canvas.add(_this.imgInstanceObj["instance" + k.key]);
+             debugger
+          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
+        
+          
         }, 100);
+       
       });
     },
 
