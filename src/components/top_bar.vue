@@ -13,7 +13,13 @@
               <span class="jigsaw">拼图</span>
           </div>
     </div>
-    <div v-else cass="small"></div>
+    <div v-else class="small">
+        <span class="menu"><img src="@/assets/icon/menu.png" alt=""></span>
+        <div class="aside">
+            <span class="person"><img src="@/assets/icon/person.png"alt=""></span>
+            <span class="change">切换</span>
+        </div>
+    </div>
   
   </div>
 </template>
@@ -76,6 +82,39 @@ export default {};
         .small {
           height: 64px;
           background: #F2F2F3;
+          overflow: hidden;
+          .menu {
+            display: inline-block;
+            width:24px;
+            margin:14px 20px;
+            img {
+              width:100%;
+            }
+          }
+          .aside {
+            float:right;
+              margin:14px 20px;
+            .person {
+                display: inline-block;
+                width:24px;
+                float:left;
+                margin-right:20px;
+                img {
+                   width:100%;
+                   display: inline-block;
+                  
+                }
+            }
+            .change {
+                display:inline-block;
+                float:left; 
+                background: #D8D8D8;
+                border-radius: 65px;
+                padding:3px 20px;
+                font-size:12px;
+                cursor: pointer;
+            }
+          }
         }
        
     }
