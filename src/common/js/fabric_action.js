@@ -12,8 +12,7 @@ const createFabricObj = function (imgId, pos) {
 }
 
 const bindSeletUnSelectEvent = function (imgObj, _this) {
-  imgObj
-    .on("selected", function (options) {
+  imgObj.on("selected", function (options) {
       _this.$store.commit("setOptionSelect",true);
       if (_this.$store.state.fabricObj.canvas.getActiveObject().lockMovementX) {
         _this.$store.commit("setUnclock",false);
