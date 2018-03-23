@@ -429,18 +429,18 @@ export default {
   mounted() {
     //绘制画布
     this.updateImg();
-   setTimeout( ()=> {
-        this.firstBindEvent();
-    },500)
     //监听canvas 事件
     this.canvasDataChange();
+    //初始化的canvas对象事件绑定
+    setTimeout( ()=> {
+        this.firstBindEvent();
+    },300)
   },
   created() {},
   methods: {
     updateImg() {
       var _this = this;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
-<<<<<<< HEAD
       _this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
     },
     firstBindEvent(){
@@ -448,22 +448,7 @@ export default {
         _this.$store.state.fabricObj.canvas.getObjects().forEach(function(k, i) {
             _this.fabricAction.bindSeletUnSelectEvent(k,_this);
         });
-=======
-      //初始化可编辑图片
-      this.imgInstance.forEach(function(k, i) {
-        _this.imgInstanceObj[
-          "instance" + k.key
-        ] = _this.fabricAction.createFabricObj(k.key, k.position);
-        setTimeout(function() {
-          _this.$store.state.fabricObj.canvas.add(_this.imgInstanceObj["instance" + k.key]);
-            //  debugger
-          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
-        
-          
-        }, 100);
-       
-      });
->>>>>>> 1eb81aae60d70b48d4ce2a55b212b0096adf7b46
+
     },
 
     clone() {
