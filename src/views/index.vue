@@ -405,86 +405,86 @@ export default {
     undo(){
       // this.fabricAction.undo(this)
       let _self =this;
-		if(this.config.undoFinishedStatus){
-			if(this.config.currentStateIndex == -1){
-	    	    this.config.undoStatus = false;
-			}
-			else{
-		        if (this.config.canvasState.length >= 1) {
-        	        this.config.undoFinishedStatus = 0;
-                    if(this.config.currentStateIndex != 0){
-                        this.config.undoStatus = true;
-                        this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex-1],function(){
-                                var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex-1]);
-                                _self.$store.state.fabricObj.canvas.renderAll();
-                                _self.config.undoStatus = false;
-                                _self.config.currentStateIndex -= 1;
-                                    // _self.config.undoButton.removeAttribute("disabled");
-                                    // _self.config.undoButton.disabled = false;
-                                    if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
-                                        // _self.config.redoButton.removeAttribute('disabled');
-                                        // _self.config.redoButton.disabled = false;
-                                    }
-                                _self.config.undoFinishedStatus = 1;
-                        });
-                    }
-                    else if(_self.config.currentStateIndex == 0){
-                        _self.$store.state.fabricObj.canvas.clear();
-                        _self.config.undoFinishedStatus = 1;
-                        // _self.config.undoButton.disabled= "disabled";
-                        // _self.config.redoButton.removeAttribute('disabled');
-                        // _self.config.redoButton.disabled = false;
-                        _self.config.currentStateIndex -= 1;
-                    }
-                }
-			}
-		}
+      if(this.config.undoFinishedStatus){
+        if(this.config.currentStateIndex == -1){
+              this.config.undoStatus = false;
+        }
+        else{
+              if (this.config.canvasState.length >= 1) {
+                    this.config.undoFinishedStatus = 0;
+                      if(this.config.currentStateIndex != 0){
+                          this.config.undoStatus = true;
+                          this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex-1],function(){
+                                  var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex-1]);
+                                  _self.$store.state.fabricObj.canvas.renderAll();
+                                  _self.config.undoStatus = false;
+                                  _self.config.currentStateIndex -= 1;
+                                      // _self.config.undoButton.removeAttribute("disabled");
+                                      // _self.config.undoButton.disabled = false;
+                                      if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
+                                          // _self.config.redoButton.removeAttribute('disabled');
+                                          // _self.config.redoButton.disabled = false;
+                                      }
+                                  _self.config.undoFinishedStatus = 1;
+                          });
+                      }
+                      else if(_self.config.currentStateIndex == 0){
+                          _self.$store.state.fabricObj.canvas.clear();
+                          _self.config.undoFinishedStatus = 1;
+                          // _self.config.undoButton.disabled= "disabled";
+                          // _self.config.redoButton.removeAttribute('disabled');
+                          // _self.config.redoButton.disabled = false;
+                          _self.config.currentStateIndex -= 1;
+                      }
+                  }
+        }
+      }
     },
     redo(){
       // this.fabricAction.redo(this)
       let _self = this;
-		if(this.config.redoFinishedStatus){
-			if((this.config.currentStateIndex == this.config.canvasState.length-1) && this.config.currentStateIndex != -1){
-				// this.config.redoButton.disabled= true;
-			}else{
-		  	if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
-                this.config.redoFinishedStatus = 0;
-                this.config.redoStatus = true;
-                this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
-                    var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex+1]);
-                    _self.$store.state.fabricObj.canvas.renderAll();
-                    _self.config.redoStatus = false;
-                    _self.config.currentStateIndex += 1;
-                    if(_self.config.currentStateIndex != -1){
-                    //    _self.config.redoButton.disabled = false;
-                    }
-                    _self.config.redoFinishedStatus = 1;
-                    if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
-                        // _self.config.redoButton.disabled= true;
-                    }
-		      });
-		    }
-			}
-		}
+      if(this.config.redoFinishedStatus){
+        if((this.config.currentStateIndex == this.config.canvasState.length-1) && this.config.currentStateIndex != -1){
+          // this.config.redoButton.disabled= true;
+        }else{
+          if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
+                  this.config.redoFinishedStatus = 0;
+                  this.config.redoStatus = true;
+                  this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
+                      var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex+1]);
+                      _self.$store.state.fabricObj.canvas.renderAll();
+                      _self.config.redoStatus = false;
+                      _self.config.currentStateIndex += 1;
+                      if(_self.config.currentStateIndex != -1){
+                      //    _self.config.redoButton.disabled = false;
+                      }
+                      _self.config.redoFinishedStatus = 1;
+                      if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
+                          // _self.config.redoButton.disabled= true;
+                      }
+            });
+          }
+        }
+      }
     },
     updateCanvasState() {
-        var _self = this;
-		if(this.config.undoStatus == false && this.config.redoStatus == false){
-			var jsonData  = _self.$store.state.fabricObj.canvas.toJSON();
-			var canvasAsJson        = JSON.stringify(jsonData);
-			if(_self.config.currentStateIndex < _self.config.canvasState.length-1){
-				var indexToBeInserted                  = _self.config.currentStateIndex+1;
-				_self.config.canvasState[indexToBeInserted] = canvasAsJson;
-				var numberOfElementsToRetain           = indexToBeInserted+1;
-				_self.config.canvasState                    = _self.config.canvasState.splice(0,numberOfElementsToRetain);
-			}else{
-	    	    _self.config.canvasState.push(canvasAsJson);
-			}
-            _self.config.currentStateIndex = _self.config.canvasState.length-1;
-            if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
-                // _self.config.redoButton.disabled= true
-            }
-		}
+      var _self = this;
+      if(this.config.undoStatus == false && this.config.redoStatus == false){
+        var jsonData  = _self.$store.state.fabricObj.canvas.toJSON();
+        var canvasAsJson        = JSON.stringify(jsonData);
+        if(_self.config.currentStateIndex < _self.config.canvasState.length-1){
+          var indexToBeInserted                  = _self.config.currentStateIndex+1;
+          _self.config.canvasState[indexToBeInserted] = canvasAsJson;
+          var numberOfElementsToRetain           = indexToBeInserted+1;
+          _self.config.canvasState                    = _self.config.canvasState.splice(0,numberOfElementsToRetain);
+        }else{
+              _self.config.canvasState.push(canvasAsJson);
+        }
+              _self.config.currentStateIndex = _self.config.canvasState.length-1;
+              if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
+                  // _self.config.redoButton.disabled= true
+              }
+      }
     }, 
 
 
@@ -501,12 +501,12 @@ export default {
   　　//创建一个a链接，模拟点击下载
   　　var dlLink = document.createElement('a');
       var filename = '个人画板_' + (new Date()).getTime() + '.png';
-  　　dlLink.download = filename;
-  　　dlLink.href = imgURL;
-  　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
-  　　document.body.appendChild(dlLink);
-  　　dlLink.click();
-  　　document.body.removeChild(dlLink);  
+    　　dlLink.download = filename;
+    　　dlLink.href = imgURL;
+    　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+    　　document.body.appendChild(dlLink);
+    　　dlLink.click();
+    　　document.body.removeChild(dlLink);  
     },
   }
 };

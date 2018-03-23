@@ -8,6 +8,7 @@
      <div class="container"> 
         <div class="waterfall"> 
             <div class="pin" v-for="item in productList"> 
+              <span @click="collection">收藏</span>
                 <img :src="item.pic" > 
                 <p>1 convallis timestamp</p> 
             </div> 
@@ -97,6 +98,15 @@ export default {
         },
       ]
     };
+  },
+  methods:{
+    /**@augments
+     * function 收藏图片到个人中心
+     */
+    collection(){
+      console.log(1)
+      // 判断是否登陆 无 跳登陆注册   添加收藏夹 或者取消收藏
+    }
   }
 };
 </script>
@@ -151,6 +161,10 @@ export default {
                 padding-bottom: 1em;
                 margin-bottom: 0.5em;
                 border-bottom: 1px solid #cccccc;
+                }
+                span {
+                  position: absolute;
+                  cursor: pointer;
                 }
             }
         }
