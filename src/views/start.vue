@@ -30,20 +30,23 @@ export default {
     overflow: hidden;
     background:#000;
     .product-list {
-        float:left;
+    
         background: #fff;
         &.open{
             width:36%;
+            float:left;
         }
         
     }
 
     .jigsaw {
         display: none;
-        float:left;
-        width:64%;
+        position: relative;
+      
          &.open{
             display: block;
+            float:left;
+            width:64%;
         }
         .top-bar {
             background: #363738 ;
@@ -53,7 +56,10 @@ export default {
             width:800px;
             height: 1000px;
             background: #fff;
-            margin:40px auto;
+            position: fixed;
+            left:36%;
+            margin-left:80px;
+            top:100px;
         }
        
     }
