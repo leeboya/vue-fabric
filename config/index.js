@@ -42,6 +42,11 @@ module.exports = {
         changeOrigin: true,
       
       },
+      '/boards': {
+        target: 'http://192.168.3.249:8080/', //赵玉
+        changeOrigin: true,
+      
+      },
     
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

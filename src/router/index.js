@@ -7,6 +7,7 @@ const start = () => import('@/views/start')
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
+const onself = () => import('@/views/onself');
 
 export default new Router({
   mode: 'history',
@@ -40,6 +41,12 @@ export default new Router({
       name: 'history',
       component: history,
       meta: {title: '设计IN-设计师严选平台'}
+    },
+    {
+      path: '/onself',
+      name: 'onself',
+      component: onself,
+      meta: {title: '设计IN-个人中心'}
     },
    
   ],

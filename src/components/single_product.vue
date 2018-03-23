@@ -99,6 +99,11 @@ export default {
       ]
     };
   },
+  mounted(){
+    window.onclose = function(){
+      alert(1)
+    }
+  },
   methods:{
     /**@augments
      * function 收藏图片到个人中心
