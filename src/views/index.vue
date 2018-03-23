@@ -210,6 +210,200 @@ export default {
           position: { left: 400, top: 200, width: 200, height: 198, angle: 10 }
         }
       ],
+      canvasObj:{
+        "objects": [
+        {
+        "type": "image", 
+        "version": "2.1.0", 
+        "originX": "left", 
+        "originY": "top", 
+        "left": 100, 
+        "top": 100, 
+        "width": 200, 
+        "height": 198, 
+        "fill": "rgb(0,0,0)", 
+        "stroke": null, 
+        "strokeWidth": 0, 
+        "strokeDashArray": null, 
+        "strokeLineCap": "butt", 
+        "strokeLineJoin": "miter", 
+        "strokeMiterLimit": 10, 
+        "scaleX": 1, 
+        "scaleY": 1, 
+        "angle": 10, 
+        "flipX": false, 
+        "flipY": false, 
+        "opacity": 1, 
+        "shadow": null, 
+        "visible": true, 
+        "clipTo": null, 
+        "backgroundColor": "", 
+        "fillRule": "nonzero", 
+        "paintFirst": "fill", 
+        "globalCompositeOperation": "source-over", 
+        "transformMatrix": null, 
+        "skewX": 0, 
+        "skewY": 0, 
+        "crossOrigin": "", 
+        "cropX": 0, 
+        "cropY": 0, 
+        "src": "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg", 
+        "filters": [ ]
+        }, 
+        {
+        "type": "image", 
+        "version": "2.1.0", 
+        "originX": "left", 
+        "originY": "top", 
+        "left": 400, 
+        "top": 200, 
+        "width": 200, 
+        "height": 198, 
+        "fill": "rgb(0,0,0)", 
+        "stroke": null, 
+        "strokeWidth": 0, 
+        "strokeDashArray": null, 
+        "strokeLineCap": "butt", 
+        "strokeLineJoin": "miter", 
+        "strokeMiterLimit": 10, 
+        "scaleX": 1, 
+        "scaleY": 1, 
+        "angle": 10, 
+        "flipX": false, 
+        "flipY": false, 
+        "opacity": 1, 
+        "shadow": null, 
+        "visible": true, 
+        "clipTo": null, 
+        "backgroundColor": "", 
+        "fillRule": "nonzero", 
+        "paintFirst": "fill", 
+        "globalCompositeOperation": "source-over", 
+        "transformMatrix": null, 
+        "skewX": 0, 
+        "skewY": 0, 
+        "crossOrigin": "", 
+        "cropX": 0, 
+        "cropY": 0, 
+        "src": "http://localhost:9090/static/2.jpg", 
+        "filters": [ ]
+        }, 
+        {
+        "type": "image", 
+        "version": "2.1.0", 
+        "originX": "left", 
+        "originY": "top", 
+        "left": 533, 
+        "top": -62, 
+        "width": 200, 
+        "height": 198, 
+        "fill": "rgb(0,0,0)", 
+        "stroke": null, 
+        "strokeWidth": 0, 
+        "strokeDashArray": null, 
+        "strokeLineCap": "butt", 
+        "strokeLineJoin": "miter", 
+        "strokeMiterLimit": 10, 
+        "scaleX": 1, 
+        "scaleY": 1, 
+        "angle": 0, 
+        "flipX": false, 
+        "flipY": false, 
+        "opacity": 1, 
+        "shadow": null, 
+        "visible": true, 
+        "clipTo": null, 
+        "backgroundColor": "", 
+        "fillRule": "nonzero", 
+        "paintFirst": "fill", 
+        "globalCompositeOperation": "source-over", 
+        "transformMatrix": null, 
+        "skewX": 0, 
+        "skewY": 0, 
+        "crossOrigin": "", 
+        "cropX": 0, 
+        "cropY": 0, 
+        "src": "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg", 
+        "filters": [ ]
+        }, 
+        {
+        "type": "image", 
+        "version": "2.1.0", 
+        "originX": "left", 
+        "originY": "top", 
+        "left": 150, 
+        "top": 150, 
+        "width": 200, 
+        "height": 198, 
+        "fill": "rgb(0,0,0)", 
+        "stroke": null, 
+        "strokeWidth": 0, 
+        "strokeDashArray": null, 
+        "strokeLineCap": "butt", 
+        "strokeLineJoin": "miter", 
+        "strokeMiterLimit": 10, 
+        "scaleX": 1, 
+        "scaleY": 1, 
+        "angle": 10, 
+        "flipX": false, 
+        "flipY": false, 
+        "opacity": 1, 
+        "shadow": null, 
+        "visible": true, 
+        "clipTo": null, 
+        "backgroundColor": "", 
+        "fillRule": "nonzero", 
+        "paintFirst": "fill", 
+        "globalCompositeOperation": "source-over", 
+        "transformMatrix": null, 
+        "skewX": 0, 
+        "skewY": 0, 
+        "crossOrigin": "", 
+        "cropX": 0, 
+        "cropY": 0, 
+        "src": "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg", 
+        "filters": [ ]
+        }, 
+        {
+        "type": "image", 
+        "version": "2.1.0", 
+        "originX": "left", 
+        "originY": "top", 
+        "left": 200, 
+        "top": 200, 
+        "width": 200, 
+        "height": 198, 
+        "fill": "rgb(0,0,0)", 
+        "stroke": null, 
+        "strokeWidth": 0, 
+        "strokeDashArray": null, 
+        "strokeLineCap": "butt", 
+        "strokeLineJoin": "miter", 
+        "strokeMiterLimit": 10, 
+        "scaleX": 1, 
+        "scaleY": 1, 
+        "angle": 10, 
+        "flipX": false, 
+        "flipY": false, 
+        "opacity": 1, 
+        "shadow": null, 
+        "visible": true, 
+        "clipTo": null, 
+        "backgroundColor": "", 
+        "fillRule": "nonzero", 
+        "paintFirst": "fill", 
+        "globalCompositeOperation": "source-over", 
+        "transformMatrix": null, 
+        "skewX": 0, 
+        "skewY": 0, 
+        "crossOrigin": "", 
+        "cropX": 0, 
+        "cropY": 0, 
+        "src": "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg", 
+        "filters": [ ]
+        }
+        ]
+        },
       cutRect: {
         el: "",
         object: "",
@@ -225,6 +419,9 @@ export default {
   mounted() {
     //绘制画布
     this.updateImg();
+   setTimeout( ()=> {
+        this.firstBindEvent();
+    },500)
     //监听canvas 事件
     this.canvasDataChange();
   },
@@ -232,22 +429,14 @@ export default {
   methods: {
     updateImg() {
       var _this = this;
-      // this.canvas = ;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
-      //初始化可编辑图片
-      this.imgInstance.forEach(function(k, i) {
-        _this.imgInstanceObj[
-          "instance" + k.key
-        ] = _this.fabricAction.createFabricObj(k.key, k.position);
-        setTimeout(function() {
-          _this.$store.state.fabricObj.canvas.add(_this.imgInstanceObj["instance" + k.key]);
-             debugger
-          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
-        
-          
-        }, 100);
-       
-      });
+      _this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
+    },
+    firstBindEvent(){
+       var _this = this;
+        _this.$store.state.fabricObj.canvas.getObjects().forEach(function(k, i) {
+            _this.fabricAction.bindSeletUnSelectEvent(k,_this);
+        });
     },
 
     clone() {
