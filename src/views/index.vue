@@ -121,7 +121,7 @@
       height: 30px;
     }
     .optin-box {
-        display: none;
+        // display: none;
         position: relative;
         span {
         display: inline-block;
@@ -413,6 +413,16 @@ export default {
         cntObj: "",
         selection_object_left: "",
         selection_object_top: ""
+      },
+      config : {
+          canvasState             : [],
+          currentStateIndex       : -1,
+          redoStatus              : false, //撤销状态
+          undoStatus              : false,  // 重做状态
+          undoFinishedStatus      : 1,
+          redoFinishedStatus      : 1,
+          undoButton              : this.$refs.undo,
+          redoButton              : this.$refs.redo,
       }
     };
   },
@@ -430,6 +440,7 @@ export default {
     updateImg() {
       var _this = this;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
+<<<<<<< HEAD
       _this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
     },
     firstBindEvent(){
@@ -437,6 +448,22 @@ export default {
         _this.$store.state.fabricObj.canvas.getObjects().forEach(function(k, i) {
             _this.fabricAction.bindSeletUnSelectEvent(k,_this);
         });
+=======
+      //初始化可编辑图片
+      this.imgInstance.forEach(function(k, i) {
+        _this.imgInstanceObj[
+          "instance" + k.key
+        ] = _this.fabricAction.createFabricObj(k.key, k.position);
+        setTimeout(function() {
+          _this.$store.state.fabricObj.canvas.add(_this.imgInstanceObj["instance" + k.key]);
+            //  debugger
+          _this.fabricAction.bindSeletUnSelectEvent(_this.imgInstanceObj["instance" + k.key],_this);
+        
+          
+        }, 100);
+       
+      });
+>>>>>>> 1eb81aae60d70b48d4ce2a55b212b0096adf7b46
     },
 
     clone() {
@@ -562,15 +589,114 @@ export default {
     },
     // canvas操作事件监听
     canvasDataChange(){
-      this.fabricAction.canvasDataChange(this)
+      // this.fabricAction.canvasDataChange(this)
+      let _self = this;
+      this.$store.state.fabricObj.canvas.on('object:modified', function(){
+          _self.updateCanvasState();
+      });
+      // this.$store.state.fabricObj.canvas.on('object:moving', function(){
+      //     _self.updateCanvasState();
+      // });
+      this.$store.state.fabricObj.canvas.on('object:added', function(){
+          _self.updateCanvasState()
+      });
+      this.$store.state.fabricObj.canvas.on('object:removed', function(){
+          _self.updateCanvasState()
+      });
+      this.$store.state.fabricObj.canvas.on('object:rotating', function(){
+          _self.updateCanvasState()
+      });
     },
     // 历史记录
     undo(){
-      this.fabricAction.undo(this)
+      // this.fabricAction.undo(this)
+      let _self =this;
+      if(this.config.undoFinishedStatus){
+        if(this.config.currentStateIndex == -1){
+              this.config.undoStatus = false;
+        }
+        else{
+              if (this.config.canvasState.length >= 1) {
+                    this.config.undoFinishedStatus = 0;
+                      if(this.config.currentStateIndex != 0){
+                          this.config.undoStatus = true;
+                          this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex-1],function(){
+                                  var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex-1]);
+                                  _self.$store.state.fabricObj.canvas.renderAll();
+                                  _self.config.undoStatus = false;
+                                  _self.config.currentStateIndex -= 1;
+                                      // _self.config.undoButton.removeAttribute("disabled");
+                                      // _self.config.undoButton.disabled = false;
+                                      if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
+                                          // _self.config.redoButton.removeAttribute('disabled');
+                                          // _self.config.redoButton.disabled = false;
+                                      }
+                                  _self.config.undoFinishedStatus = 1;
+                          });
+                      }
+                      else if(_self.config.currentStateIndex == 0){
+                          _self.$store.state.fabricObj.canvas.clear();
+                          _self.config.undoFinishedStatus = 1;
+                          // _self.config.undoButton.disabled= "disabled";
+                          // _self.config.redoButton.removeAttribute('disabled');
+                          // _self.config.redoButton.disabled = false;
+                          _self.config.currentStateIndex -= 1;
+                      }
+                  }
+        }
+      }
     },
     redo(){
-      this.fabricAction.redo(this)
+      // this.fabricAction.redo(this)
+      let _self = this;
+      if(this.config.redoFinishedStatus){
+        if((this.config.currentStateIndex == this.config.canvasState.length-1) && this.config.currentStateIndex != -1){
+          // this.config.redoButton.disabled= true;
+        }else{
+          if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
+                  this.config.redoFinishedStatus = 0;
+                  this.config.redoStatus = true;
+                  this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
+                      var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex+1]);
+                      _self.$store.state.fabricObj.canvas.renderAll();
+                      _self.config.redoStatus = false;
+                      _self.config.currentStateIndex += 1;
+                      if(_self.config.currentStateIndex != -1){
+                      //    _self.config.redoButton.disabled = false;
+                      }
+                      _self.config.redoFinishedStatus = 1;
+                      if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
+                          // _self.config.redoButton.disabled= true;
+                      }
+            });
+          }
+        }
+      }
     },
+    updateCanvasState() {
+      var _self = this;
+      if(this.config.undoStatus == false && this.config.redoStatus == false){
+        var jsonData  = _self.$store.state.fabricObj.canvas.toJSON();
+        var canvasAsJson        = JSON.stringify(jsonData);
+        if(_self.config.currentStateIndex < _self.config.canvasState.length-1){
+          var indexToBeInserted                  = _self.config.currentStateIndex+1;
+          _self.config.canvasState[indexToBeInserted] = canvasAsJson;
+          var numberOfElementsToRetain           = indexToBeInserted+1;
+          _self.config.canvasState                    = _self.config.canvasState.splice(0,numberOfElementsToRetain);
+        }else{
+              _self.config.canvasState.push(canvasAsJson);
+        }
+              _self.config.currentStateIndex = _self.config.canvasState.length-1;
+              if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
+                  // _self.config.redoButton.disabled= true
+              }
+      }
+    }, 
+
+
+
+
+
     /**@augments
      * fucntion 转为图片并下载到本地
      */
@@ -581,12 +707,12 @@ export default {
   　　//创建一个a链接，模拟点击下载
   　　var dlLink = document.createElement('a');
       var filename = '个人画板_' + (new Date()).getTime() + '.png';
-  　　dlLink.download = filename;
-  　　dlLink.href = imgURL;
-  　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
-  　　document.body.appendChild(dlLink);
-  　　dlLink.click();
-  　　document.body.removeChild(dlLink);  
+    　　dlLink.download = filename;
+    　　dlLink.href = imgURL;
+    　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+    　　document.body.appendChild(dlLink);
+    　　dlLink.click();
+    　　document.body.removeChild(dlLink);  
     },
   }
 };

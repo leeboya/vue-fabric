@@ -20,6 +20,7 @@
     </div>   
       <canvas ref="canvas" class="canvas"  width="600" id="canvas"  height="400" @drop="drop($event)" @dragover="dragover($event)" ></canvas>
   </div>
+  <div><p>收藏夹</p></div>
 </div>
   
 </template>
@@ -82,6 +83,8 @@ export default {
   created() {
   },
   methods: {
+    
+
     hide(){
         this.canvas.getActiveObject().set('opacity', 0).setCoords();
         this.canvas.requestRenderAll()
@@ -95,8 +98,6 @@ export default {
         this.canvas.getActiveObject().set('scaleX', -1).setCoords();
         this.canvas.requestRenderAll();
     },
-
-
     canvasDataChange(){
       let _self = this;
       this.canvas.on('object:modified', function(){
@@ -194,15 +195,6 @@ export default {
 			}
 		}
 	},
-
-
-
-
-
-
-
-
-
     dragstart(ev){
       /*拖拽开始*/
       ev.dataTransfer.setData("url",ev.target.src);

@@ -57,6 +57,7 @@
 }
 .canvas{
     border: 1px solid red;
+    background-color: #fff;
 }
 </style>
 <script>
@@ -89,6 +90,8 @@ export default {
     //绘制画布
     let _self = this;
           this.canvas = new fabric.Canvas('canvas');
+          // var rect = new fabric.Rect({ width: this.canvas.width, height: this.canvas.height, fill: 'green' });
+          // this.canvas.add(rect);  
           this.leftBar={
             width:this.$refs.getLeftBarWidth.offsetWidth,
             height:this.$refs.getLeftBarWidth.offsetHeight
@@ -216,8 +219,9 @@ export default {
       //转换成base64
       var imgURL = this.canvas.toDataURL(MIME_TYPE);
   　　//创建一个a链接，模拟点击下载
+      var type = 'png';
   　　var dlLink = document.createElement('a');
-      var filename = '个人画板_' + (new Date()).getTime() + '.png';
+      var filename = '个人画板_' + (new Date()).getTime() +  '.' + type;
   　　dlLink.download = filename;
   　　dlLink.href = imgURL;
   　　dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
