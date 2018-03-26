@@ -57,7 +57,36 @@ module.exports = {
         changeOrigin: true,
       
       },
-    
+      '/user/info/register': {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
+    	'/user/info/login': {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
+      '/user/info/smsSend': {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
+      '/user/info/bindPhone': {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
+      "/user/info/update": {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
+      '/user/info/': {
+        target: 'http://192.168.3.245:8999/', 
+        changeOrigin: true,
+      
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

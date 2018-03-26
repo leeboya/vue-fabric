@@ -7,7 +7,13 @@ const start = () => import('@/views/start')
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
+
 const onself = () => import('@/views/onself');
+
+const login =() => import('@/views/login');
+const regist =() => import('@/views/regist');
+const personal =() => import('@/views/personal');
+
 
 export default new Router({
   mode: 'history',
@@ -48,7 +54,24 @@ export default new Router({
       component: onself,
       meta: {title: '设计IN-个人中心'}
     },
-   
+
+   	{
+      path: '/login',
+      name: 'login',
+      component: login,
+      meta: {title: '设计IN-设计师严选平台 | 登录'}
+    },
+    {
+      path: '/regist',
+      name: 'regist',
+      component: regist,
+      meta: {title: '设计IN-设计师严选平台 | 注册'}
+    },{
+      path: '/personal',
+      name: 'personal',
+      component: personal,
+      meta: {title: '设计IN-设计师严选平台 | 个人中心'}
+    },
   ],
 
 
