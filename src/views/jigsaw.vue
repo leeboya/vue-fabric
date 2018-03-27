@@ -5,56 +5,15 @@
             <single-product :list="productList" :type="listType"></single-product>
       </div>
       <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-             <div class="bar-nav"> 
-              <div class="optin-box" :class="$store.state.fabricObj.optionSelect ? 'select' : '' "> 
-                <span id="filter" class="optionElem"> <img src="@/assets/icon/filter.png" @click="showFilters" /> 
-                <div class="filter-list-c" v-show="showFilterList">
-                  亮度
-                  <input type="range" max="1" min="-1" @input="changeBright" step="0.01" v-model="lightnum" /> 
-                  <span>{{lightnum}}</span>
-                  <br /> 对比度
-                  <input type="range" max="1" min="-1" @input="changeContrast" step="0.01" v-model="contrastnum" /> 
-                  <span>{{contrastnum}}</span>
-                  <br /> 饱和度
-                  <input type="range" max="1" min="-1" @input="changeSaturationnum" step="0.01" v-model="saturationnum" /> 
-                  <span>{{saturationnum}}</span>
-                  <br /> 清晰度
-                  <input type="range" max="1" min="0" @input="changeBlurnum" step="0.01" v-model="blurnum" /> 
-                  <span>{{blurnum}}</span>
-                  <br /> 透明度
-                  <input type="range" max="100" min="0" @input="changeOpacity" step="0.01" v-model="opacitynum" /> 
-                  <span>{{opacitynum}}</span>
-                  <br /> 
-                </div> </span> 
-                <span id="cut" class="optionElem" @click="cut()"> <img src="@/assets/icon/cut.png" /> </span> 
-                <span id="copy" class="optionElem" @click="clone()"> <img src="@/assets/icon/copy.png" /> </span> 
-                <span id="lock" class="optionElem" @click="lock()"> <img :src="$store.state.fabricObj.unclock?'http://ovfllimsi.bkt.clouddn.com/lockOpen.png':'http://ovfllimsi.bkt.clouddn.com/lockClose.png'" /> </span> 
-                <span id="del" class="optionElem" @click="del()"> <img src="@/assets/icon/del.png" /> </span> 
-                <span id="group" class="optionElem" @click="group()"> <img src="@/assets/icon/group.png" /> </span> 
-                <span id="ungroup" class="optionElem" @click="ungroup()"> <img src="@/assets/icon/ungroup.png" /> </span> 
-                <span id="ward" class="optionElem forWordOption" @click="showHideForWard()"> <img src="@/assets/icon/forWard.png" /> </span> 
-                <span id="clip" class="optionElem" @click="clip()"> <img src="http://ovfllimsi.bkt.clouddn.com/flip.jpg" /> </span> 
-                <span id="display" class="optionElem option-special" @click="display()"> 显示 </span> 
-                <span id="hide" class="optionElem option-special" @click="hide()"> 隐藏 </span> 
-                <span id="undo" class="optionElem" @click="undo()"> <img src="http://ovfllimsi.bkt.clouddn.com/go-back.png" /> </span> 
-                <span id="redo" class="optionElem" @click="redo()"> <img src="http://ovfllimsi.bkt.clouddn.com/forword.jpg" /> </span> 
-                <span id="canvasToImage" class="optionElem" @click="canvasToImage()"> <img src="http://ovfllimsi.bkt.clouddn.com/down.jpg" /> </span> 
-                <div class="action" :class=" $store.state.fabricObj.forWrodBoxShow ? 'select' : '' "> 
-                <span id="forWard" class="elmForWard" @click="changeForWord('forWard')"> <img src="@/assets/icon/forWard.png" /> </span> 
-                <span id="backWard" class="elmForWard" @click="changeForWord('backWard')"> <img src="@/assets/icon/backWard.png" /> </span> 
-                <span id="toFront" class="elmForWard" @click="changeForWord('toFront')"> <img src="@/assets/icon/toFront.png" /> </span> 
-                <span id="toBack" class="elmForWard" @click="changeForWord('toBack')"> <img src="@/assets/icon/toBack.png" /> </span> 
-                </div> 
-              </div> 
+           
               <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
                 <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
                 <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
               </div> 
               </div>
             <div class="black-board">
-           
+              <option-nav></option-nav>
               <canvas id="canvas" width='761' height='589'></canvas>
-              
             </div>
         </div>
   </div>
@@ -63,8 +22,9 @@
 import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
+import optionNav from "@/components/option_nav";
 export default {
-  components: { topBar, guide, singleProduct },
+  components: { topBar, guide, singleProduct ,optionNav},
   data() {
     return {
       listType: "jigsaw",
@@ -1865,30 +1825,30 @@ export default {
                 this.config.canvasState[this.config.currentStateIndex - 1],
                 function() {
                   var jsonData = JSON.parse(
-                    _self.config.canvasState[_self.config.currentStateIndex - 1]
+                    _self.config.$store.state.fabricObj.canvasState[_self.config.$store.state.fabricObj.currentStateIndex - 1]
                   );
                   _self.$store.state.fabricObj.canvas.renderAll();
-                  _self.config.undoStatus = false;
-                  _self.config.currentStateIndex -= 1;
-                  // _self.config.undoButton.removeAttribute("disabled");
-                  // _self.config.undoButton.disabled = false;
+                  _self.config.$store.state.fabricObj.undoStatus = false;
+                  _self.config.$store.state.fabricObj.currentStateIndex -= 1;
+                  // _self.config.$store.state.fabricObj.undoButton.removeAttribute("disabled");
+                  // _self.config.$store.state.fabricObj.undoButton.disabled = false;
                   if (
-                    _self.config.currentStateIndex !==
-                    _self.config.canvasState.length - 1
+                    _self.config.$store.state.fabricObj.currentStateIndex !==
+                    _self.config.$store.state.fabricObj.canvasState.length - 1
                   ) {
-                    // _self.config.redoButton.removeAttribute('disabled');
-                    // _self.config.redoButton.disabled = false;
+                    // _self.config.$store.state.fabricObj.redoButton.removeAttribute('disabled');
+                    // _self.config.$store.state.fabricObj.redoButton.disabled = false;
                   }
-                  _self.config.undoFinishedStatus = 1;
+                  _self.config.$store.state.fabricObj.undoFinishedStatus = 1;
                 }
               );
-            } else if (_self.config.currentStateIndex == 0) {
+            } else if (_self.config.$store.state.fabricObj.currentStateIndex == 0) {
               _self.$store.state.fabricObj.canvas.clear();
-              _self.config.undoFinishedStatus = 1;
-              // _self.config.undoButton.disabled= "disabled";
-              // _self.config.redoButton.removeAttribute('disabled');
-              // _self.config.redoButton.disabled = false;
-              _self.config.currentStateIndex -= 1;
+              _self.config.$store.state.fabricObj.undoFinishedStatus = 1;
+              // _self.config.$store.state.fabricObj.undoButton.disabled= "disabled";
+              // _self.config.$store.state.fabricObj.redoButton.removeAttribute('disabled');
+              // _self.config.$store.state.fabricObj.redoButton.disabled = false;
+              _self.config.$store.state.fabricObj.currentStateIndex -= 1;
             }
           }
         }
@@ -1914,21 +1874,21 @@ export default {
               this.config.canvasState[this.config.currentStateIndex + 1],
               function() {
                 var jsonData = JSON.parse(
-                  _self.config.canvasState[_self.config.currentStateIndex + 1]
+                  _self.config.$store.state.fabricObj.canvasState[_self.config.$store.state.fabricObj.currentStateIndex + 1]
                 );
                 _self.$store.state.fabricObj.canvas.renderAll();
-                _self.config.redoStatus = false;
-                _self.config.currentStateIndex += 1;
-                if (_self.config.currentStateIndex != -1) {
-                  //    _self.config.redoButton.disabled = false;
+                _self.config.$store.state.fabricObj.redoStatus = false;
+                _self.config.$store.state.fabricObj.currentStateIndex += 1;
+                if (_self.config.$store.state.fabricObj.currentStateIndex != -1) {
+                  //    _self.config.$store.state.fabricObj.redoButton.disabled = false;
                 }
-                _self.config.redoFinishedStatus = 1;
+                _self.config.$store.state.fabricObj.redoFinishedStatus = 1;
                 if (
-                  _self.config.currentStateIndex ==
-                    _self.config.canvasState.length - 1 &&
-                  _self.config.currentStateIndex != -1
+                  _self.config.$store.state.fabricObj.currentStateIndex ==
+                    _self.config.$store.state.fabricObj.canvasState.length - 1 &&
+                  _self.config.$store.state.fabricObj.currentStateIndex != -1
                 ) {
-                  // _self.config.redoButton.disabled= true;
+                  // _self.config.$store.state.fabricObj.redoButton.disabled= true;
                 }
               }
             );
@@ -1942,26 +1902,26 @@ export default {
         var jsonData = _self.$store.state.fabricObj.canvas.toJSON();
         var canvasAsJson = JSON.stringify(jsonData);
         if (
-          _self.config.currentStateIndex <
-          _self.config.canvasState.length - 1
+          _self.config.$store.state.fabricObj.currentStateIndex <
+          _self.config.$store.state.fabricObj.canvasState.length - 1
         ) {
-          var indexToBeInserted = _self.config.currentStateIndex + 1;
-          _self.config.canvasState[indexToBeInserted] = canvasAsJson;
+          var indexToBeInserted = _self.config.$store.state.fabricObj.currentStateIndex + 1;
+          _self.config.$store.state.fabricObj.canvasState[indexToBeInserted] = canvasAsJson;
           var numberOfElementsToRetain = indexToBeInserted + 1;
-          _self.config.canvasState = _self.config.canvasState.splice(
+          _self.config.$store.state.fabricObj.canvasState = _self.config.$store.state.fabricObj.canvasState.splice(
             0,
             numberOfElementsToRetain
           );
         } else {
-          _self.config.canvasState.push(canvasAsJson);
+          _self.config.$store.state.fabricObj.canvasState.push(canvasAsJson);
         }
-        _self.config.currentStateIndex = _self.config.canvasState.length - 1;
+        _self.config.$store.state.fabricObj.currentStateIndex = _self.config.$store.state.fabricObj.canvasState.length - 1;
         if (
-          _self.config.currentStateIndex ==
-            _self.config.canvasState.length - 1 &&
-          _self.config.currentStateIndex != -1
+          _self.config.$store.state.fabricObj.currentStateIndex ==
+            _self.config.$store.state.fabricObj.canvasState.length - 1 &&
+          _self.config.$store.state.fabricObj.currentStateIndex != -1
         ) {
-          // _self.config.redoButton.disabled= true
+          // _self.config.$store.state.fabricObj.redoButton.disabled= true
         }
       }
     },

@@ -10,6 +10,7 @@ const fabricObj = {
         jigsawIsOpen:true,
         currentNav:'',
         isEditor:false,
+        config:{},
 
     },
 
@@ -40,6 +41,9 @@ const fabricObj = {
         },
         setEdit:(state,bool)=>{
             state.isEditor=bool;
+        },
+        setHistory:(state,data)=>{
+            state.config=data
         }
       
 

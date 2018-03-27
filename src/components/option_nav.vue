@@ -1,0 +1,260 @@
+<template>
+  <div class="bar-nav"> 
+    <div class="optin-box" :class="$store.state.fabricObj.optionSelect ? 'select' : '' "> 
+    <span id="filter" class="optionElem"> <img src="@/assets/icon/filter.png" @click="showFilters" /> 
+    <div class="filter-list-c" v-show="showFilterList">
+        亮度
+        <input type="range" max="1" min="-1" @input="changeBright" step="0.01" v-model="lightnum" /> 
+        <span>{{lightnum}}</span>
+        <br /> 对比度
+        <input type="range" max="1" min="-1" @input="changeContrast" step="0.01" v-model="contrastnum" /> 
+        <span>{{contrastnum}}</span>
+        <br /> 饱和度
+        <input type="range" max="1" min="-1" @input="changeSaturationnum" step="0.01" v-model="saturationnum" /> 
+        <span>{{saturationnum}}</span>
+        <br /> 清晰度
+        <input type="range" max="1" min="0" @input="changeBlurnum" step="0.01" v-model="blurnum" /> 
+        <span>{{blurnum}}</span>
+        <br /> 透明度
+        <input type="range" max="100" min="0" @input="changeOpacity" step="0.01" v-model="opacitynum" /> 
+        <span>{{opacitynum}}</span>
+        <br /> 
+    </div> </span> 
+    <span id="cut" class="optionElem" @click="cut()"> <img src="@/assets/icon/cut.png" /> </span> 
+    <span id="copy" class="optionElem" @click="clone()"> <img src="@/assets/icon/copy.png" /> </span> 
+    <span id="lock" class="optionElem" @click="lock()"> <img :src="$store.state.fabricObj.unclock?'http://ovfllimsi.bkt.clouddn.com/lockOpen.png':'http://ovfllimsi.bkt.clouddn.com/lockClose.png'" /> </span> 
+    <span id="del" class="optionElem" @click="del()"> <img src="@/assets/icon/del.png" /> </span> 
+    <span id="group" class="optionElem" @click="group()"> <img src="@/assets/icon/group.png" /> </span> 
+    <span id="ungroup" class="optionElem" @click="ungroup()"> <img src="@/assets/icon/ungroup.png" /> </span> 
+    <span id="ward" class="optionElem forWordOption" @click="showHideForWard()"> <img src="@/assets/icon/forWard.png" /> </span> 
+    <span id="clip" class="optionElem" @click="clip()"> <img src="http://ovfllimsi.bkt.clouddn.com/flip.jpg" /> </span> 
+    <span id="display" class="optionElem option-special" @click="display()"> 显示 </span> 
+    <span id="hide" class="optionElem option-special" @click="hide()"> 隐藏 </span> 
+    <span id="undo" class="optionElem" @click="undo()"> <img src="http://ovfllimsi.bkt.clouddn.com/go-back.png" /> </span> 
+    <span id="redo" class="optionElem" @click="redo()"> <img src="http://ovfllimsi.bkt.clouddn.com/forword.jpg" /> </span> 
+    <span id="canvasToImage" class="optionElem" @click="canvasToImage()"> <img src="http://ovfllimsi.bkt.clouddn.com/down.jpg" /> </span> 
+    <div class="action" :class=" $store.state.fabricObj.forWrodBoxShow ? 'select' : '' "> 
+    <span id="forWard" class="elmForWard" @click="changeForWord('forWard')"> <img src="@/assets/icon/forWard.png" /> </span> 
+    <span id="backWard" class="elmForWard" @click="changeForWord('backWard')"> <img src="@/assets/icon/backWard.png" /> </span> 
+    <span id="toFront" class="elmForWard" @click="changeForWord('toFront')"> <img src="@/assets/icon/toFront.png" /> </span> 
+    <span id="toBack" class="elmForWard" @click="changeForWord('toBack')"> <img src="@/assets/icon/toBack.png" /> </span> 
+    </div> 
+    </div> 
+    <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
+    <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
+    <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
+    </div> 
+</div>
+</template>
+<script>
+export default {
+    data(){
+        return {
+            showFilterList: false,
+            lightnum: 0,
+            contrastnum: 0,
+            saturationnum: 0,
+            blurnum: 0,
+            colornum: 0,
+            opacitynum: 0,
+            filter: fabric.Image.filters,
+            cutRect: {
+            el: "",
+            object: "",
+            lastActive: "",
+            object1: "",
+            object2: "",
+            cntObj: "",
+            selection_object_left: "",
+            selection_object_top: ""
+            },
+        }
+    },
+    methods:{
+
+    clone() {
+      var _this = this;
+      var timestamp = Date.parse(new Date());
+      _this.fabricAction.Copy(this);
+      setTimeout(function() {
+        _this.fabricAction.Paste(_this);
+        return;
+      }, 5);
+    },
+    del() {
+      var el = this.$store.state.fabricObj.canvas.getActiveObject();
+      this.$store.state.fabricObj.canvas.remove(el);
+    },
+
+    cut() {
+      this.$store.commit("setOptionSelect", false);
+      this.$store.commit("setCutSelect", true);
+      this.fabricAction.startCrop(this);
+    },
+    group() {
+      this.fabricAction.fabricObjGroup(this);
+    },
+    ungroup() {
+      this.fabricAction.fabricObjUnGroup(this);
+    },
+    cutCancle() {
+      this.$store.state.fabricObj.canvas.remove(this.cutRect.el);
+    },
+    cutSure() {
+      this.$store.commit("setOptionSelect", true);
+      this.$store.commit("setCutSelect", false);
+      this.fabricAction.crop(this);
+    },
+    showFilters: function() {
+      if (this.showFilterList) {
+        this.showFilterList = false;
+        return;
+      }
+      this.showFilterList = true;
+    },
+    getObject: function() {
+      return this.$store.state.fabricObj.canvas.getActiveObject();
+    },
+    changeOpacity: function() {
+      var obj = this.getObject();
+      obj.opacity = parseFloat(1 - this.opacitynum / 100);
+      this.$store.state.fabricObj.canvas.renderAll();
+    },
+    changeBlurnum: function() {
+      var obj = this.getObject();
+      obj.filters[3] = new this.filter.Blur({
+        blur: parseFloat(this.blurnum)
+      });
+      obj.applyFilters();
+      this.$store.state.fabricObj.canvas.renderAll();
+    },
+    changeSaturationnum: function() {
+      var obj = this.getObject();
+      obj.filters[2] = new this.filter.Saturation({
+        saturation: parseFloat(this.saturationnum)
+      });
+      obj.applyFilters();
+      this.$store.state.fabricObj.canvas.renderAll();
+    },
+    changeContrast: function() {
+      var obj = this.getObject();
+      obj.filters[1] = new this.filter.Contrast({
+        contrast: parseFloat(this.contrastnum)
+      });
+      obj.applyFilters();
+      this.$store.state.fabricObj.canvas.renderAll();
+    },
+    changeBright: function() {
+      var obj = this.getObject();
+      obj.filters[0] = new this.filter.Brightness({
+        brightness: parseFloat(this.lightnum)
+      });
+      obj.applyFilters();
+      this.$store.state.fabricObj.canvas.renderAll();
+    },
+    applyFilterValue: function(index, prop, value) {
+      var obj = this.canvas.getActiveObject();
+      if (obj.filters[index]) {
+        obj.filters[index][prop] = value;
+        obj.applyFilters();
+        this.$store.state.fabricObj.canvas.renderAll();
+      }
+    },
+    applyFilter: function(index, filter) {
+      var obj = canvas.getActiveObject();
+      obj.filters[index] = filter;
+      obj.applyFilters();
+      canvas.renderAll();
+    },
+    lock() {
+      this.fabricAction.lockOption(this);
+    },
+    showHideForWard() {
+      this.$store.commit(
+        "setForwordBox",
+        !this.$store.state.fabricObj.forWrodBoxShow
+      );
+    },
+    changeForWord(style){
+         this.fabricAction.fabricForward(this,style);
+
+    },
+    /**@augments
+     * anthor lifq
+     * @param
+     * @return 
+     */
+    clip(){
+      this.fabricAction.clip(this)
+    },
+    hide(){
+        this.fabricAction.hide(this)
+    },
+    display(){
+        this.fabricAction.display(this)
+    },
+
+    // 历史记录
+    undo(){
+      // this.fabricAction.undo(this)
+      let _self =this;
+      if( _self.$store.state.fabricObj.config.undoFinishedStatus){
+        if( this.$store.state.fabricObj.config.currentStateIndex == -1){
+               this.$store.state.fabricObj.config.undoStatus = false;
+              return
+        }
+      if ( this.$store.state.fabricObj.config.canvasState.length >= 1) {
+                 this.$store.state.fabricObj.config.undoFinishedStatus = 0;
+                if( this.$store.state.fabricObj.config.currentStateIndex != 0){
+                     this.$store.state.fabricObj.undoStatus = true;
+                    this.$store.state.fabricObj.canvas.loadFromJSON(_self.$store.state.fabricObj.config.canvasState[_self.$store.state.fabricObj.config.currentStateIndex-1],function(){
+                            var jsonData = JSON.parse(_self.$store.state.fabricObj.config.canvasState[_self.config.$store.state.fabricObj.config.currentStateIndex-1]);
+                            _self.$store.state.fabricObj.canvas.renderAll();
+                            _self.$store.state.fabricObj.config.undoStatus = false;
+                            _self.$store.state.fabricObj.config.currentStateIndex -= 1;
+                            _self.$store.state.fabricObj.config.undoFinishedStatus = 1;
+                    });
+                    return
+                }
+                 if(_self.$store.state.fabricObj.config.currentStateIndex == 0){
+                    _self.$store.state.fabricObj.canvas.clear();
+                    _self.$store.state.$store.fabricObj.config.undoFinishedStatus = 1;
+                    _self.$store.state.$store.fabricObj.config.currentStateIndex -= 1;
+                }
+        }
+      }
+    },
+    redo(){
+      var _self = this;
+      if(_self.$store.state.fabricObj.config.redoFinishedStatus){
+     {
+          if(this.$store.state.fabricObj.config.canvasState.length > this.$store.state.fabricObj.config.currentStateIndex && this.$store.state.fabricObj.config.canvasState.length != 0){
+                    this.$store.state.fabricObj.config.redoFinishedStatus = 0;
+                    this.$store.state.fabricObj.config.redoStatus = true;
+                    this.$store.state.fabricObj.$store.state.fabricObj.canvas.loadFromJSON(this.$store.state.fabricObj.config.canvasState[this.$store.state.fabricObj.config.currentStateIndex+1],function(){
+                    var jsonData = JSON.parse(_self.config.$store.state.fabricObj.canvasState[_self.config.$store.state.fabricObj.currentStateIndex+1]);
+                    _self.$store.state.fabricObj.canvas.renderAll();
+                    _self.$store.state.fabricObj.config.redoStatus = false;
+                    _self.$store.state.fabricObj.config.currentStateIndex += 1;
+                    _self.$store.state.fabricObj.config.redoFinishedStatus = 1;
+                      
+            });
+          }
+        }
+      }
+    },
+    }
+};
+</script>
+
+<style>
+.filter-list-c {
+  position: absolute;
+  background: #fff;
+  top: 20px;
+  right: 10px;
+  border: 1px solid #eee;
+  z-index: 999;
+  padding: 20px 20px 30px 20px;
+}
+</style>

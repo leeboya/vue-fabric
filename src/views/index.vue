@@ -450,8 +450,9 @@ export default {
   created() {},
   methods: {
     updateImg() {
+      var _this = this;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
-      this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
+      _this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
     },
     firstBindEvent(){
        var _this = this;
