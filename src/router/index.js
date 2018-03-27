@@ -9,6 +9,7 @@ const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
 
 const onself = () => import('@/views/onself');
+const addImage = () => import('@/views/addImagedemo');
 
 const login =() => import('@/views/login');
 const regist =() => import('@/views/regist');
@@ -52,6 +53,12 @@ export default new Router({
       path: '/onself',
       name: 'onself',
       component: onself,
+      meta: {title: '设计IN-个人中心'}
+    },
+    {
+      path: '/addImage',
+      name: 'addImage',
+      component: addImage,
       meta: {title: '设计IN-个人中心'}
     },
 

@@ -43,17 +43,27 @@ module.exports = {
       
       },
       '/boards': {
-        target: 'http://192.168.3.249:8080/', //赵玉
+        target: 'http://192.168.3.249:8904/', //赵玉
         changeOrigin: true,
       
       },
       '/boards/shared': {
-        target: 'http://192.168.3.249:8080/', //赵玉
+        target: 'http://192.168.3.249:8904/', //赵玉
         changeOrigin: true,
       
       },
       '/boards/unshared': {
-        target: 'http://192.168.3.249:8080/', //赵玉
+        target: 'http://192.168.3.249:8904/', //赵玉
+        changeOrigin: true,
+      
+      },
+      '/boards/images/isPrimary': {
+        target: 'http://192.168.3.249:8904/', //赵玉
+        changeOrigin: true,
+      
+      },
+      '/boards/images': {
+        target: 'http://192.168.3.249:8904/', //赵玉
         changeOrigin: true,
       
       },
