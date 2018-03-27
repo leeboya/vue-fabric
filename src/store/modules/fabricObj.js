@@ -7,7 +7,10 @@ const fabricObj = {
         unclock: false,
         _clipboard: {},
         forWrodBoxShow:false,
-        jigsawIsOpen:true
+        jigsawIsOpen:true,
+        currentNav:'',
+        isEditor:false,
+        config:{},
 
     },
 
@@ -32,7 +35,17 @@ const fabricObj = {
         },
         setJigsaw:(state,bool)=>{
             state.jigsawIsOpen=bool;
+        },
+        setCurrentNav:(state,data)=>{
+            state.currentNav=data;
+        },
+        setEdit:(state,bool)=>{
+            state.isEditor=bool;
+        },
+        setHistory:(state,data)=>{
+            state.config=data
         }
+      
 
     }
 };

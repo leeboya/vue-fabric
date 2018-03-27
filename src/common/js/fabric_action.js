@@ -255,7 +255,7 @@ const updateCanvasState = function(_this) {
     }
     config.currentStateIndex = config.canvasState.length-1;
     if((config.currentStateIndex == config.canvasState.length-1) && config.currentStateIndex != -1){
-        // _self.config.redoButton.disabled= true
+        // _self.config.$store.state.fabricObj.redoButton.disabled= true
     }
   } 
 }
@@ -279,11 +279,11 @@ const undo = function(_this) {
                 _self.canvas.renderAll();
                 config.undoStatus = false;
                 config.currentStateIndex -= 1;
-                    // _self.config.undoButton.removeAttribute("disabled");
-                    // _self.config.undoButton.disabled = false;
+                    // _self.config.$store.state.fabricObj.undoButton.removeAttribute("disabled");
+                    // _self.config.$store.state.fabricObj.undoButton.disabled = false;
                     if(config.currentStateIndex !== config.canvasState.length-1){
-                        // _self.config.redoButton.removeAttribute('disabled');
-                        // _self.config.redoButton.disabled = false;
+                        // _self.config.$store.state.fabricObj.redoButton.removeAttribute('disabled');
+                        // _self.config.$store.state.fabricObj.redoButton.disabled = false;
                     }
                 config.undoFinishedStatus = 1;
               });
@@ -291,9 +291,9 @@ const undo = function(_this) {
           else if(config.currentStateIndex == 0){
               _self.canvas.clear();
               config.undoFinishedStatus = 1;
-              // _self.config.undoButton.disabled= "disabled";
-              // _self.config.redoButton.removeAttribute('disabled');
-              // _self.config.redoButton.disabled = false;
+              // _self.config.$store.state.fabricObj.undoButton.disabled= "disabled";
+              // _self.config.$store.state.fabricObj.redoButton.removeAttribute('disabled');
+              // _self.config.$store.state.fabricObj.redoButton.disabled = false;
               config.currentStateIndex -= 1;
           }
       }
@@ -319,11 +319,11 @@ const redo = function(_this) {
               config.redoStatus = false;
               config.currentStateIndex += 1;
               if(config.currentStateIndex != -1){
-              //    _self.config.redoButton.disabled = false;
+              //    _self.config.$store.state.fabricObj.redoButton.disabled = false;
               }
               config.redoFinishedStatus = 1;
               if((config.currentStateIndex == config.canvasState.length-1) && config.currentStateIndex != -1){
-                  // _self.config.redoButton.disabled= true;
+                  // _self.config.$store.state.fabricObj.redoButton.disabled= true;
               }
           });
         }

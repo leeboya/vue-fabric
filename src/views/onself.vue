@@ -205,7 +205,8 @@ import axios from 'axios';
             },
             toAddImg(){
                 console.log(event.target.getAttribute("data-boardId"))
-                this.$router.push({path:'/addImage',params:{boardId:1}});//类似post传参
+                var boardId = event.target.getAttribute("data-boardId");
+                this.$router.push({path:'/addImage',query:{boardId:boardId}});//类似post传参
             },
 
 
