@@ -3,9 +3,7 @@
     <div class="large" v-if="!$store.state.fabricObj.jigsawIsOpen">
          <div class="logo">LOGO</div>
           <div class="classfily">
-              <span class="active">单品</span>
-              <span>拼图</span>
-              <span>品牌</span>
+              <span  v-for="item in menu" v-bind:class="{ 'active': $store.state.fabricObj.currentNav==item.link }"  @click="goLink(item.link)">{{item.name}}</span>
           </div>
           <div class="aside">
               <span><img src="" alt=""></span>
@@ -27,12 +25,25 @@
 export default {
   data(){
     return {
+        menu: [
+          { link: "sing",name: "单品" },
+          { link: "jigsaw",name: "拼图" },
+          { link: "brand",name: "品牌" },
 
+      ]
     }
+    
   },
   methods:{
+  
     changeJigsaw(){
        this.$store.commit("setJigsaw", !this.$store.state.fabricObj.jigsawIsOpen);
+    },
+     goLink(link) {
+      this.$router.push({
+        path: "/" + link
+      });
+     
     }
   }
 };
@@ -51,6 +62,7 @@ export default {
                 padding:0 43px;
                 line-height: 64px;
                 position: relative;
+                cursor: pointer;
               }
               .active{
                 &:after{

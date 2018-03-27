@@ -50,10 +50,10 @@
                   <span id="clip" class="optionElem" @click="clip()">
                   <img src="http://ovfllimsi.bkt.clouddn.com/flip.jpg">
                 </span>
-                <span id="display" class="optionElem" @click="display()">
+                <span id="display" class="optionElem option-special" @click="display()">
                   显示
                 </span>
-                <span id="hide" class="optionElem" @click="hide()">
+                <span id="hide" class="optionElem option-special" @click="hide()">
                   隐藏
                 </span>
                 <span id="undo" class="optionElem" @click="undo()">
@@ -108,6 +108,7 @@
   .img-prev {
   display: none;
   }
+
     .wrap {
     float: left;
     width: 800px;
@@ -119,6 +120,7 @@
       background: #eee;
       padding: 10px;
       height: 30px;
+      position: relative;
     }
     .optin-box {
         // display: none;
@@ -127,6 +129,10 @@
         display: inline-block;
         width: 25px;
         margin-right: 20px;
+        vertical-align: middle;
+        &.option-special{
+          width:40px;
+        }
         cursor: pointer;
         img {
           display: inline-block;
@@ -156,6 +162,11 @@
     }
     .cut-optin {
       display: none;
+      position: absolute;
+      left: 100px;
+      background: #fff;
+      padding: 2px 10px;
+      border: #eee 1px solid;
       span {
         display: inline-block;
         width: 25px;
@@ -439,9 +450,8 @@ export default {
   created() {},
   methods: {
     updateImg() {
-      var _this = this;
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
-      _this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
+      this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
     },
     firstBindEvent(){
        var _this = this;

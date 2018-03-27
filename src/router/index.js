@@ -3,25 +3,27 @@ import Router from 'vue-router'
 
 
 Vue.use(Router)
-const start = () => import('@/views/start')
+const sing = () => import('@/views/sing')
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
 const onself = () => import('@/views/onself');
+const upload = () => import('@/views/upload');
+const jigsaw = () => import('@/views/jigsaw');
 
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'start',
-      component: start,
+      name: 'sing',
+      component: sing,
       meta: {title: '设计IN-设计师严选平台'}
     },
     {
-      path: '/start',
-      name: 'start',
-      component: start,
+      path: '/sing',
+      name: 'sing',
+      component: sing,
       meta: {title: '设计IN-设计师严选平台'}
     },
     {
@@ -47,6 +49,18 @@ export default new Router({
       name: 'onself',
       component: onself,
       meta: {title: '设计IN-个人中心'}
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: upload,
+      meta: {title: '设计IN-上传'}
+    },
+    {
+      path: '/jigsaw',
+      name: 'jigsaw',
+      component: jigsaw,
+      meta: {title: '设计IN-上传'}
     },
    
   ],

@@ -6,9 +6,9 @@
                 <span class="btn">筛选</span>
         </div>
      <div class="container"> 
-        <div class="waterfall"> 
-            <div class="pin" v-for="item in productList"> 
-              <span @click="collection">收藏</span>
+        <div class="waterfall" ref="getLeftBarWidth"> 
+            <div class="pin" v-for="item in list"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.obj)"> 
+              <!-- <span @click="collection">收藏</span> -->
                 <img :src="item.pic" > 
                 <p>1 convallis timestamp</p> 
             </div> 
@@ -20,89 +20,21 @@
  
 </template>
 <script>
+import Vue from 'vue'
+var vm={};
 export default {
-  data() {
+  props: ["list","type"],
+ data(){
     return {
-      productList: [
-        {
-          pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/4aeaf5c16002988db3fc89e3608a18ca540e806728c5c7-9I7wRn_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/5e9504beda02770814d7d3f501b3a69804e0d66d13273-5YG3rM_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/f468b05081e3bd7f92dbd0c69dab287d8c7fc1182a1f8d-Pot2uw_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/0f1ff2f20f70172a6383755951e025876fd261689f8ae-KF0mpy_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/451dd19402c8d945a5bd55c220bbf449afc2ab3e7bf56-NYBQEq_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/aad203ac19f420aa8e9a8a9b5e706fc22d866cb998301-iHLn1o_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/4aeaf5c16002988db3fc89e3608a18ca540e806728c5c7-9I7wRn_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/5e9504beda02770814d7d3f501b3a69804e0d66d13273-5YG3rM_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/f468b05081e3bd7f92dbd0c69dab287d8c7fc1182a1f8d-Pot2uw_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/0f1ff2f20f70172a6383755951e025876fd261689f8ae-KF0mpy_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/451dd19402c8d945a5bd55c220bbf449afc2ab3e7bf56-NYBQEq_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/aad203ac19f420aa8e9a8a9b5e706fc22d866cb998301-iHLn1o_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
-        },
-        {
-          pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
-        },
-      ]
+      leftBar:{},  //左侧宽高
+      canvasPos:{}, //canvas 宽高
+      mouseImgPos:{} // 鼠标拖拽相对图片的位置
+    
     };
   },
   mounted(){
-    window.onclose = function(){
-      alert(1)
-    }
+    this.drawObj();
+    vm=this;
   },
   methods:{
     /**@augments
@@ -111,6 +43,75 @@ export default {
     collection(){
       console.log(1)
       // 判断是否登陆 无 跳登陆注册   添加收藏夹 或者取消收藏
+    },
+ 
+       dragstart(ev) {
+          /*拖拽开始*/
+          ev.dataTransfer.setData("url", ev.target.src);
+          ev.dataTransfer.setData("id", ev.target.id);
+          let url = ev.dataTransfer.getData("url");
+          this.mouseImgPos={
+          x: ev.offsetX,
+          y: ev.offsetY
+          }
+    },
+      dragend(ev,obj) {
+        /*拖拽结束*/
+        let url = ev.path[0].currentSrc;
+        let imgId = ev.path[0].id + new Date().getTime();
+        // this.$emit('childMethod','childParam');
+        //第一个参数名为调用的方法名，第二个参数为需要传递的参数
+        let pos = {
+          left: 10,
+          top: 10,
+          width: 100,
+          height: 100,
+          angle: 0
+        };
+        // && ev.offsetY > this.canvasPos.y && ev.offsetY < this.canvasPos.b 
+        if(ev.offsetX > this.canvasPos.x && ev.offsetX < this.canvasPos.r ){
+          
+          if(this.type=='jigsaw'){
+               vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
+               return
+                 
+               
+          }
+          vm.cover(url,ev, canvas);
+              //  this.cover(url,ev, canvas);
+        }
+      },
+      cover(url, ev, canvas) {
+          var _this = this;
+          //- _this.mouseImgPos.y
+          new fabric.Image.fromURL(url, function(oImg) {
+            oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x;
+            oImg.top = ev.offsetY - _this.canvasPos.y ;
+            oImg.scale(1);
+            _this.$store.state.fabricObj.canvas.add(oImg);
+            setTimeout(function() {
+              _this.fabricAction.bindSeletUnSelectEvent(oImg,_this);
+            }, 50);
+          });
+        },
+        drop(ev) {
+          ev.preventDefault();
+        },
+    drawObj(){
+         this.leftBar={
+          width:this.$refs.getLeftBarWidth.offsetWidth,
+          height:this.$refs.getLeftBarWidth.offsetHeight
+        };
+        this.canvasPos={
+            x : document.querySelector('canvas').getBoundingClientRect().left,
+            y : document.querySelector('canvas').getBoundingClientRect().top,
+            w : document.querySelector('canvas').getBoundingClientRect().width,
+            h : document.querySelector('canvas').getBoundingClientRect().height,
+            l : document.querySelector('canvas').getBoundingClientRect().left,
+            t : document.querySelector('canvas').getBoundingClientRect().top,
+            r : document.querySelector('canvas').getBoundingClientRect().right,
+            b : document.querySelector('canvas').getBoundingClientRect().bottom
+        }
     }
   }
 };
