@@ -12,7 +12,7 @@
               </div> 
               </div>
             <div class="black-board">
-              <option-nav></option-nav>
+              <option-nav :config="config"></option-nav>
               <canvas id="canvas" width='761' height='589'></canvas>
             </div>
         </div>

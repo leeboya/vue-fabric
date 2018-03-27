@@ -9,7 +9,7 @@
             <div class="top-bar"></div>
             <div class="opton"></div>
             <div class="black-board">
-             <option-nav></option-nav>
+             <option-nav :config="config"></option-nav>
                <canvas id="canvas" width='761' height='589'></canvas>
             </div>
         </div>
@@ -100,6 +100,16 @@ export default {
             "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
         }
       ],
+      config:{
+          canvasState             : [],
+          currentStateIndex       : -1,
+          redoStatus              : false, //撤销状态
+          undoStatus              : false,  // 重做状态
+          undoFinishedStatus      : 1,
+          redoFinishedStatus      : 1,
+          undoButton              : this.$refs.undo,
+          redoButton              : this.$refs.redo,
+      },
       canvasObj:{
         "objects": [
         {
@@ -301,16 +311,6 @@ export default {
   components: { topBar, guide, singleProduct ,optionNav},
   mounted() {
     this.$store.commit("setCurrentNav", "sing");
-    this.$store.commit("setHistory",{
-          canvasState             : [],
-          currentStateIndex       : -1,
-          redoStatus              : false, //撤销状态
-          undoStatus              : false,  // 重做状态
-          undoFinishedStatus      : 1,
-          redoFinishedStatus      : 1,
-          undoButton              : this.$refs.undo,
-          redoButton              : this.$refs.redo,
-      })
      //绘制画布
     this.updateImg();
     //监听canvas 事件
@@ -334,14 +334,10 @@ export default {
 
     // canvas操作事件监听
     canvasDataChange() {
-      // this.fabricAction.canvasDataChange(this)
       let _self = this;
       this.$store.state.fabricObj.canvas.on("object:modified", function() {
         _self.updateCanvasState();
       });
-      // this.$store.state.fabricObj.canvas.on('object:moving', function(){
-      //     _self.updateCanvasState();
-      // });
       this.$store.state.fabricObj.canvas.on("object:added", function() {
         _self.updateCanvasState();
       });
@@ -356,17 +352,17 @@ export default {
    
     updateCanvasState() {
       var _self = this;
-      if ( _self.$store.state.fabricObj.config.undoStatus == false && _self.$store.state.fabricObj.config.redoStatus == false) {
+      if ( _self.config.undoStatus == false && _self.config.redoStatus == false) {
         var jsonData = _self.$store.state.fabricObj.canvas.toJSON();
         var canvasAsJson = JSON.stringify(jsonData);
-        if (_self.$store.state.fabricObj.config.currentStateIndex <_self.$store.state.fabricObj.config.canvasState.length - 1) {
-          var indexToBeInserted =  _self.$store.state.fabricObj.config.currentStateIndex + 1;
-          _self.$store.state.fabricObj.config.canvasState[indexToBeInserted] = canvasAsJson;
+        if (_self.config.currentStateIndex <_self.config.canvasState.length - 1) {
+          var indexToBeInserted =  _self.config.currentStateIndex + 1;
+          _self.config.canvasState[indexToBeInserted] = canvasAsJson;
           var numberOfElementsToRetain = indexToBeInserted + 1;
-         _self.$store.state.fabricObj.config.canvasState =_self.$store.state.fabricObj.config.canvasState.splice(
+         _self.config.canvasState =_self.config.canvasState.splice(
             0, numberOfElementsToRetain);
         } 
-        _self.$store.state.fabricObj.config.currentStateIndex = _self.$store.state.fabricObj.config.canvasState.length - 1;
+        _self.config.currentStateIndex = _self.config.canvasState.length - 1;
       
       }
     },

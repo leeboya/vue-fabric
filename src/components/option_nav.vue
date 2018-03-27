@@ -48,6 +48,7 @@
 </template>
 <script>
 export default {
+    props: ["config"],
     data(){
         return {
             showFilterList: false,
@@ -198,45 +199,45 @@ export default {
     undo(){
       // this.fabricAction.undo(this)
       let _self =this;
-      if( _self.$store.state.fabricObj.config.undoFinishedStatus){
-        if( this.$store.state.fabricObj.config.currentStateIndex == -1){
-               this.$store.state.fabricObj.config.undoStatus = false;
+      if( _self.config.undoFinishedStatus){
+        if(this.config.currentStateIndex == -1){
+              this.config.undoStatus = false;
               return
         }
-      if ( this.$store.state.fabricObj.config.canvasState.length >= 1) {
-                 this.$store.state.fabricObj.config.undoFinishedStatus = 0;
-                if( this.$store.state.fabricObj.config.currentStateIndex != 0){
+      if (this.config.canvasState.length >= 1) {
+                this.config.undoFinishedStatus = 0;
+                if(this.config.currentStateIndex != 0){
                      this.$store.state.fabricObj.undoStatus = true;
-                    this.$store.state.fabricObj.canvas.loadFromJSON(_self.$store.state.fabricObj.config.canvasState[_self.$store.state.fabricObj.config.currentStateIndex-1],function(){
-                            var jsonData = JSON.parse(_self.$store.state.fabricObj.config.canvasState[_self.config.$store.state.fabricObj.config.currentStateIndex-1]);
+                    this.$store.state.fabricObj.canvas.loadFromJSON(_self.config.canvasState[_self.config.currentStateIndex-1],function(){
+                            var jsonData = JSON.parse(_self.config.canvasState[_self.config.$store.state.fabricObj.config.currentStateIndex-1]);
                             _self.$store.state.fabricObj.canvas.renderAll();
-                            _self.$store.state.fabricObj.config.undoStatus = false;
-                            _self.$store.state.fabricObj.config.currentStateIndex -= 1;
-                            _self.$store.state.fabricObj.config.undoFinishedStatus = 1;
+                            _self.config.undoStatus = false;
+                            _self.config.currentStateIndex -= 1;
+                            _self.config.undoFinishedStatus = 1;
                     });
                     return
                 }
-                 if(_self.$store.state.fabricObj.config.currentStateIndex == 0){
+                 if(_self.config.currentStateIndex == 0){
                     _self.$store.state.fabricObj.canvas.clear();
-                    _self.$store.state.$store.fabricObj.config.undoFinishedStatus = 1;
-                    _self.$store.state.$store.fabricObj.config.currentStateIndex -= 1;
+                   _self.config.undoFinishedStatus = 1;
+                   _self.config.currentStateIndex -= 1;
                 }
         }
       }
     },
     redo(){
       var _self = this;
-      if(_self.$store.state.fabricObj.config.redoFinishedStatus){
+      if(_self.config.redoFinishedStatus){
      {
-          if(this.$store.state.fabricObj.config.canvasState.length > this.$store.state.fabricObj.config.currentStateIndex && this.$store.state.fabricObj.config.canvasState.length != 0){
-                    this.$store.state.fabricObj.config.redoFinishedStatus = 0;
-                    this.$store.state.fabricObj.config.redoStatus = true;
-                    this.$store.state.fabricObj.$store.state.fabricObj.canvas.loadFromJSON(this.$store.state.fabricObj.config.canvasState[this.$store.state.fabricObj.config.currentStateIndex+1],function(){
+          if(this.config.canvasState.length >this.config.currentStateIndex &&this.config.canvasState.length != 0){
+                   this.config.redoFinishedStatus = 0;
+                   this.config.redoStatus = true;
+                    this.$store.state.fabricObj.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
                     var jsonData = JSON.parse(_self.config.$store.state.fabricObj.canvasState[_self.config.$store.state.fabricObj.currentStateIndex+1]);
                     _self.$store.state.fabricObj.canvas.renderAll();
-                    _self.$store.state.fabricObj.config.redoStatus = false;
-                    _self.$store.state.fabricObj.config.currentStateIndex += 1;
-                    _self.$store.state.fabricObj.config.redoFinishedStatus = 1;
+                    _self.config.redoStatus = false;
+                    _self.config.currentStateIndex += 1;
+                    _self.config.redoFinishedStatus = 1;
                       
             });
           }
