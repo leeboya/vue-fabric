@@ -56,7 +56,6 @@ export default new Router({
       component: onself,
       meta: {title: '设计IN-个人中心'}
     },
-<<<<<<< HEAD
     {
       path: '/upload',
       name: 'upload',
@@ -70,7 +69,6 @@ export default new Router({
       meta: {title: '设计IN-上传'}
     },
    
-=======
 
    	{
       path: '/login',
@@ -89,7 +87,7 @@ export default new Router({
       component: personal,
       meta: {title: '设计IN-设计师严选平台 | 个人中心'}
     },
->>>>>>> e5359094589a906774637d40ea33e03a1ba23d32
+
   ],
 
 
