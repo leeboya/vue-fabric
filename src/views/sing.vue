@@ -10,7 +10,7 @@
             <div class="opton"></div>
             <div class="black-board">
              <option-nav :config="config"></option-nav>
-               <canvas id="canvas" width='761' height='589'></canvas>
+              <canvas id="canvas" width='761' height='589'></canvas>
             </div>
         </div>
 
