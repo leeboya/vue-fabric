@@ -248,7 +248,7 @@ export default {
 };
 </script>
 
-<style>
+<style rel="stylesheet/scss" lang="scss">
 .filter-list-c {
   position: absolute;
   background: #fff;
@@ -258,4 +258,70 @@ export default {
   z-index: 999;
   padding: 20px 20px 30px 20px;
 }
+ .bar-nav {
+      background: #eee;
+      padding: 10px;
+      height: 30px;
+      position: relative;
+    }
+    .optin-box {
+        // display: none;
+        position: relative;
+        span {
+        display: inline-block;
+        width: 25px;
+        margin-right: 20px;
+        vertical-align: middle;
+        &.option-special{
+          width:40px;
+        }
+        cursor: pointer;
+        img {
+          display: inline-block;
+          float: left;
+          width: 100%;
+          }
+      }
+    .action {
+    width: 220px;
+    position: absolute;
+    background-color: #eee;
+    padding: 4px;
+    top: 10px;
+    left: 450px;
+    border: #ccc 1px solid;
+    display: none;
+    &.select {
+    display: block;
+    }
+    span{
+        display: inline-block;
+        img {
+            width: 25px;
+        }
+    }
+        }
+    }
+    .cut-optin {
+      display: none;
+      position: absolute;
+      left: 100px;
+      background: #fff;
+      padding: 2px 10px;
+      border: #eee 1px solid;
+      span {
+        display: inline-block;
+        width: 25px;
+        margin-right: 20px;
+        cursor: pointer;
+        img {
+          display: inline-block;
+          float: left;
+          width: 100%;
+        }
+      }
+    }
+    .select {
+      display: block;
+    }
 </style>
