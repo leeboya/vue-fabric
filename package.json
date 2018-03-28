@@ -16,6 +16,7 @@
     "axios": "^0.18.0",
     "chalk": "^2.3.1",
     "child_process": "^1.0.2",
+    "element-ui": "^2.2.2",
     "express": "^4.16.2",
     "fabric": "^2.1.0",
     "fs": "^0.0.1-security",
