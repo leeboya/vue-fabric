@@ -10,7 +10,7 @@
 		 <input value="绑定" type="button" @click="bindPhone" />
 		 <div>
 		 	<p>微信绑定</p>
-		 	<input type="button" value="微信绑定接口" />
+		 	<input type="button"  value="微信绑定接口" />
 		 	
 		 </div>
 		 <div>
@@ -53,7 +53,7 @@
 		},
 		mounted(){
 			//todos 获取登录用户wechatId
-//			console.log(document.cookie)
+			console.log(document.cookie);
 //			this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		

@@ -67,33 +67,33 @@ module.exports = {
         changeOrigin: true,
       
       },
-      '/user/info/register': {
-        target: 'http://192.168.3.245:8999/', 
+      '/api/v1/user/info/register': {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
-    	'/user/info/login': {
-        target: 'http://192.168.3.245:8999/', 
+    	'/api/v1/user/info/login': {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
-      '/user/info/smsSend': {
-        target: 'http://192.168.3.245:8999/', 
+      '/api/v1/user/info/smsSend': {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
-      '/user/info/bindPhone': {
-        target: 'http://192.168.3.245:8999/', 
+      '/api/v1/user/info/bindPhone': {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
-      "/user/info/update": {
-        target: 'http://192.168.3.245:8999/', 
+      "/api/v1/user/info/update": {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
-      '/user/info/': {
-        target: 'http://192.168.3.245:8999/', 
+      '/api/v1/user/info/': {
+        target: 'http://192.168.14.174:8999/', 
         changeOrigin: true,
       
       },
