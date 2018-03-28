@@ -54,7 +54,6 @@ export default {
         x: ev.offsetX,
         y: ev.offsetY
       }
-      console.log(ev.clientX)
     },
       dragend(ev,obj) {
         /*拖拽结束*/
@@ -69,14 +68,10 @@ export default {
           height: 100,
           angle: 0
         };
-        console.log(ev.clientX +'==='+ this.canvasPos.x)
         if(ev.clientX > this.canvasPos.x  && ev.clientX < this.canvasPos.r ){
-          
           if(this.type=='jigsaw'){
                vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
-               return
-                 
-               
+               return                   
           }
           vm.cover(url,ev, canvas);
               //  this.cover(url,ev, canvas);
@@ -85,7 +80,6 @@ export default {
       cover(url, ev, canvas) {
           var _this = this;
           //- _this.mouseImgPos.y
-          console.log('执行')
           new fabric.Image.fromURL(url, function(oImg) {
             oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
             oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y ;
