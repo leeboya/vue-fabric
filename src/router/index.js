@@ -19,7 +19,7 @@ const jigsaw = () => import('@/views/jigsaw');
 const login =() => import('@/views/login');
 const regist =() => import('@/views/regist');
 const personal =() => import('@/views/personal');
-
+const images=()=>import('@/views/image');
 
 export default new Router({
   mode: 'history',
@@ -99,7 +99,12 @@ export default new Router({
       component: personal,
       meta: {title: '设计IN-设计师严选平台 | 个人中心'}
     },
-
+		{
+      path: '/images',
+      name: 'images',
+      component: images,
+      meta: {title: '设计IN-设计师严选平台 | 图库'}
+    },
   ],
 
 

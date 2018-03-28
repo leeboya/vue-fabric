@@ -433,11 +433,12 @@ export default {
           var indexToBeInserted = _self.config.currentStateIndex + 1;
           _self.config.canvasState[indexToBeInserted] = canvasAsJson;
           var numberOfElementsToRetain = indexToBeInserted + 1;
-          _self.config.canvasState = _self.config.canvasState.splice(
-            0,
-            numberOfElementsToRetain
-          );
-        }
+
+         _self.config.canvasState =_self.config.canvasState.splice(
+            0, numberOfElementsToRetain);
+        }else{
+          _self.config.canvasState.push(canvasAsJson);
+        } 
         _self.config.currentStateIndex = _self.config.canvasState.length - 1;
       }
     },

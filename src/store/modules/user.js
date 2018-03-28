@@ -1,14 +1,11 @@
 const user = {
 	state:{
-		data:{
-			
-		},
 		userId:"",
 		weichatId:""
 	},
 	mutations:{
-		saveUserId:function(state,user){
-			state.userId = user.userId;
+		saveUserId:(state,userId)=>{
+			state.userId = userId;
 		}
 	}
 }

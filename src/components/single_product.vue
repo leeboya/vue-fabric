@@ -72,7 +72,10 @@ export default {
           if(this.type=='jigsaw'){
                vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
                return                   
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4cc4ab34259502fbeb2a4f5ed9761676143cc523
           }
           vm.cover(url,ev, canvas);
         

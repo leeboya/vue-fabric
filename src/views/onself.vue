@@ -52,7 +52,14 @@ import axios from 'axios';
                             // _self.collectionList = response.data;
                             _self.tempData = response.data;
                             _self.tempData.forEach((element, index) => {
-                                _self.getImg(element.boardId, index)
+                                _self.getImg(element.boardId, index);
+                                // 如果 调用图片接口完成
+                                if(index == _self.tempData.length -1){
+                                    setTimeout(function(){
+                                        _self.collectionList = _self.tempData;
+                                    },100)
+                                    
+                                }
                             });
 
                         })
@@ -88,6 +95,8 @@ import axios from 'axios';
                             alert('删除失败')
                         }
                         alert('删除成功')
+                        _self.getCollection();
+
                     })
                     .catch(function(err){
                         
@@ -172,15 +181,7 @@ import axios from 'axios';
                 axios.get(`/boards/images/${boardId}`)
                         .then(function(res){
                             _self.boardImg[index] = res.data
-                            _self.tempData[index].boardImg = res.data;
-                            // 如果 调用图片接口完成
-                            if(index == _self.tempData.length ){
-                                _self.collectionList = _self.tempData;
-                                _self.collectionList[index].boardImg.forEach(element=>{
-                                    console.log(index +'==='+element.imgUrl)
-                                })
-                            }
-                            
+                            _self.tempData[index].boardImg = res.data;              
                         })
                         .catch(function(err){
                             console.log(err);
