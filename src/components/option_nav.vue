@@ -60,16 +60,18 @@ export default {
             opacitynum: 0,
             filter: fabric.Image.filters,
             cutRect: {
-            el: "",
-            object: "",
-            lastActive: "",
-            object1: "",
-            object2: "",
-            cntObj: "",
-            selection_object_left: "",
-            selection_object_top: ""
+              el: "",
+              object: "",
+              lastActive: "",
+              object1: "",
+              object2: "",
+              cntObj: "",
+              selection_object_left: "",
+              selection_object_top: ""
             },
         }
+    },
+    mounted(){
     },
     methods:{
 
@@ -198,6 +200,7 @@ export default {
     // 历史记录
     undo(){
       // this.fabricAction.undo(this)
+      // console.log(this.config)
       let _self =this;
       if( _self.config.undoFinishedStatus){
         if(this.config.currentStateIndex == -1){
