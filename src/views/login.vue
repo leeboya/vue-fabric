@@ -55,7 +55,7 @@
 				})
 			},
 			loginBywx:function(){
-				window.location.href = "http://192.168.3.245:8999/user/wechat/login?redirectUrl=https://www.baidu.com";
+				window.location.href = "http://6068ab60.ngrok.io/api/v1/user/wechat/login?redirectUrl=http://6068ab60.ngrok.io/personal";
 //				loginBywx();
 			}
 		}
