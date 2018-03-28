@@ -14,7 +14,9 @@
     <div v-else class="small">
         <span class="menu"><img src="@/assets/icon/menu.png" alt=""></span>
         <div class="aside">
-            <span class="person"><img src="@/assets/icon/person.png"alt=""></span>
+        	<router-link to="/personal">
+        		<span class="person"><img src="@/assets/icon/person.png"alt=""></span>
+        	</router-link>
             <span class="change" @click="changeJigsaw()">切换</span>
         </div>
     </div>

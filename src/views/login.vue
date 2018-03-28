@@ -43,7 +43,7 @@
 							_this.$store.commit('saveUserId',{userId:res.data.data});
 //							console.log(_this.$store.getters.getUserId)
 							setTimeout(function(){
-								_this.$router.push({path:'/personal'});
+								_this.$router.push({path:'/'});
 							},2000)
 						}else{
 							_this.tip = res.data.msg;
