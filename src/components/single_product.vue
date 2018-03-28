@@ -74,8 +74,8 @@ export default {
                return                   
           }
           vm.cover(url,ev, canvas);
-              //  this.cover(url,ev, canvas);
-        }
+        
+       }
       },
       cover(url, ev, canvas) {
           var _this = this;
@@ -86,6 +86,7 @@ export default {
             oImg.scale(1);
             _this.$store.state.fabricObj.canvas.add(oImg);
             setTimeout(function() {
+             
               _this.fabricAction.bindSeletUnSelectEvent(oImg,_this);
             }, 50);
           });

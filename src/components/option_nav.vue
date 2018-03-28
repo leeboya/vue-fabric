@@ -196,7 +196,6 @@ export default {
     display(){
         this.fabricAction.display(this)
     },
-
     // 历史记录
     undo(){
       let _self =this;
