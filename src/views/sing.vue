@@ -24,7 +24,15 @@ import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
-import { create,list,sasve } from "@/api/case";
+import {
+  create,
+  list,
+  save,
+  del,
+  update,
+  caseBasic,
+  casedetails
+} from "@/api/case";
 export default {
   data() {
     return {
@@ -317,16 +325,64 @@ export default {
     //监听canvas 事件
     this.canvasDataChange();
     this.createCase({
-        description: "这是测试的", //描述
-        isEditable: 0, //是否可以修改
-        isPrivate: 0, //是否私有
-        memberId: "00001", //会员ID
-        refId: "a001", //引用ID
-        thumb: "", // 缩略图url
-        title: "第一条案例" //案例主题或者名称吧
-      });//创建案例
+      description: "这是测试的", //描述
+      isEditable: 0, //是否可以修改
+      isPrivate: 0, //是否私有
+      memberId: "00001", //会员ID
+      refId: "a001", //引用ID
+      thumb: "", // 缩略图url
+      title: "第一条案例" //案例主题或者名称吧
+    }); //创建案例
 
-      this.getCaseList('00001');
+    this.saveData({
+      caseMO: {
+        data: "string",
+        paletteId: "string",
+        time: "2018-03-28T10:57:41.682Z"
+      },
+      palette: {
+        modificationNumber: 0,
+        createBy: null,
+        createDate: null,
+        updateBy: null,
+        updateDate: null,
+        delFlag: 0,
+        paletteId: "978904609705238530",
+        refId: "a001",
+        memberId: "00001",
+        title: "第一条案例",
+        thumb: "",
+        description: "这是测试的",
+        isPrivate: 0,
+        dataId: null,
+        isEditable: 0
+      }
+    });
+
+    this.updateCase("978901410936070145", {
+      createBy: "string",
+      createDate: "2018-03-28T11:18:26.72226Z",
+      dataId: "string",
+      delFlag: 0,
+      description: "string",
+      id: 0,
+      isEditable: 0,
+      isPrivate: 0,
+      memberId: "string",
+      modificationNumber: 0,
+      paletteId: "string",
+      refId: "string",
+      thumb: "string",
+      title: "string",
+      updateBy: "string",
+      updateDate: "2018-03-28T11:18:26.796Z"
+    });
+
+    // this.getCaseList("00001");
+    this.delCase("978898061348118530");
+    this.getCaseBasic("978907450553475073"); //获取案例基础信息
+
+    this.getCaseDetails("978904609705238530");
     //初始化的canvas对象事件绑定
     setTimeout(() => {
       this.firstBindEvent();
@@ -426,27 +482,68 @@ export default {
           });
         });
     },
-    createCase(params){
+    createCase(params) {
       let _this = this;
       create(params).then(
-        function(res) {
-
-        },
+        function(res) {},
         function(err) {
           //					console.log(err)
         }
       );
     },
-    getCaseList(memberId){
-        let _this = this;
-        list(memberId).then(
-          function(res) {
-
-          },
-          function(err) {
-            //					console.log(err)
-          }
-        );
+    getCaseList(memberId) {
+      let _this = this;
+      list(memberId).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    saveData(params) {
+      let _this = this;
+      save(params).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    delCase(paletteId) {
+      let _this = this;
+      del(paletteId).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    updateCase(paletteId, params) {
+      let _this = this;
+      update(paletteId, params).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    getCaseBasic(paletteId) {
+      let _this = this;
+      caseBasic(paletteId).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    getCaseDetails(paletteId) {
+      let _this = this;
+      casedetails(paletteId).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
     }
   }
 };

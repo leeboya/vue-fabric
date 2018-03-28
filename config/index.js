@@ -109,6 +109,23 @@ module.exports = {
         target: 'http://192.168.2.137:8999/', 
         changeOrigin: true,
       },
+      '/api/v1/tuku/palettes/978898061348118530': {
+        target: 'http://192.168.2.137:8999/', 
+        changeOrigin: true,
+      },
+      '/api/v1/tuku/palettes/978901410936070145': {
+        target: 'http://192.168.2.137:8999/', 
+        changeOrigin: true,
+      },
+      '/api/v1/tuku/palette/palettes/978901402518102018': {
+        target: 'http://192.168.2.137:8999/', 
+        changeOrigin: true,
+      },
+      '/api/v1/tuku/palettes/caseMongoDO/978904609705238530': {
+        target: 'http://192.168.2.137:8999/', 
+        changeOrigin: true,
+      },
+    
     
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
