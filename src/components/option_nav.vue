@@ -199,55 +199,49 @@ export default {
 
     // 历史记录
     undo(){
-      // this.fabricAction.undo(this)
-      // console.log(this.config)
       let _self =this;
-      if( _self.config.undoFinishedStatus){
+      if(this.config.undoFinishedStatus){
         if(this.config.currentStateIndex == -1){
               this.config.undoStatus = false;
-              return
-        }
-      if (this.config.canvasState.length >= 1) {
+        }else{
+            if(this.config.canvasState.length >= 1) {
                 this.config.undoFinishedStatus = 0;
                 if(this.config.currentStateIndex != 0){
-                     this.$store.state.fabricObj.undoStatus = true;
-                    this.$store.state.fabricObj.canvas.loadFromJSON(_self.config.canvasState[_self.config.currentStateIndex-1],function(){
-                            var jsonData = JSON.parse(_self.config.canvasState[_self.config.$store.state.fabricObj.config.currentStateIndex-1]);
-                            _self.$store.state.fabricObj.canvas.renderAll();
-                            _self.config.undoStatus = false;
-                            _self.config.currentStateIndex -= 1;
-                            _self.config.undoFinishedStatus = 1;
+                    this.config.undoStatus = true;
+                    this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex-1],function(){
+                        var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex-1]);
+                        _self.$store.state.fabricObj.canvas.renderAll();
+                        _self.config.undoStatus = false;
+                        _self.config.currentStateIndex -= 1;
+                        _self.config.undoFinishedStatus = 1;
                     });
-                    return
-                }
-                 if(_self.config.currentStateIndex == 0){
+                }else if(_self.config.currentStateIndex == 0){
                     _self.$store.state.fabricObj.canvas.clear();
-                   _self.config.undoFinishedStatus = 1;
-                   _self.config.currentStateIndex -= 1;
+                    _self.config.undoFinishedStatus = 1;
+                    _self.config.currentStateIndex -= 1;
                 }
+            }
         }
       }
     },
     redo(){
-      var _self = this;
-      if(_self.config.redoFinishedStatus){
-     {
-          if(this.config.canvasState.length >this.config.currentStateIndex &&this.config.canvasState.length != 0){
-                   this.config.redoFinishedStatus = 0;
-                   this.config.redoStatus = true;
-                    this.$store.state.fabricObj.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
-                    var jsonData = JSON.parse(_self.config.$store.state.fabricObj.canvasState[_self.config.$store.state.fabricObj.currentStateIndex+1]);
-                    _self.$store.state.fabricObj.canvas.renderAll();
-                    _self.config.redoStatus = false;
-                    _self.config.currentStateIndex += 1;
-                    _self.config.redoFinishedStatus = 1;
+      let _self = this;
+      if(this.config.redoFinishedStatus){
+          if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
+            this.config.redoFinishedStatus = 0;
+            this.config.redoStatus = true;
+            this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
+                var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex+1]);
+                _self.$store.state.fabricObj.canvas.renderAll();
+                _self.config.redoStatus = false;
+                _self.config.currentStateIndex += 1;
+                _self.config.redoFinishedStatus = 1;
                       
             });
           }
-        }
       }
     },
-    }
+  }
 };
 </script>
 
