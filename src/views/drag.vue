@@ -133,6 +133,7 @@ export default {
     },
     cover(url,ev, canvas){
       // var canvas = new fabric.Canvas('canvas');
+      console.log(ev.offsetX)
       let _self = this;
       return new fabric.Image.fromURL(url, function(oImg){
           oImg.left = ev.offsetX -  _self.leftBar.width - _self.mouseImgPos.x ;

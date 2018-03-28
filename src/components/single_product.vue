@@ -45,15 +45,15 @@ export default {
       // 判断是否登陆 无 跳登陆注册   添加收藏夹 或者取消收藏
     },
  
-       dragstart(ev) {
-          /*拖拽开始*/
-          ev.dataTransfer.setData("url", ev.target.src);
-          ev.dataTransfer.setData("id", ev.target.id);
-          let url = ev.dataTransfer.getData("url");
-          this.mouseImgPos={
-          x: ev.offsetX,
-          y: ev.offsetY
-          }
+    dragstart(ev) {
+      /*拖拽开始*/
+      ev.dataTransfer.setData("url", ev.target.src);
+      ev.dataTransfer.setData("id", ev.target.id);
+      let url = ev.dataTransfer.getData("url");
+      this.mouseImgPos={
+        x: ev.offsetX,
+        y: ev.offsetY
+      }
     },
       dragend(ev,obj) {
         /*拖拽结束*/
@@ -68,6 +68,7 @@ export default {
           height: 100,
           angle: 0
         };
+<<<<<<< HEAD
     
         if(ev.offsetX - this.canvasPos.x >-300 ){
           
@@ -75,6 +76,12 @@ export default {
                vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
                return  
                
+=======
+        if(ev.clientX > this.canvasPos.x  && ev.clientX < this.canvasPos.r ){
+          if(this.type=='jigsaw'){
+               vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
+               return                   
+>>>>>>> c5b4fa103e1f6cd050927871107c9f63b20afecf
           }
           vm.cover(url,ev, canvas);
         
@@ -84,10 +91,17 @@ export default {
           var _this = this;
           //- _this.mouseImgPos.y
           new fabric.Image.fromURL(url, function(oImg) {
+<<<<<<< HEAD
              oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x+300;
               oImg.top = ev.offsetY - _this.canvasPos.y +300;
               oImg.scale(.5);
               _this.$store.state.fabricObj.canvas.add(oImg);
+=======
+            oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
+            oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y ;
+            oImg.scale(1);
+            _this.$store.state.fabricObj.canvas.add(oImg);
+>>>>>>> c5b4fa103e1f6cd050927871107c9f63b20afecf
             setTimeout(function() {
              
               _this.fabricAction.bindSeletUnSelectEvent(oImg,_this);
