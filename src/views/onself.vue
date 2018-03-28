@@ -173,10 +173,14 @@ import axios from 'axios';
                         .then(function(res){
                             _self.boardImg[index] = res.data
                             _self.tempData[index].boardImg = res.data;
-                            _self.collectionList = _self.tempData;
-                            _self.collectionList[index].boardImg.forEach(element=>{
-                                console.log(index +'==='+element.imgUrl)
-                            })
+                            // 如果 调用图片接口完成
+                            if(index == _self.tempData.length ){
+                                _self.collectionList = _self.tempData;
+                                _self.collectionList[index].boardImg.forEach(element=>{
+                                    console.log(index +'==='+element.imgUrl)
+                                })
+                            }
+                            
                         })
                         .catch(function(err){
                             console.log(err);

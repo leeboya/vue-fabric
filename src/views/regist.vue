@@ -68,7 +68,7 @@
 							this.tip = "注册成功";
 //							console.log(_this.$store.getters.getUserId);
 							setTimeout(function(){
-								_this.$router.push({path:'/personal'});
+								_this.$router.push({path:'/'});
 							},2000)
 						}else if(res.data.code == "12004"){
 							this.tip = "用户已经存在";
