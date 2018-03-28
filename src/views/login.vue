@@ -40,10 +40,11 @@
 					if(res && res.data){
 						if(res.data.code == "13001"){
 							_this.tip = res.data.msg;
-							_this.$store.commit('saveUserId',{userId:res.data.data});
-//							console.log(_this.$store.getters.getUserId)
+							_this.$store.commit('saveUserId',res.data.data);
+//							console.log(_this.$store.getters.userId)
+//							console.log(_this.$store.getters.user.userId)
 							setTimeout(function(){
-								_this.$router.push({path:'/'});
+								_this.$router.push({path:'/images'});
 							},2000)
 						}else{
 							_this.tip = res.data.msg;
