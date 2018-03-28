@@ -68,8 +68,8 @@ export default {
           height: 100,
           angle: 0
         };
-        // && ev.offsetY > this.canvasPos.y && ev.offsetY < this.canvasPos.b 
-        if(ev.offsetX > this.canvasPos.x && ev.offsetX < this.canvasPos.r ){
+    
+        if(ev.offsetX - this.canvasPos.x >-300 ){
           
           if(this.type=='jigsaw'){
                vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
@@ -78,18 +78,19 @@ export default {
                
           }
           vm.cover(url,ev, canvas);
-              //  this.cover(url,ev, canvas);
-        }
+        
+       }
       },
       cover(url, ev, canvas) {
           var _this = this;
           //- _this.mouseImgPos.y
           new fabric.Image.fromURL(url, function(oImg) {
-            oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x;
-            oImg.top = ev.offsetY - _this.canvasPos.y ;
-            oImg.scale(1);
-            _this.$store.state.fabricObj.canvas.add(oImg);
+             oImg.left = ev.offsetX - _this.canvasPos.x - _this.mouseImgPos.x+300;
+              oImg.top = ev.offsetY - _this.canvasPos.y +300;
+              oImg.scale(.5);
+              _this.$store.state.fabricObj.canvas.add(oImg);
             setTimeout(function() {
+             
               _this.fabricAction.bindSeletUnSelectEvent(oImg,_this);
             }, 50);
           });
