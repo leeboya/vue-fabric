@@ -24,15 +24,7 @@ import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
-import {
-  create,
-  list,
-  save,
-  del,
-  update,
-  caseBasic,
-  casedetails
-} from "@/api/case";
+import { create,list,save,del,update,caseBasic,casedetails} from "@/api/case";
 export default {
   data() {
     return {
