@@ -106,7 +106,7 @@ import axios from 'axios';
             chgCollection(){
                 let _self = this;
                 var title=prompt("修改标题");
-                var description=prompt("description");
+                // var description=prompt("description");
                 axios.put('/api/v1/user/boards',{
                         boardId : event.target.getAttribute("data-boardId"),
                         title : title,
@@ -129,6 +129,7 @@ import axios from 'axios';
                     })
                     .then(function(res){
                         console.log(res)
+                        _self.getCollection();
                     })
                     .catch(function(err){
                         
@@ -139,6 +140,7 @@ import axios from 'axios';
                     })
                     .then(function(res){
                         console.log(res)
+                        _self.getCollection();
                     })
                     .catch(function(err){
                         
@@ -152,7 +154,8 @@ import axios from 'axios';
                 axios.get(`/api/v1/user/boards/${event.target.getAttribute("data-boardId")}`)
                         .then(function(res){
                             if(res.status == 200){
-                                alert(res.data.title + '=' + res.data.description)
+                                alert(res.data.title)
+                                // + '=' + res.data.description
                             }
                         })
                         .catch(function(err){
