@@ -88,6 +88,7 @@ import axios from 'axios';
             },
             //删除收藏夹
             delCollection(){
+                let _self =this;
                 axios.put(`/api/v1/user/boards/${event.target.getAttribute("data-boardId")}`,{   
                     })
                     .then(function(res){
@@ -165,6 +166,7 @@ import axios from 'axios';
             },
             //添加图片 /boards/images
             addImg(){
+                let _self = this;
                 axios.post('/api/v1/user/boards/images',{
                         title: name
                     })
