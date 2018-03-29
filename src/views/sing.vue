@@ -40,75 +40,75 @@ export default {
       productList: [
         {
           pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10002.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/4aeaf5c16002988db3fc89e3608a18ca540e806728c5c7-9I7wRn_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10004.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/5e9504beda02770814d7d3f501b3a69804e0d66d13273-5YG3rM_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10012.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/f468b05081e3bd7f92dbd0c69dab287d8c7fc1182a1f8d-Pot2uw_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10009.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/0f1ff2f20f70172a6383755951e025876fd261689f8ae-KF0mpy_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10003.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/451dd19402c8d945a5bd55c220bbf449afc2ab3e7bf56-NYBQEq_/fw/480"
+            "http://m4.cdn.imeijian.cn/categoryImg-10005.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/aad203ac19f420aa8e9a8a9b5e706fc22d866cb998301-iHLn1o_/fw/480"
+            "http://m1.cdn.imeijian.cn/8dd88ad5c373b5296e7f6a722532c343.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
+            "http://m1.cdn.imeijian.cn/4bd5609e6a7b2e5241dfa94f5a46103b.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
+            "http://m1.cdn.imeijian.cn/2f0ce5e3aca9512bcaa3808253894ad0.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/4aeaf5c16002988db3fc89e3608a18ca540e806728c5c7-9I7wRn_/fw/480"
+            "http://m1.cdn.imeijian.cn/e7f04ea47698663d3bbfbfac6c3a7ac2.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/5e9504beda02770814d7d3f501b3a69804e0d66d13273-5YG3rM_/fw/480"
+            "http://m1.cdn.imeijian.cn/01764dbb45e867654f2ffea75905a00d.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/f468b05081e3bd7f92dbd0c69dab287d8c7fc1182a1f8d-Pot2uw_/fw/480"
+            "http://m1.cdn.imeijian.cn/9803a7ca868fccaa97f0eb3467ac5cbd.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/0f1ff2f20f70172a6383755951e025876fd261689f8ae-KF0mpy_/fw/480"
+            "http://m1.cdn.imeijian.cn/e143d3c6c5445a31e898ae89bfaab6e5_M_685630.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/451dd19402c8d945a5bd55c220bbf449afc2ab3e7bf56-NYBQEq_/fw/480"
+            "http://m1.cdn.imeijian.cn/2820dc152aa916d17df24f4afee340b6.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/aad203ac19f420aa8e9a8a9b5e706fc22d866cb998301-iHLn1o_/fw/480"
+            "http://m1.cdn.imeijian.cn/b3fdc58086f8d77da428ebd3183f88d5.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
+            "http://m1.cdn.imeijian.cn/669b139694989c3edb30fc039cd478b6.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/c8e7207653816cbdcc58e263c0a26b3f5799a97f22a038-P62d9T_/fw/480"
+            "http://m1.cdn.imeijian.cn/83a521cde2fde15343c8b67640e1264d.png?x-oss-process=style/300wh_j"
         },
         {
           pic:
-            "//img.hb.aicdn.com/4332c424f2db2c5d3e4dd6011175f9a3f33790f293bf4-xjwwf0_/fw/480"
+            "http://m1.cdn.imeijian.cn/9311e12d6f29953e9652b89f64c8c030.png?x-oss-process=style/300wh_j"
         }
       ],
       config: {
@@ -324,65 +324,65 @@ export default {
     this.updateImg();
     //监听canvas 事件
     this.canvasDataChange();
-    this.createCase({
-      description: "这是测试的", //描述
-      isEditable: 0, //是否可以修改
-      isPrivate: 0, //是否私有
-      memberId: "00001", //会员ID
-      refId: "a001", //引用ID
-      thumb: "", // 缩略图url
-      title: "第一条案例" //案例主题或者名称吧
-    }); //创建案例
+    // this.createCase({
+    //   description: "这是测试的", //描述
+    //   isEditable: 0, //是否可以修改
+    //   isPrivate: 0, //是否私有
+    //   memberId: "00001", //会员ID
+    //   refId: "a001", //引用ID
+    //   thumb: "", // 缩略图url
+    //   title: "第一条案例" //案例主题或者名称吧
+    // }); 
+    //创建案例
 
-    this.saveData({
-      caseMO: {
-        data: "string",
-        paletteId: "string",
-        time: "2018-03-28T10:57:41.682Z"
-      },
-      palette: {
-        modificationNumber: 0,
-        createBy: null,
-        createDate: null,
-        updateBy: null,
-        updateDate: null,
-        delFlag: 0,
-        paletteId: "978904609705238530",
-        refId: "a001",
-        memberId: "00001",
-        title: "第一条案例",
-        thumb: "",
-        description: "这是测试的",
-        isPrivate: 0,
-        dataId: null,
-        isEditable: 0
-      }
-    });
+    // this.saveData({
+    //   caseMO: {
+    //     data: "string",
+    //     paletteId: "string",
+    //     time: "2018-03-28T10:57:41.682Z"
+    //   },
+    //   palette: {
+    //     modificationNumber: 0,
+    //     createBy: null,
+    //     createDate: null,
+    //     updateBy: null,
+    //     updateDate: null,
+    //     delFlag: 0,
+    //     paletteId: "978904609705238530",
+    //     refId: "a001",
+    //     memberId: "00001",
+    //     title: "第一条案例",
+    //     thumb: "",
+    //     description: "这是测试的",
+    //     isPrivate: 0,
+    //     dataId: null,
+    //     isEditable: 0
+    //   }
+    // });
 
-    this.updateCase("978901410936070145", {
-      createBy: "string",
-      createDate: "2018-03-28T11:18:26.72226Z",
-      dataId: "string",
-      delFlag: 0,
-      description: "string",
-      id: 0,
-      isEditable: 0,
-      isPrivate: 0,
-      memberId: "string",
-      modificationNumber: 0,
-      paletteId: "string",
-      refId: "string",
-      thumb: "string",
-      title: "string",
-      updateBy: "string",
-      updateDate: "2018-03-28T11:18:26.796Z"
-    });
-
+    // this.updateCase("978901410936070145", {
+    //   createBy: "string",
+    //   createDate: "2018-03-28T11:18:26.72226Z",
+    //   dataId: "string",
+    //   delFlag: 0,
+    //   description: "string",
+    //   id: 0,
+    //   isEditable: 0,
+    //   isPrivate: 0,
+    //   memberId: "string",
+    //   modificationNumber: 0,
+    //   paletteId: "string",
+    //   refId: "string",
+    //   thumb: "string",
+    //   title: "string",
+    //   updateBy: "string",
+    //   updateDate: "2018-03-28T11:18:26.796Z"
+    // });
     // this.getCaseList("00001");
-    this.delCase("978898061348118530");
-    this.getCaseBasic("978907450553475073"); //获取案例基础信息
+    // this.delCase("978898061348118530");
+    // this.getCaseBasic("978907450553475073"); //获取案例基础信息
 
-    this.getCaseDetails("978904609705238530");
+    // this.getCaseDetails("978904609705238530");
     //初始化的canvas对象事件绑定
     setTimeout(() => {
       this.firstBindEvent();

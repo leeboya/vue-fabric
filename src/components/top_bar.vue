@@ -43,7 +43,7 @@ export default {
     },
      goLink(link) {
       this.$router.push({
-        path: "/" + link
+        path: "./" + link
       });
      
     }

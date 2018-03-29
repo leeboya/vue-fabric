@@ -1,26 +1,26 @@
-<template>
-  <div class="p-index">
-      <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-            <top-bar></top-bar>
-            <single-product :list="productList" :type="listType"></single-product>
-      </div>
-      <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-            <div class="top-bar">
-                <el-button type="text" @click="open" class="creare-case">未命名案例</el-button>
-            </div>
-              <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
-                <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
-                <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
-              </div> 
-            
-            <div class="black-board">
-              <option-nav :config="config"></option-nav>
-              <canvas id="canvas" width='761' height='589'></canvas>
-            </div>
+  <template>
+    <div class="p-index">
+        <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
+              <top-bar></top-bar>
+              <single-product :list="productList" :type="listType"></single-product>
         </div>
-  </div>
-</template>
-<script>
+        <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
+              <div class="top-bar">
+                  <el-button type="text" @click="open" class="creare-case">{{this.caseBasic.title}}</el-button>
+              </div>
+                <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
+                  <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
+                  <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
+                </div> 
+              
+              <div class="black-board">
+                <option-nav :config="config"></option-nav>
+                <canvas id="canvas" width='861' height='589'></canvas>
+              </div>
+          </div>
+    </div>
+  </template>
+  <script>
 import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
@@ -62,94 +62,19 @@ export default {
       productList: [
         {
           pic:
-            "http://m3.cdn.imeijian.cn/302628909d744bdfdb3dd7c29f6009a0.jpeg?x-oss-process=style/500w",
+            "http://m1.cdn.imeijian.cn/330203canting.jpg?x-oss-process=style/300wh_j",
           obj: {
+            version: "2.1.0",
             objects: [
               {
                 type: "image",
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 100,
-                top: 100,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 400,
-                top: 200,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://localhost:9090/static/2.jpg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 533,
-                top: -62,
-                width: 200,
-                height: 198,
+                left: 286.73,
+                top: 196,
+                width: 218,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -176,7 +101,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/b3fdc58086f8d77da428ebd3183f88d5.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -184,10 +110,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 150,
-                top: 150,
-                width: 200,
-                height: 198,
+                left: 152.73,
+                top: 85,
+                width: 299,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -197,7 +123,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -214,7 +140,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/2f0ce5e3aca9512bcaa3808253894ad0.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -222,10 +149,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 200,
-                top: 200,
-                width: 200,
-                height: 198,
+                left: 598.73,
+                top: 108,
+                width: 216,
+                height: 240,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -235,7 +162,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -252,7 +179,125 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/4bd5609e6a7b2e5241dfa94f5a46103b.png?x-oss-process=style/300wh_j",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: 546.73,
+                top: 385,
+                width: 300,
+                height: 290,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src:
+                  "http://m1.cdn.imeijian.cn/e7f04ea47698663d3bbfbfac6c3a7ac2.png?x-oss-process=style/300wh_j",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: 213.73,
+                top: 423,
+                width: 300,
+                height: 200,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src:
+                  "http://m4.cdn.imeijian.cn/categoryImg-10012.png?x-oss-process=style/300wh_j",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: -16.27,
+                top: 401,
+                width: 300,
+                height: 200,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src:
+                  "http://m4.cdn.imeijian.cn/categoryImg-10004.png?x-oss-process=style/300wh_j",
                 filters: []
               }
             ]
@@ -262,92 +307,17 @@ export default {
           pic:
             "http://m3.cdn.imeijian.cn/db44e836f1dec0dc6b4bc2b3f9a17734.jpeg?x-oss-process=style/500w",
           obj: {
+            version: "2.1.0",
             objects: [
               {
                 type: "image",
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 100,
-                top: 100,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 400,
-                top: 200,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://localhost:9090/static/2.jpg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 533,
-                top: -62,
-                width: 200,
-                height: 198,
+                left: 60.73,
+                top: 35,
+                width: 235,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -374,7 +344,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/9311e12d6f29953e9652b89f64c8c030.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -382,10 +353,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 150,
-                top: 150,
-                width: 200,
-                height: 198,
+                left: 556.73,
+                top: 57,
+                width: 232,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -395,7 +366,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -412,7 +383,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/e143d3c6c5445a31e898ae89bfaab6e5_M_685630.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -420,10 +392,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 200,
-                top: 200,
-                width: 200,
-                height: 198,
+                left: 442.73,
+                top: 414,
+                width: 300,
+                height: 297,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -433,7 +405,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -450,7 +422,124 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/8dd88ad5c373b5296e7f6a722532c343.png?x-oss-process=style/300wh_j",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: 296.73,
+                top: 160,
+                width: 300,
+                height: 282,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src:
+                  "http://m1.cdn.imeijian.cn/9803a7ca868fccaa97f0eb3467ac5cbd.png?x-oss-process=style/300wh_j",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: 94.73,
+                top: 378,
+                width: 0,
+                height: 0,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src: "",
+                filters: []
+              },
+              {
+                type: "image",
+                version: "2.1.0",
+                originX: "left",
+                originY: "top",
+                left: 5.73,
+                top: 371,
+                width: 300,
+                height: 200,
+                fill: "rgb(0,0,0)",
+                stroke: null,
+                strokeWidth: 0,
+                strokeDashArray: null,
+                strokeLineCap: "butt",
+                strokeLineJoin: "miter",
+                strokeMiterLimit: 10,
+                scaleX: 1,
+                scaleY: 1,
+                angle: 0,
+                flipX: false,
+                flipY: false,
+                opacity: 1,
+                shadow: null,
+                visible: true,
+                clipTo: null,
+                backgroundColor: "",
+                fillRule: "nonzero",
+                paintFirst: "fill",
+                globalCompositeOperation: "source-over",
+                transformMatrix: null,
+                skewX: 0,
+                skewY: 0,
+                crossOrigin: "",
+                cropX: 0,
+                cropY: 0,
+                src:
+                  "http://m4.cdn.imeijian.cn/categoryImg-10005.png?x-oss-process=style/300wh_j",
                 filters: []
               }
             ]
@@ -460,92 +549,17 @@ export default {
           pic:
             "http://m3.cdn.imeijian.cn/843730cd2dc2889f79efc518cb4ce10b.jpeg?x-oss-process=style/500w",
           obj: {
+            version: "2.1.0",
             objects: [
               {
                 type: "image",
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 100,
-                top: 100,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 400,
-                top: 200,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://localhost:9090/static/2.jpg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 533,
-                top: -62,
-                width: 200,
-                height: 198,
+                left: 342.73,
+                top: 0,
+                width: 175,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -572,7 +586,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/669b139694989c3edb30fc039cd478b6.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -580,10 +595,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 150,
-                top: 150,
-                width: 200,
-                height: 198,
+                left: 79.73,
+                top: 151,
+                width: 215,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -593,7 +608,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -610,7 +625,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/01764dbb45e867654f2ffea75905a00d.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -618,10 +634,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 200,
-                top: 200,
-                width: 200,
-                height: 198,
+                left: 362.73,
+                top: 318,
+                width: 300,
+                height: 200,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -631,7 +647,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -648,7 +664,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m4.cdn.imeijian.cn/categoryImg-10003.png?x-oss-process=style/300wh_j",
                 filters: []
               }
             ]
@@ -658,92 +675,17 @@ export default {
           pic:
             "http://m3.cdn.imeijian.cn/1d32ad87470dc6af95f45fe1aad76e0e.jpeg?x-oss-process=style/500w",
           obj: {
+            version: "2.1.0",
             objects: [
               {
                 type: "image",
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 100,
-                top: 100,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 400,
-                top: 200,
-                width: 200,
-                height: 198,
-                fill: "rgb(0,0,0)",
-                stroke: null,
-                strokeWidth: 0,
-                strokeDashArray: null,
-                strokeLineCap: "butt",
-                strokeLineJoin: "miter",
-                strokeMiterLimit: 10,
-                scaleX: 1,
-                scaleY: 1,
-                angle: 10,
-                flipX: false,
-                flipY: false,
-                opacity: 1,
-                shadow: null,
-                visible: true,
-                clipTo: null,
-                backgroundColor: "",
-                fillRule: "nonzero",
-                paintFirst: "fill",
-                globalCompositeOperation: "source-over",
-                transformMatrix: null,
-                skewX: 0,
-                skewY: 0,
-                crossOrigin: "",
-                cropX: 0,
-                cropY: 0,
-                src: "http://localhost:9090/static/2.jpg",
-                filters: []
-              },
-              {
-                type: "image",
-                version: "2.1.0",
-                originX: "left",
-                originY: "top",
-                left: 533,
-                top: -62,
-                width: 200,
-                height: 198,
+                left: 238.73,
+                top: 173,
+                width: 300,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -770,7 +712,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/83a521cde2fde15343c8b67640e1264d.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -778,10 +721,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 150,
-                top: 150,
-                width: 200,
-                height: 198,
+                left: 564.73,
+                top: 69,
+                width: 218,
+                height: 300,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -791,7 +734,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -808,7 +751,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/b3fdc58086f8d77da428ebd3183f88d5.png?x-oss-process=style/300wh_j",
                 filters: []
               },
               {
@@ -816,10 +760,10 @@ export default {
                 version: "2.1.0",
                 originX: "left",
                 originY: "top",
-                left: 200,
-                top: 200,
-                width: 200,
-                height: 198,
+                left: -26.27,
+                top: 165,
+                width: 300,
+                height: 290,
                 fill: "rgb(0,0,0)",
                 stroke: null,
                 strokeWidth: 0,
@@ -829,7 +773,7 @@ export default {
                 strokeMiterLimit: 10,
                 scaleX: 1,
                 scaleY: 1,
-                angle: 10,
+                angle: 0,
                 flipX: false,
                 flipY: false,
                 opacity: 1,
@@ -846,7 +790,8 @@ export default {
                 crossOrigin: "",
                 cropX: 0,
                 cropY: 0,
-                src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
+                src:
+                  "http://m1.cdn.imeijian.cn/e7f04ea47698663d3bbfbfac6c3a7ac2.png?x-oss-process=style/300wh_j",
                 filters: []
               }
             ]
@@ -1644,7 +1589,18 @@ export default {
             ]
           }
         }
-      ]
+      ],
+      caseBasic:{
+        description:'',
+        isEditable:'',
+        isEditable:'',
+        isPrivate:'',
+        memberId:'',
+        refId:'',
+        thumb:'',
+        title:'未命名'
+
+      }   
     };
   },
   mounted() {
@@ -1657,6 +1613,18 @@ export default {
     setTimeout(() => {
       this.firstBindEvent();
     }, 300);
+    //console.log(JSON.stringify(canvas.toJSON()));
+       // this.createCase({
+    //   description: "这是测试的", //描述
+    //   isEditable: 0, //是否可以修改
+    //   isPrivate: 0, //是否私有
+    //   memberId: "00001", //会员ID
+    //   refId: "a001", //引用ID
+    //   thumb: "", // 缩略图url
+    //   title: "第一条案例" //案例主题或者名称吧
+    // }); 
+
+  
   },
 
   methods: {
@@ -1713,18 +1681,31 @@ export default {
       var html = [
         '  <div class="case-basic">',
         '     <div class="name-box">',
-        '      <input class="case-name" value="未命名" />',
+        '      <input class="case-name" id="caseTitle" value="'+this.caseBasic.title+'" />',
         "      </div>",
         "      <div>",
-        "         <select><option>简约</option><option>北欧</option></select>",
-        "         <select><option>客厅</option><option>卧室</option></select>",
+        "         <select><option>简约</option></select>",
+        "         <select><option>客厅</option></select>",
         "      </div>",
-        "     <div class='memo-box'><textarea class='area'></textarea></div>",
+        "     <div class='memo-box'><textarea id='caseMemo' class='area'>"+this.caseBasic.description+"</textarea></div>",
         "  </div>"
       ].join("");
       this.$alert(html, {
-        dangerouslyUseHTMLString: true
-      });
+        dangerouslyUseHTMLString: true,
+     
+      }).then(() => {
+          this.caseBasic.title=document.getElementById('caseTitle').value;
+          this.caseBasic.description=document.getElementById('caseMemo').value;
+          this.$message({
+            type: 'success',
+            message: '创建成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已经取消'
+          });          
+        });
     },
 
     /**@augments
@@ -1771,7 +1752,7 @@ export default {
   }
 };
 </script>
-<style rel="stylesheet/scss" lang="scss">
+  <style rel="stylesheet/scss" lang="scss">
 /* @import url('../styles/test.scss'); */
 .p-index {
   position: relative;
@@ -1874,7 +1855,7 @@ export default {
       height: 64px;
     }
     .black-board {
-      width: 800px;
+      width: 860px;
       height: 1000px;
       background: #fff;
       position: fixed;
@@ -1885,27 +1866,27 @@ export default {
   }
 }
 .case-basic {
-  .name-box{
-    margin-bottom:10px;
+  .name-box {
+    margin-bottom: 10px;
   }
   .case-name {
-    width:366px;
-    border:#eee 1px solid;
-    padding:2px 10px;
+    width: 366px;
+    border: #eee 1px solid;
+    padding: 2px 10px;
     line-height: 20px;
   }
-  select{
-    width:182px;
-    margin-right:10px;
-    border:#eee 1px solid;
+  select {
+    width: 182px;
+    margin-right: 10px;
+    border: #eee 1px solid;
   }
   .memo-box {
-      margin-top:10px;
-     textarea {
-       width:386px;
-       height: 60px;
-       border:#eee 1px solid;
-     }
+    margin-top: 10px;
+    textarea {
+      width: 386px;
+      height: 60px;
+      border: #eee 1px solid;
+    }
   }
 }
 </style>

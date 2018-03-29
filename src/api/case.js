@@ -11,7 +11,7 @@ export function save(params){
 }
 
 export function del(paletteId){
-	debugger
+	
 	return axios.put("/api/v1/tuku/palettes/"+paletteId);
 }
 export function update(paletteId,params){

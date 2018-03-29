@@ -72,7 +72,7 @@ export default new Router({
       path: '/jigsaw',
       name: 'jigsaw',
       component: jigsaw,
-      meta: {title: '设计IN-上传'}
+      meta: {title: '设计IN-拼图'}
     },
    
 
