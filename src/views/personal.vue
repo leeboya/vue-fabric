@@ -1,5 +1,8 @@
 <template>
 	<div style="margin-left: 200px;">
+		<router-link to="onself">
+			<p>到个人画板</p>
+		</router-link>
 		 <p>
 		 	绑定手机号码
 		 </p>
