@@ -36,3 +36,13 @@ export function updateUser(params){
 export function getUser(params){
 	return axios.get("/api/v1/user/info/"+params);
 }
+
+export function getUserId(vm){
+	let a = vm.$store.getters.user.userId;
+	let  userId = "";
+	if(!a || a==""){
+		userId = localStorage.getItem("userId");
+		vm.$store.commit('saveUserId',userId);
+	}
+	return vm.$store.getters.user.userId;
+}
