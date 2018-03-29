@@ -67,91 +67,11 @@ module.exports = {
         changeOrigin: true,
       
       },
-      '/api/v1/user/info/register': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
+      '/api': { //替换代理地址名称
+        target: 'http://192.168.14.174', //代理地址
+        changeOrigin: true, //可否跨域
+      }
       
-      },
-    	'/api/v1/user/info/login': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/user/info/smsSend': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/user/info/bindPhone': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      "/api/v1/user/info/update": {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/user/info/': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/tuku/palettes/palette': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-      '/api/v1/tuku/palettes/00001/palette': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-      '/api/v1/tuku/palettes/save': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-
-      '/api/v1/tuku/palettes/978898061348118530': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-      '/api/v1/tuku/palettes/978901410936070145': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-      '/api/v1/tuku/palette/palettes/978901402518102018': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-      '/api/v1/tuku/palettes/caseMongoDO/978904609705238530': {
-        target: 'http://192.168.2.137:8999/', 
-        changeOrigin: true,
-      },
-
-      '/api/v1/core/upload/genUpToken/': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/tuku/item': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/tuku/categories': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-			'/api/v1/products/search': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
-      '/api/v1/tuku/item/': {
-        target: 'http://192.168.14.174:8999/', 
-        changeOrigin: true,
-      
-      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

@@ -25,6 +25,7 @@
 		<div>
 			<p>获取图片明细</p>
 			itemId:{{detail.itemId}}
+			<img :src="detail.img"  />
 		</div>
 	</div>
 </template>
@@ -135,7 +136,9 @@
 						
 					})
 					.then((res)=>{
-						console.log(res)
+						if(res.status == '200'){
+							alert("上传成功")
+						}
 					},(err)=>{
 						
 					})

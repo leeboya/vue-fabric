@@ -324,41 +324,41 @@ export default {
     this.updateImg();
     //监听canvas 事件
     this.canvasDataChange();
-    // this.createCase({
-    //   description: "这是测试的", //描述
-    //   isEditable: 0, //是否可以修改
-    //   isPrivate: 0, //是否私有
-    //   memberId: "00001", //会员ID
-    //   refId: "a001", //引用ID
-    //   thumb: "", // 缩略图url
-    //   title: "第一条案例" //案例主题或者名称吧
-    // }); 
+    this.createCase({
+      description: "这是测试的", //描述
+      isEditable: 0, //是否可以修改
+      isPrivate: 0, //是否私有
+      memberId: "00001", //会员ID
+      refId: "a001", //引用ID
+      thumb: "", // 缩略图url
+      title: "第一条案例" //案例主题或者名称吧
+    }); 
     //创建案例
 
-    // this.saveData({
-    //   caseMO: {
-    //     data: "string",
-    //     paletteId: "string",
-    //     time: "2018-03-28T10:57:41.682Z"
-    //   },
-    //   palette: {
-    //     modificationNumber: 0,
-    //     createBy: null,
-    //     createDate: null,
-    //     updateBy: null,
-    //     updateDate: null,
-    //     delFlag: 0,
-    //     paletteId: "978904609705238530",
-    //     refId: "a001",
-    //     memberId: "00001",
-    //     title: "第一条案例",
-    //     thumb: "",
-    //     description: "这是测试的",
-    //     isPrivate: 0,
-    //     dataId: null,
-    //     isEditable: 0
-    //   }
-    // });
+    this.saveData({
+      caseMO: {
+        data: "string",
+        paletteId: "string",
+        time: "2018-03-28T10:57:41.682Z"
+      },
+      palette: {
+        modificationNumber: 0,
+        createBy: null,
+        createDate: null,
+        updateBy: null,
+        updateDate: null,
+        delFlag: 0,
+        paletteId: "978904609705238530",
+        refId: "a001",
+        memberId: "00001",
+        title: "第一条案例",
+        thumb: "",
+        description: "这是测试的",
+        isPrivate: 0,
+        dataId: null,
+        isEditable: 0
+      }
+    });
 
     // this.updateCase("978901410936070145", {
     //   createBy: "string",

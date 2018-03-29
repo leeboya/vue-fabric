@@ -1614,15 +1614,7 @@ export default {
       this.firstBindEvent();
     }, 300);
     //console.log(JSON.stringify(canvas.toJSON()));
-       // this.createCase({
-    //   description: "这是测试的", //描述
-    //   isEditable: 0, //是否可以修改
-    //   isPrivate: 0, //是否私有
-    //   memberId: "00001", //会员ID
-    //   refId: "a001", //引用ID
-    //   thumb: "", // 缩略图url
-    //   title: "第一条案例" //案例主题或者名称吧
-    // }); 
+
 
   
   },
