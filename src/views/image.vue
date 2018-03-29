@@ -6,35 +6,73 @@
 		<div>
 			<p>类别显示</p>
 			<div >
-				<span style="display: inline-block;width:70px;cursor: hand;cursor: pointer;text-align: center;" v-for="c in categoryList">
-					<span @click="setSearchCategory($event)" :id="c.categoryId">{{c.name}}</span>
+				<span  style="display: inline-block;width:70px;cursor: hand;cursor: pointer;text-align: center;" v-for="(c,index) in categoryList" :key="index">
+					<span :class="[{'current':cIdx == index}]" @click="setSearchCategory(index,$event)" :id="c.categoryId">{{c.name}}</span>
+				</span>
+				<div>
+					搜索关键字：<input v-model="keywords" /><input type="button" @click="searchDetail" value="搜索" />
+				</div>
+			</div>
+		</div>
+		<div>
+			<p>搜索结果</p>
+			<div>
+				<span v-for="item in searchResult">
+					<img :src="item.img" :id="item.itemId" @click="getImgDetail($event)" />
 				</span>
 			</div>
+		</div>
+		<div>
+			<p>获取图片明细</p>
+			itemId:{{detail.itemId}}
 		</div>
 	</div>
 </template>
 
 <script>
 	import {qiniuToken,uploadToqiniu,getUrl} from "@/api/qiniu"
-	import {uploadImg,getCategory} from "@/api/image"
+	import {uploadImg,getCategory,search,getByItemId} from "@/api/image"
 	import {getUserId} from "@/api/user";
 	export default{
 		data(){
 			return {
 				categoryList:null,
 				searchCategory:null,
-				cId:null,
+				cIdx:null,
+				cId:'',
+				keywords:"",
+				searchResult:null,
+				detail:{}
 			}
 		},
 		mounted(){
-			console.log(getUserId(this))
+			getUserId(this);
 			this.getCategory("parentId=");
 			
 		},
 		methods:{
-			setSearchCategory:function(e){
+			getImgDetail:function(event){
+				let id = event.currentTarget.id;
+				getByItemId(id)
+				.then((res)=>{
+					this.detail =res.data;
+//					console.log(res)
+				},(err)=>{
+					
+				})
+			},
+			searchDetail:function(){
+				search("k="+this.keywords+"&c=")//+this.cId)
+				.then((res)=>{
+					this.searchResult = res.data;
+//					console.log(res.data)
+				},(err)=>{
+					
+				})
+			},
+			setSearchCategory:function(idx,e){
+				this.cIdx = idx;
 				this.cId = e.currentTarget.id;
-				console.log(this.cId)
 			},
 			getCategory:function(param){
 				getCategory(param)
@@ -110,4 +148,8 @@
 </script>
 
 <style>
+	.current{
+		background-color:#1E90FF;
+		color: #fff;;
+	}
 </style>

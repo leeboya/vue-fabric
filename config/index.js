@@ -142,7 +142,16 @@ module.exports = {
         changeOrigin: true,
       
       },
-
+			'/api/v1/products/search': {
+        target: 'http://192.168.14.174:8999/', 
+        changeOrigin: true,
+      
+      },
+      '/api/v1/tuku/item/': {
+        target: 'http://192.168.14.174:8999/', 
+        changeOrigin: true,
+      
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
