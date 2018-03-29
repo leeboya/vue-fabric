@@ -7,7 +7,7 @@
         </div>
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
             <div class="top-bar">
-                <el-button type="text" @click="open">点击打开 Message Box</el-button>
+                <el-button type="text" @click="open" class="creare-case">未命名案例</el-button>
             </div>
             <div class="opton"></div>
             <div class="black-board">
@@ -464,24 +464,21 @@ export default {
       document.body.removeChild(dlLink);
     },
     open() {
-      this.$prompt("请输入案例名称", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消"
-        // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-        // inputErrorMessage: '邮箱格式不正确'
-      })
-        .then(({ value }) => {
-          this.$message({
-            type: "success",
-            message: "你的案例名称: " + value
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消输入"
-          });
+      var html=['  <div class="case-basic">',
+                '   <div class="name-box">',
+                '    <input class="case-name" value="未命名" />',
+                '    </div>',
+                '      <select><option>简约</option><option>北欧</option></select>',
+                '      <select><option>客厅</option><option>卧室</option></select>',
+                '      <div></div>',
+                '     </div>',
+                '    </div>',
+                '   </div>',
+                '  </div>'].join("");
+    this.$alert(html, {
+          dangerouslyUseHTMLString: true
         });
+      
     },
     createCase(params) {
       let _this = this;
@@ -653,6 +650,26 @@ export default {
       margin-left: 80px;
       top: 100px;
     }
+  }
+  .creare-case{
+    margin-left:40px;
+    text-decoration: none;
+    
+  }
+}
+.case-basic {
+  .name-box{
+    margin-bottom:10px;
+  }
+  .case-name {
+    width:366px;
+    border:#eee 1px solid;
+    padding:2px 10px;
+    line-height: 20px;
+  }
+  select{
+    width:182px;
+    margin-right:10px;
   }
 }
 </style>

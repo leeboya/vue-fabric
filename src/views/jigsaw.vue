@@ -5,7 +5,9 @@
             <single-product :list="productList" :type="listType"></single-product>
       </div>
       <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-           
+            <div class="top-bar">
+                <el-button type="text" @click="open" class="creare-case">未命名案例</el-button>
+            </div>
               <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
                 <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
                 <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
@@ -24,7 +26,7 @@ import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
 export default {
-  components: { topBar, guide, singleProduct ,optionNav},
+  components: { topBar, guide, singleProduct, optionNav },
   data() {
     return {
       listType: "jigsaw",
@@ -1668,7 +1670,7 @@ export default {
         _this.fabricAction.bindSeletUnSelectEvent(k, _this);
       });
     },
-        // canvas操作事件监听
+    // canvas操作事件监听
     canvasDataChange() {
       let _self = this;
       this.$store.state.fabricObj.canvas.on("object:modified", function() {
@@ -1686,19 +1688,43 @@ export default {
     },
     updateCanvasState() {
       var _self = this;
-      if ( _self.config.undoStatus == false && _self.config.redoStatus == false) {
+      if (
+        _self.config.undoStatus == false &&
+        _self.config.redoStatus == false
+      ) {
         var jsonData = _self.$store.state.fabricObj.canvas.toJSON();
         var canvasAsJson = JSON.stringify(jsonData);
-        if (_self.config.currentStateIndex <_self.config.canvasState.length - 1) {
-          var indexToBeInserted =  _self.config.currentStateIndex + 1;
+        if (
+          _self.config.currentStateIndex <
+          _self.config.canvasState.length - 1
+        ) {
+          var indexToBeInserted = _self.config.currentStateIndex + 1;
           _self.config.canvasState[indexToBeInserted] = canvasAsJson;
           var numberOfElementsToRetain = indexToBeInserted + 1;
-         _self.config.canvasState =_self.config.canvasState.splice(
-            0, numberOfElementsToRetain);
-        } 
+          _self.config.canvasState = _self.config.canvasState.splice(
+            0,
+            numberOfElementsToRetain
+          );
+        }
         _self.config.currentStateIndex = _self.config.canvasState.length - 1;
-      
       }
+    },
+    open() {
+      var html = [
+        '  <div class="case-basic">',
+        '     <div class="name-box">',
+        '      <input class="case-name" value="未命名" />',
+        "      </div>",
+        "      <div>",
+        "         <select><option>简约</option><option>北欧</option></select>",
+        "         <select><option>客厅</option><option>卧室</option></select>",
+        "      </div>",
+        "     <div class='memo-box'><textarea class='area'></textarea></div>",
+        "  </div>"
+      ].join("");
+      this.$alert(html, {
+        dangerouslyUseHTMLString: true
+      });
     },
 
     /**@augments
@@ -1751,6 +1777,7 @@ export default {
   position: relative;
   overflow: hidden;
   background: #000;
+
   .product-list {
     background: #fff;
     &.open {
@@ -1762,6 +1789,14 @@ export default {
   .jigsaw {
     display: none;
     position: relative;
+    .top-bar {
+      background: #363738;
+      height: 64px;
+      .creare-case {
+        margin-left: 40px;
+        text-decoration: none;
+      }
+    }
     .bar-nav {
       background: #eee;
       padding: 10px;
@@ -1847,6 +1882,30 @@ export default {
       margin-left: 80px;
       top: 100px;
     }
+  }
+}
+.case-basic {
+  .name-box{
+    margin-bottom:10px;
+  }
+  .case-name {
+    width:366px;
+    border:#eee 1px solid;
+    padding:2px 10px;
+    line-height: 20px;
+  }
+  select{
+    width:182px;
+    margin-right:10px;
+    border:#eee 1px solid;
+  }
+  .memo-box {
+      margin-top:10px;
+     textarea {
+       width:386px;
+       height: 60px;
+       border:#eee 1px solid;
+     }
   }
 }
 </style>

@@ -7,15 +7,10 @@ const sing = () => import('@/views/sing')
 const Index = () => import('@/views/index')
 const drag = () => import('@/views/drag');
 const history = () => import('@/views/history');
-
 const onself = () => import('@/views/onself');
-
 const addImage = () => import('@/views/addImagedemo');
-
 const upload = () => import('@/views/upload');
 const jigsaw = () => import('@/views/jigsaw');
-
-
 const login =() => import('@/views/login');
 const regist =() => import('@/views/regist');
 const personal =() => import('@/views/personal');
