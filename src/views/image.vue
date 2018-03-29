@@ -7,7 +7,7 @@
 			<p>类别显示</p>
 			<div >
 				<span  style="display: inline-block;width:70px;cursor: hand;cursor: pointer;text-align: center;" v-for="(c,index) in categoryList" :key="index">
-					<span :class="[{'current':cIdx == index}]" @click="setSearchCategory(index,$event)" :id="c.categoryId">{{c.name}}</span>
+					<span :class="[{'current':cIdx == index}]" @click="setSearchCategory(index,$event)" :cName="c.name" :id="c.categoryId">{{c.name}}</span>
 				</span>
 				<div>
 					搜索关键字：<input v-model="keywords" /><input type="button" @click="searchDetail" value="搜索" />
@@ -25,6 +25,7 @@
 		<div>
 			<p>获取图片明细</p>
 			itemId:{{detail.itemId}}
+			<img :src="detail.img"  />
 		</div>
 	</div>
 </template>
@@ -62,7 +63,7 @@
 				})
 			},
 			searchDetail:function(){
-				search("k="+this.keywords+"&c=")//+this.cId)
+				search("k="+this.keywords+"&c="+this.cId)
 				.then((res)=>{
 					this.searchResult = res.data;
 //					console.log(res.data)
@@ -72,7 +73,8 @@
 			},
 			setSearchCategory:function(idx,e){
 				this.cIdx = idx;
-				this.cId = e.currentTarget.id;
+				this.cId = e.currentTarget.getAttribute("cName");
+				
 			},
 			getCategory:function(param){
 				getCategory(param)
@@ -135,7 +137,9 @@
 						
 					})
 					.then((res)=>{
-						console.log(res)
+						if(res.status == '200'){
+							alert("上传成功")
+						}
 					},(err)=>{
 						
 					})

@@ -47,7 +47,7 @@ import axios from 'axios';
             // 查找所有画板接口
             getCollection(){
                 let _self = this; 
-                axios.get('/api/v1/users/boards')
+                axios.get('/api/v1/user/boards')
                         .then(function(response){
                             // _self.collectionList = response.data;
                             _self.tempData = response.data;
@@ -72,7 +72,7 @@ import axios from 'axios';
                 let _self = this; 
                 var name=prompt("输入名称");
                 if(name){
-                    axios.post('/api/v1/users/boards',{
+                    axios.post('/api/v1/user/boards',{
                             title: name
                         })
                         .then(function(res){
@@ -88,7 +88,8 @@ import axios from 'axios';
             },
             //删除收藏夹
             delCollection(){
-                axios.put(`/api/v1/users/boards/${event.target.getAttribute("data-boardId")}`,{   
+                let _self =this;
+                axios.put(`/api/v1/user/boards/${event.target.getAttribute("data-boardId")}`,{   
                     })
                     .then(function(res){
                         if(!res.data){
@@ -106,8 +107,8 @@ import axios from 'axios';
             chgCollection(){
                 let _self = this;
                 var title=prompt("修改标题");
-                var description=prompt("description");
-                axios.put('/api/v1/users/boards',{
+                // var description=prompt("description");
+                axios.put('/api/v1/user/boards',{
                         boardId : event.target.getAttribute("data-boardId"),
                         title : title,
                         description: ''
@@ -125,20 +126,22 @@ import axios from 'axios';
             share(){
                 let _self = this;
                 if(event.target.getAttribute("data-isShare") == 0){
-                    axios.put(`/api/v1/users/boards/shared/${event.target.getAttribute("data-boardId")}`,{
+                    axios.put(`/api/v1/user/boards/shared/${event.target.getAttribute("data-boardId")}`,{
                     })
                     .then(function(res){
                         console.log(res)
+                        _self.getCollection();
                     })
                     .catch(function(err){
                         
                     })
                 }else{
-                    axios.put(`/api/v1/users/boards/unshared/${event.target.getAttribute("data-boardId")}`,{
+                    axios.put(`/api/v1/user/boards/unshared/${event.target.getAttribute("data-boardId")}`,{
                         
                     })
                     .then(function(res){
                         console.log(res)
+                        _self.getCollection();
                     })
                     .catch(function(err){
                         
@@ -149,10 +152,11 @@ import axios from 'axios';
             //收藏夹详情
             detail(){
                 let _self = this; 
-                axios.get(`/api/v1/users/boards/${event.target.getAttribute("data-boardId")}`)
+                axios.get(`/api/v1/user/boards/${event.target.getAttribute("data-boardId")}`)
                         .then(function(res){
                             if(res.status == 200){
-                                alert(res.data.title + '=' + res.data.description)
+                                alert(res.data.title)
+                                // + '=' + res.data.description
                             }
                         })
                         .catch(function(err){
@@ -162,7 +166,8 @@ import axios from 'axios';
             },
             //添加图片 /boards/images
             addImg(){
-                axios.post('/api/v1/users/boards/images',{
+                let _self = this;
+                axios.post('/api/v1/user/boards/images',{
                         title: name
                     })
                     .then(function(res){
@@ -178,7 +183,7 @@ import axios from 'axios';
             //获取图片 /boards/images/${board_id}
             getImg(boardId, index){
                 let _self = this;
-                axios.get(`/api/v1/users/boards/images/${boardId}`)
+                axios.get(`/api/v1/user/boards/images/${boardId}`)
                         .then(function(res){
                             _self.boardImg[index] = res.data
                             _self.tempData[index].boardImg = res.data;              
@@ -192,7 +197,7 @@ import axios from 'axios';
             setCover(){
                 let confirmboolean = confirm('确定添加为封面');
                 if(confirmboolean){
-                    axios.put('/api/v1/users/boards/images/isPrimary',{
+                    axios.put('/api/v1/user/boards/images/isPrimary',{
                         boardId: event.target.getAttribute("data-boardId"),
                         imageId: event.target.getAttribute("data-imageId")
                     })
