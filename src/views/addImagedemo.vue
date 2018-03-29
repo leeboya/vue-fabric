@@ -16,20 +16,20 @@ export default {
       return{
           imgData:[
               {
-                    id: '978567271493566466',
-                    url: 'http://ovfllimsi.bkt.clouddn.com/a0004.jpeg'
+                    id: '979301212879192066',
+                    url: 'https://assets.wesetup.cn/22.jpg'
               },
               {
-                    id: '978567368457486338',
-                    url: 'http://ovfllimsi.bkt.clouddn.com/all_animation_100.jpg'
+                    id: '979300579321184258',
+                    url: 'https://assets.wesetup.cn/QQ%E5%9B%BE%E7%89%8720180328162216.jpg'
               },
               {
-                    id: '978567453253730306',
-                    url: 'http://ovfllimsi.bkt.clouddn.com/all_animation_101.jpg'
+                    id: '979300532860878850',
+                    url: 'https://assets.wesetup.cn/1.jpg'
               },
               {
-                    id: '978567522833039361',
-                    url: 'http://ovfllimsi.bkt.clouddn.com/all_animation_1011.jpg'
+                    id: '979300413834919938',
+                    url: 'https://assets.wesetup.cn/QQ%E5%9B%BE%E7%89%8720180328162216.jpg'
               }
           ],
           boardId: null
