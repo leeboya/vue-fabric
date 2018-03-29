@@ -1,26 +1,53 @@
 <template>
 	<div>
 		<input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="upload"/> 
-		<input value="上传图片" @click="upload" type="button" />
+		<!--<input value="上传图片" @click="upload" type="button" />-->
 		<img id="img" />
-		<canvas id="canvas"></canvas>
+		<div>
+			<p>类别显示</p>
+			<div >
+				<span style="display: inline-block;width:70px;cursor: hand;cursor: pointer;text-align: center;" v-for="c in categoryList">
+					<span @click="setSearchCategory($event)" :id="c.categoryId">{{c.name}}</span>
+				</span>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 	import {qiniuToken,uploadToqiniu,getUrl} from "@/api/qiniu"
-	import {uploadImg} from "@/api/image"
+	import {uploadImg,getCategory} from "@/api/image"
+	import {getUserId} from "@/api/user";
 	export default{
 		data(){
 			return {
-				
+				categoryList:null,
+				searchCategory:null,
+				cId:null,
 			}
 		},
 		mounted(){
-			console.log(this.$store.getters)
-			console.log(this.$store.getters.user.userId)
+			console.log(getUserId(this))
+			this.getCategory("parentId=");
+			
 		},
 		methods:{
+			setSearchCategory:function(e){
+				this.cId = e.currentTarget.id;
+				console.log(this.cId)
+			},
+			getCategory:function(param){
+				getCategory(param)
+				.then((res)=>{
+					if(res.status == "200"){
+						this.$store.commit("setClasses",res.data);
+						this.categoryList = this.$store.getters.images.classes;
+					}
+//					console.log(res)
+				},(err)=>{
+					
+				})
+			},
 			getBase64Image(dataURL) {  
 			    return dataURL.split("base64,")[1];  
 			},
