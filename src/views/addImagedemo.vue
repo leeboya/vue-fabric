@@ -45,7 +45,7 @@ export default {
   methods:{
       addImage(){
           let _self = this;
-          axios.post('/api/v1/users/boards/images',{
+          axios.post('/api/v1/user/boards/images',{
                 boardId: _self.boardId,
                 itemId : event.target.getAttribute("data-id")
             })
