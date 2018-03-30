@@ -22,7 +22,7 @@
 <script>
 import Vue from "vue";
 var vm = {};
-import { caseBasic, casedetails } from "@/api/case";
+import { caseBasic } from "@/api/case";
 export default {
   props: ["list", "type"],
   data() {
@@ -115,15 +115,6 @@ export default {
         function(res) {
           _this.$emit('setCaseBasic',res.data);
         },
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    getCaseDetails(paletteId) {
-      let _this = this;
-      casedetails(paletteId).then(
-        function(res) {},
         function(err) {
           //					console.log(err)
         }
