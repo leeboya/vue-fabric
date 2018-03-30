@@ -1,19 +1,28 @@
 <template>
-	<div >
-		<div>
-			<p>登录</p>
-			<p style="color: red;">{{tip}}</p>
+	<div style="display: flex;justify-content: center;align-items: center;">
+		<div style="text-align: center;">
+			<h2 style="color: #333;">登 录</h2>
+			<!--<p style="color: red;">{{tip}}</p>-->
 			<label>
-				手机号：<input v-model="phone" type="text" />
+				手机号:				
+				<div style="display: inline-block;">
+					<el-input v-model="phone" placeholder="请输入手机号"></el-input>
+				</div>
 			</label>
+			<br />
 			<br />
 			<label>
 				密   码：
-			<input v-model="password" type="password" />
+				<div style="display: inline-block;">
+					<el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
+				</div>
 			</label>
-			<input type="button" value="登录" @click="login" />
 			<br />
-			<input type="button" value="微信登录" @click="loginBywx" />
+			<br />
+			<el-button type="primary" @click="login" style="width:100%"  >登录</el-button>
+			<br />
+			<br />
+			<el-button type="success" @click="loginBywx" style="width:100%"  >微信登录</el-button>
 		</div>
 		
 	</div>
@@ -40,6 +49,7 @@
 					if(res && res.data){
 						if(res.data.code == "13001"){
 							_this.tip = res.data.msg;
+							 _this.$message(res.data.msg);
 							_this.$store.commit('saveUserId',res.data.data);
 //							console.log(_this.$store.getters.userId)
 //							console.log(_this.$store.getters.user.userId)
