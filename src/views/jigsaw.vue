@@ -68,8 +68,8 @@ export default {
         undoButton: this.$refs.undo,
         redoButton: this.$refs.redo
       },
-      productList:[],
-   
+      productList: [],
+
       caseBasic: {
         description: "",
         isEditable: "",
@@ -94,7 +94,7 @@ export default {
     }, 300);
     //console.log(JSON.stringify(canvas.toJSON()));
 
-    this.getCaseList("00001");//获取案例列表
+    this.getCaseList("00001"); //获取案例列表
   },
 
   methods: {
@@ -172,10 +172,33 @@ export default {
           this.caseBasic.description = document.getElementById(
             "caseMemo"
           ).value;
-          this.$message({
-            type: "success",
-            message: "创建成功!"
-          });
+          if (!this.caseBasic.paletteId) {
+            this.createCase({
+              description: this.caseBasic.description, //描述
+              isEditable: 0, //是否可以修改
+              isPrivate: 0, //是否私有
+              memberId: "00001", //会员ID
+              refId: "a001", //引用ID
+              thumb: "", // 缩略图url
+              title: this.caseBasic.title //案例主题或者名称吧
+            });
+          } else {
+            this.saveData({
+              caseMO: {
+                data: JSON.stringify(
+                  this.$store.state.fabricObj.canvas.toJSON()
+                ),
+                paletteId: this.caseBasic.paletteId,
+                time: Date.parse(new Date())
+              },
+              palette: this.caseBasic
+            });
+          }
+
+          // this.$message({
+          //   type: "success",
+          //   message: "创建成功!"
+          // });
         })
         .catch(() => {
           this.$message({
@@ -183,6 +206,15 @@ export default {
             message: "已经取消"
           });
         });
+    },
+    createCase(params) {
+      var _this = this;
+      create(params).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
     },
 
     /**@augments
@@ -230,16 +262,40 @@ export default {
       var _this = this;
       list(memberId).then(
         function(res) {
-            _this.productList=res.data;
+          _this.productList = res.data;
         },
         function(err) {
           //					console.log(err)
         }
       );
     },
-    getCaseBasic(data){
-        this.caseBasic=data;
+    getCaseBasic(data) {
+      this.caseBasic = data;
 
+      this.getCaseDetails(data.paletteId);
+    },
+    getCaseDetails(paletteId) {
+      var _this = this;
+
+      casedetails(paletteId).then(
+        function(res) {
+          _this.$store.state.fabricObj.canvas.loadFromJSON(
+            eval("(" + res.data.data + ")")
+          );
+        },
+        function(err) {
+          //					console.log(err)
+        }
+      );
+    },
+    saveData(params) {
+      let _this = this;
+      save(params).then(
+        function(res) {},
+        function(err) {
+          //					console.log(err)
+        }
+      );
     }
   }
 };
