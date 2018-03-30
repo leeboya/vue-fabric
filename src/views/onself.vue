@@ -25,7 +25,19 @@
             <span class="chg" :data-boardId="collection.boardId" @click="toAddImg()">添加图片</span>
             </li>
       </ul>
-      <button @click="newCollection()">添加收藏夹</button>
+      <!-- <button @click="newCollection()">添加收藏夹</button> -->
+      <el-button type="text" @click="dialogFormVisible = true">添加收藏夹</el-button>
+      <el-dialog title="收藏夹" :visible.sync="dialogFormVisible">
+          名称<el-input v-model="getCollectionTitle" placeholder="请输入收藏夹名称" ref="getCollectionTitle">
+              
+          </el-input>
+          描述
+            <el-input v-model="getCollectionDescript" placeholder="请输入收藏夹描述" ref="getCollectionDescript"></el-input>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="newCollection()">确 定</el-button>
+            </div>
+      </el-dialog>
   </div>
 </template>
 <script>
@@ -35,7 +47,10 @@ import axios from 'axios';
             return {
                 collectionList: null,
                 tempData: null,
-                boardImg:[]
+                boardImg:[],
+                getCollectionTitle:'',
+                getCollectionDescript:'',
+                dialogFormVisible: false,
             }
         },
         created(){
@@ -75,10 +90,11 @@ import axios from 'axios';
             //添加收藏夹
             newCollection(){
                 let _self = this; 
-                var name=prompt("输入名称");
-                if(name){
+                if(this.$refs.getCollectionTitle.value){
+                    this.dialogFormVisible = false
                     axios.post('/api/v1/user/boards',{
-                            title: name
+                            title: _self.$refs.getCollectionTitle.value,
+                            description: _self.$refs.getCollectionDescript.value
                         })
                         .then(function(res){
                             if(res.status == '200'){
@@ -184,10 +200,9 @@ import axios from 'axios';
                         .then(function(res){
                             if(res.status == 200){
                                 // alert(res.data.title)
-                                _self.$alert(res.data.title, '收藏夹详情', {
+                                _self.$alert(`标题${res.data.title}====详情${res.data.description}`, '收藏夹详情', {
                                         confirmButtonText: '确定'
                                     });
-                                // + '=' + res.data.description
                             }
                         })
                         .catch(function(err){
@@ -223,7 +238,6 @@ import axios from 'axios';
                             console.log(err);
                         });
             },
-            // Object.defineProperty()
             //设置为封面 /boards/images/is_primary
             setCover(){
                 let confirmboolean = confirm('确定添加为封面');
@@ -252,8 +266,6 @@ import axios from 'axios';
                 var boardId = event.target.getAttribute("data-boardId");
                 this.$router.push({path:'/addImage',query:{boardId:boardId}});//类似post传参
             },
-
-
         }
     
     }
