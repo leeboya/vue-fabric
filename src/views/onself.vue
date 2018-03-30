@@ -17,6 +17,7 @@
                 </div>
 
             <span class="del" :data-boardId="collection.boardId"  @click="delCollection()">删除</span> 
+            <!-- <el-button :plain="true" :data-boardId="collection.boardId" @click="delCollection()">删除</el-button> -->
             <span class="chg" :data-boardId="collection.boardId" @click="chgCollection()">修改</span>
             <span v-if="collection.isShare == 0" class="chg" :data-isShare="collection.isShare"  :data-boardId="collection.boardId" @click="share()">共享</span>
             <span v-if="collection.isShare == 1" class="chg" :data-isShare="collection.isShare" :data-boardId="collection.boardId" @click="share()">不共享</span>
@@ -56,6 +57,10 @@ import axios from 'axios';
                                 // 如果 调用图片接口完成
                                 if(index == _self.tempData.length -1){
                                     setTimeout(function(){
+                                        _self.$message({
+                                            message: '获取收藏夹成功',
+                                            type: 'success'
+                                        });
                                         _self.collectionList = _self.tempData;
                                     },100)
                                     
@@ -77,7 +82,10 @@ import axios from 'axios';
                         })
                         .then(function(res){
                             if(res.status == '200'){
-                                // alert('添加成功')
+                                _self.$message({
+                                    message: '恭喜你，添加成功',
+                                    type: 'success'
+                                });
                                 _self.getCollection();
                             }
                         })
@@ -93,9 +101,13 @@ import axios from 'axios';
                     })
                     .then(function(res){
                         if(!res.data){
-                            alert('删除失败')
+                            _self.$message.error('删除失败');
+                            // alert('删除失败')
                         }
-                        alert('删除成功')
+                        _self.$message({
+                            message: '恭喜你，删除成功',
+                            type: 'success'
+                        });
                         _self.getCollection();
 
                     })
@@ -114,7 +126,11 @@ import axios from 'axios';
                         description: ''
                     })
                     .then(function(res){
-                        if(!res.data){
+                        if(res.data){
+                             _self.$message({
+                                message: '恭喜你，修改成功',
+                                type: 'success'
+                            });
                             _self.getCollection();
                         }
                     })
@@ -129,8 +145,13 @@ import axios from 'axios';
                     axios.put(`/api/v1/user/boards/shared/${event.target.getAttribute("data-boardId")}`,{
                     })
                     .then(function(res){
-                        console.log(res)
-                        _self.getCollection();
+                        if(res.data){
+                            _self.$message({
+                                message: '恭喜你，设置成功',
+                                type: 'success'
+                            });
+                            _self.getCollection();
+                        }
                     })
                     .catch(function(err){
                         
@@ -141,7 +162,14 @@ import axios from 'axios';
                     })
                     .then(function(res){
                         console.log(res)
-                        _self.getCollection();
+                        if(res.data){
+                            _self.$message({
+                                message: '恭喜你，设置成功',
+                                type: 'success'
+                            });
+                            _self.getCollection();
+                        }
+                        
                     })
                     .catch(function(err){
                         
@@ -155,7 +183,10 @@ import axios from 'axios';
                 axios.get(`/api/v1/user/boards/${event.target.getAttribute("data-boardId")}`)
                         .then(function(res){
                             if(res.status == 200){
-                                alert(res.data.title)
+                                // alert(res.data.title)
+                                _self.$alert(res.data.title, '收藏夹详情', {
+                                        confirmButtonText: '确定'
+                                    });
                                 // + '=' + res.data.description
                             }
                         })
@@ -204,7 +235,10 @@ import axios from 'axios';
                     .then(function(res){
                         console.log(res.data)
                         if(res.data){
-                            alert('设置封面成功')
+                             _self.$message({
+                                message: '设置成功',
+                                type: 'success'
+                            });
                         }
                     })
                     .catch(function(err){
