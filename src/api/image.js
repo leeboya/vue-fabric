@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '@/api/axios';
 export function uploadImg(params){
 	return axios.post("/api/v1/tuku/item",params);
 }

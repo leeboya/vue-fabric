@@ -107,7 +107,7 @@
 		mounted(){
 			getUserId(this);
 			//todos 获取登录用户wechatId
-			console.log(document.cookie);
+//			console.log(document.cookie);
 //			this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		
