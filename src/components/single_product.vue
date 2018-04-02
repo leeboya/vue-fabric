@@ -9,6 +9,7 @@
         <div class="waterfall" ref="getLeftBarWidth"> 
             <div class="pin" v-for="item in list"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
               <!-- <span @click="collection">收藏</span> -->
+                <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img :src="item.thumb" > 
                 <p>1 convallis timestamp</p> 
             </div> 
@@ -22,7 +23,7 @@
 <script>
 import Vue from "vue";
 var vm = {};
-import { caseBasic } from "@/api/case";
+import { caseBasic,del } from "@/api/case";
 export default {
   props: ["list", "type"],
   data() {
@@ -116,9 +117,12 @@ export default {
           _this.$emit('setCaseBasic',res.data);
         },
         function(err) {
-          //					console.log(err)
         }
       );
+    },
+    delCase(paletteId){
+        del(paletteId);
+        this.$emit('refrashList');
     }
   }
 };
@@ -159,6 +163,18 @@ export default {
         column-width: 4em;
         column-gap: 1em;
         .pin {
+          position: relative;
+          .del {
+            position: absolute;
+            right:10px;
+            bottom:10px;
+            width:20px;
+            cursor: pointer;
+            display: inline-block;
+            img {
+              width:100%;
+            }
+          }
           padding: 1em;
           margin: 0 0.125em 1em;
           -moz-page-break-inside: avoid;

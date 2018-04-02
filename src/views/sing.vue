@@ -327,30 +327,30 @@ export default {
     }); 
     //创建案例
 
-    this.saveData({
-      caseMO: {
-        data: "string",
-        paletteId: "string",
-        time: "2018-03-28T10:57:41.682Z"
-      },
-      palette: {
-        modificationNumber: 0,
-        createBy: null,
-        createDate: null,
-        updateBy: null,
-        updateDate: null,
-        delFlag: 0,
-        paletteId: "978904609705238530",
-        refId: "a001",
-        memberId: "00001",
-        title: "第一条案例",
-        thumb: "",
-        description: "这是测试的",
-        isPrivate: 0,
-        dataId: null,
-        isEditable: 0
-      }
-    });
+    // this.saveData({
+    //   caseMO: {
+    //     data: "string",
+    //     paletteId: "string",
+    //     time: "2018-03-28T10:57:41.682Z"
+    //   },
+    //   palette: {
+    //     modificationNumber: 0,
+    //     createBy: null,
+    //     createDate: null,
+    //     updateBy: null,
+    //     updateDate: null,
+    //     delFlag: 0,
+    //     paletteId: "978904609705238530",
+    //     refId: "a001",
+    //     memberId: "00001",
+    //     title: "第一条案例",
+    //     thumb: "",
+    //     description: "这是测试的",
+    //     isPrivate: 0,
+    //     dataId: null,
+    //     isEditable: 0
+    //   }
+    // });
 
     // this.updateCase("978901410936070145", {
     //   createBy: "string",

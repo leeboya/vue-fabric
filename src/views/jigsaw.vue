@@ -2,7 +2,7 @@
     <div class="p-index">
         <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <top-bar></top-bar>
-              <single-product :list="productList" :type="listType" @setCaseBasic="getCaseBasic"></single-product>
+              <single-product :list="productList" :type="listType" @setCaseBasic="getCaseBasic" @refrashList="refrashList"> </single-product>
         </div>
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <div class="top-bar">
@@ -92,12 +92,13 @@ export default {
     setTimeout(() => {
       this.firstBindEvent();
     }, 300);
-    //console.log(JSON.stringify(canvas.toJSON()));
-
     this.getCaseList("00001"); //获取案例列表
   },
 
   methods: {
+    refrashList(){
+      this.getCaseList("00001"); //获取案例列表
+    },
     updateImg() {
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
       // this.$store.state.fabricObj.canvas.loadFromJSON(this.canvasObj);
@@ -185,15 +186,10 @@ export default {
             });
             return;
           }
-          // var _data=_this.$store.state.fabricObj.canvas;
-          // _data.paletteId=_this.caseBasic.paletteId;
           updateCaseBasic(_this.caseBasic).then(() => {
-            var _data =_this.$store.state.fabricObj.canvas; 
-            var _paletteId=_this.caseBasic.paletteId;
-       
-            var _obj=Object.assign(_data, {paletteId:_paletteId});
-            debugger
-            updateCanvas(_obj);
+            let temp =this.$store.state.fabricObj.canvas.toObject();
+            temp.paletteId = _this.caseBasic.paletteId;
+            updateCanvas(temp);
           });
         })
         .catch(() => {
@@ -275,6 +271,7 @@ export default {
         function(res) {
           var _data = eval("(" + res.data.data + ")");
           _this.caseDetails = _data;
+          
           _this.$store.state.fabricObj.canvas.loadFromJSON(_data);
           _this.$store.commit("setCanvas", _this.$store.state.fabricObj.canvas);
         },
