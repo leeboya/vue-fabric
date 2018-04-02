@@ -24,7 +24,7 @@ import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
-import { create,list,save,del,caseBasic,casedetails} from "@/api/case";
+import { create,list,del,caseBasic,casedetails} from "@/api/case";
 export default {
   data() {
     return {
@@ -484,15 +484,6 @@ export default {
     getCaseList(memberId) {
       let _this = this;
       list(memberId).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    saveData(params) {
-      let _this = this;
-      save(params).then(
         function(res) {},
         function(err) {
           //					console.log(err)
