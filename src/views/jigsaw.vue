@@ -28,11 +28,11 @@ import optionNav from "@/components/option_nav";
 import {
   create,
   list,
-  save,
   del,
-  update,
+  updateCaseBasic,
   caseBasic,
-  casedetails
+  casedetails,
+  updateCanvas
 } from "@/api/case";
 export default {
   components: { topBar, guide, singleProduct, optionNav },
@@ -148,6 +148,7 @@ export default {
       }
     },
     open() {
+      var _this = this;
       var html = [
         '  <div class="case-basic">',
         '     <div class="name-box">',
@@ -168,37 +169,32 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-          this.caseBasic.title = document.getElementById("caseTitle").value;
-          this.caseBasic.description = document.getElementById(
+          _this.caseBasic.title = document.getElementById("caseTitle").value;
+          _this.caseBasic.description = document.getElementById(
             "caseMemo"
           ).value;
-          if (!this.caseBasic.paletteId) {
-            this.createCase({
-              description: this.caseBasic.description, //描述
+          if (!_this.caseBasic.paletteId) {
+            _this.createCase({
+              description: _this.caseBasic.description, //描述
               isEditable: 0, //是否可以修改
               isPrivate: 0, //是否私有
               memberId: "00001", //会员ID
               refId: "a001", //引用ID
               thumb: "", // 缩略图url
-              title: this.caseBasic.title //案例主题或者名称吧
+              title: _this.caseBasic.title //案例主题或者名称吧
             });
-          } else {
-            this.saveData({
-              caseMO: {
-                data: JSON.stringify(
-                  this.$store.state.fabricObj.canvas.toJSON()
-                ),
-                paletteId: this.caseBasic.paletteId,
-                time: Date.parse(new Date())
-              },
-              palette: this.caseBasic
-            });
+            return;
           }
-
-          // this.$message({
-          //   type: "success",
-          //   message: "创建成功!"
-          // });
+          // var _data=_this.$store.state.fabricObj.canvas;
+          // _data.paletteId=_this.caseBasic.paletteId;
+          updateCaseBasic(_this.caseBasic).then(() => {
+            var _data =_this.$store.state.fabricObj.canvas; 
+            var _paletteId=_this.caseBasic.paletteId;
+       
+            var _obj=Object.assign(_data, {paletteId:_paletteId});
+            debugger
+            updateCanvas(_obj);
+          });
         })
         .catch(() => {
           this.$message({
@@ -271,17 +267,16 @@ export default {
     },
     getCaseBasic(data) {
       this.caseBasic = data;
-
       this.getCaseDetails(data.paletteId);
     },
     getCaseDetails(paletteId) {
       var _this = this;
-
       casedetails(paletteId).then(
         function(res) {
-          _this.$store.state.fabricObj.canvas.loadFromJSON(
-            eval("(" + res.data.data + ")")
-          );
+          var _data = eval("(" + res.data.data + ")");
+          _this.caseDetails = _data;
+          _this.$store.state.fabricObj.canvas.loadFromJSON(_data);
+          _this.$store.commit("setCanvas", _this.$store.state.fabricObj.canvas);
         },
         function(err) {
           //					console.log(err)

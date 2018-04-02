@@ -6,16 +6,16 @@ export function create(params){
 export function list(memberId){
 	return axios.get("/api/v1/tuku/palettes/"+memberId+"/palette");
 }
-export function save(params){
-	return axios.post("/api/v1/tuku/palettes/save",params);
-}
+// export function save(params){
+// 	return axios.post("/api/v1/tuku/palettes/save",params);
+// }
 
 export function del(paletteId){
 	
 	return axios.put("/api/v1/tuku/palettes/"+paletteId);
 }
-export function update(paletteId,params){
-	return axios.put("/api/v1/tuku/palettes/"+paletteId,params);
+export function updateCaseBasic(params){
+	return axios.put("/api/v1/tuku/palettes/palette/"+params.paletteId,params);
 }
 
 export function caseBasic(paletteId){
@@ -24,4 +24,8 @@ export function caseBasic(paletteId){
 
 export function casedetails(paletteId){
 	return axios.get("/api/v1/tuku/palettes/caseMongoDO/"+paletteId);
+}
+
+export function updateCanvas(params){
+	return axios.post("/api/v1/tuku/palettes/canvas",params);
 }

@@ -68,7 +68,7 @@ module.exports = {
       
       },
       '/api': { //替换代理地址名称
-        target: 'http://192.168.14.174', //代理地址
+        target: 'http://192.168.14.174:8999', //代理地址
         changeOrigin: true, //可否跨域
       }
       
