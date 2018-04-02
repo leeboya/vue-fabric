@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import axios from '@/api/axios'
 //export function sendMsg(params) {
 //return Vue.http.post('/sendMessage', params)
 //

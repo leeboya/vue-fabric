@@ -1,29 +1,45 @@
 <template>
-	<div >
-		<div style="margin-left: 200px;">
+	<div style="display: flex;justify-content: center;align-items: center;">
+		<div >
 			<p>注册</p>
-			<p style="color: red;">{{tip}}</p>
+			<!--<p style="color: red;">{{tip}}</p>-->
 			<label>
-				昵称：<input v-model="nickName" type="text" />
-				<br />
-			</label>
-			<label>
-				手机号：<input v-model="phoneNum" type="text" />
-				<br />
-			</label>
-			<label>
-				验证码：
-				<input type="text" v-model="code" />
-				<input type="button" @click="getSmscode" value="获取验证码" />
-				<label>{{getcodeSucc}}</label>
-				<br />
-			</label>
-			<label>
-				
-				密码：<input v-model="password" type="password" />
+				昵&nbsp;&nbsp;&nbsp;称:				
+				<div style="display: inline-block;">
+					<el-input v-model="nickName" placeholder="请输入昵称"></el-input>
+				</div>
 			</label>
 			<br />
-			<input type="button" value="马上注册" @click="regist" />
+			<br />
+			<label>
+				手机号:				
+				<div style="display: inline-block;">
+					<el-input v-model="phoneNum" placeholder="请输入手机号"></el-input>
+				</div>
+			</label>
+			<br />
+			<br />
+			<label>
+				验证码:				
+				<div style="display: inline-block;">
+					<el-input v-model="code" placeholder="请输入验证码"></el-input>
+					
+				</div>
+				<el-button  @click="getSmscode" type="primary">获取验证码</el-button>
+				<label>{{getcodeSucc}}</label>
+			</label>
+			<br />
+			<br />
+			<label>
+				密&nbsp;&nbsp;&nbsp;码:				
+				<div style="display: inline-block;">
+					<el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
+				</div>
+			</label>
+			<br />
+			
+			<br />
+			<el-button type="primary" @click="regist" style="width:70%"  >马上注册</el-button>
 		</div>
 		
 	</div>
@@ -65,7 +81,7 @@
 					if(res && res.data){
 						if(res.data.code == "10000"){
 							_this.$store.commit('saveUserId',res.data.data)
-							this.tip = "注册成功";
+							 this.$message('注册成功');
 //							console.log(_this.$store.getters.getUserId);
 							setTimeout(function(){
 								_this.$router.push({path:'/'});

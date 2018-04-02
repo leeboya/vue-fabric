@@ -1,37 +1,87 @@
 <template>
-	<div style="margin-left: 200px;">
-		<router-link to="onself">
-			<p>到个人画板</p>
-		</router-link>
-		 <p>
-		 	绑定手机号码
-		 </p>
-		 <p style="color: red;">{{tip}}</p>
-		 手机号：<input v-model="phone" placeholder="请输入手机号" /><br />
-		 验证码：<input v-model="code"  /><input type="button" @click="getSmsCode" value="获取验证码" /><label>{{getcodeSucc}}</label><br />
-		 设置密码：<input v-model="password"  type="password" /><br />
-		 <input value="绑定" type="button" @click="bindPhone" />
-		 <div>
-		 	<p>微信绑定</p>
-		 	<input type="button"  value="微信绑定接口" />
-		 	
-		 </div>
-		 <div>
-		 	<p>更新密码</p>
-		 	<p style="color: red;">{{tip}}</p>
-		 	旧密码：<input v-model="pwd_old" type="password" /><br />
-		 	新密码：<input v-model="newP" type="password" /><br />
-		 	新密码确认：<input v-model="cnewP" type="password" /><br />
-		 	名称:<input type="tel" v-model="nickname" />
-		 	 <input value="密码更新" type="button" @click="changePwd" />
-		 	 <input value="名称更新" type="button" @click="changeNickname" />
-		 </div>
-		 	<div>
-		 		<p>获取用户信息</p>
-		 		<input type="button" value="获取用户信息" @click="getUserInfo" /><br />
-		 		手机号：{{u_phone}}<br />
-		 		用户名：{{u_name}}
-		 	</div>
+	<div style="display: flex;justify-content: center;align-items: center;">
+		<div>
+			
+			<router-link to="onself">
+				<p>到个人画板</p>
+			</router-link>
+			 <p>
+			 	绑定手机号码
+			 </p>
+			 <p style="color: red;">{{tip}}</p>
+			 
+			 
+			 <el-form  label-width="80px">
+			  <el-form-item label="手机号">
+			    <el-input v-model="phone" placeholder="请输入手机号"></el-input>
+			  </el-form-item>
+			  <el-form-item label="验证码">
+			    <el-input v-model="code" placeholder="请输入验证码"></el-input>
+			    <el-button  @click="getSmsCode" type="primary">获取验证码</el-button>
+			  </el-form-item>
+			  <el-form-item label="密码">
+			    <el-input v-model="password" placeholder="请输入密码" type="password"></el-input>
+			  </el-form-item>
+			  <el-form-item>
+			    <el-button type="primary" @click="bindPhone">绑定</el-button>
+			  </el-form-item>
+			</el-form>
+			 
+			 
+			 
+<!--			 
+			 手机号：<input v-model="phone" placeholder="请输入手机号" /><br />
+			 验证码：<input v-model="code"  /><input type="button" @click="getSmsCode" value="获取验证码" /><label>{{getcodeSucc}}</label><br />
+			 设置密码：<input v-model="password"  type="password" /><br />
+			 <input value="绑定" type="button" @click="bindPhone" />-->
+			 <div>
+			 	<p>微信绑定</p>
+			 	 <el-button type="primary" @click="">微信绑定接口</el-button>
+			 	<!--<input type="button"  value="微信绑定接口" />-->
+			 	
+			 </div>
+			 <div>
+			 	<p>更新密码</p>
+			 	<p style="color: red;">{{tip}}</p>
+			 	
+			 	
+			 	<el-form  label-width="90px">
+				  <el-form-item label="旧密码">
+				    <el-input v-model="pwd_old" placeholder="请输入旧密码"></el-input>
+				  </el-form-item>
+				  <el-form-item label="新密码">
+				    <el-input v-model="newP" placeholder="请输入新密码"></el-input>
+				  </el-form-item>
+				  <el-form-item label="新密码确认">
+				    <el-input v-model="cnewP" placeholder="请输入新密码" type="password"></el-input>
+				  </el-form-item>
+				    <el-form-item label="名称">
+				    <el-input v-model="nickname" placeholder="请输入名称" type="text"></el-input>
+				  </el-form-item>
+				  <el-form-item>
+				    <el-button type="primary" @click="changePwd">密码更新</el-button>
+				    <el-button type="primary" @click="changeNickname">名称更新</el-button>
+				  </el-form-item>
+				</el-form>
+			 	
+			 	
+			 	
+			 	<!--旧密码：<input v-model="pwd_old" type="password" /><br />
+			 	新密码：<input v-model="newP" type="password" /><br />
+			 	新密码确认：<input v-model="cnewP" type="password" /><br />
+			 	名称:<input type="tel" v-model="nickname" />
+			 	 <input value="密码更新" type="button" @click="changePwd" />
+			 	 <input value="名称更新" type="button" @click="changeNickname" />-->
+			 </div>
+			 	<div>
+			 		<p>获取用户信息</p>
+			 		<el-button type="primary" @click="getUserInfo">获取用户信息</el-button>
+			 		<br />
+			 		<!--<input type="button" value="获取用户信息" @click="getUserInfo" /><br />-->
+			 		手机号：{{u_phone}}<br />
+			 		用户名：{{u_name}}
+			 	</div>
+		</div>
 	</div>
 </template>
 
@@ -57,7 +107,7 @@
 		mounted(){
 			getUserId(this);
 			//todos 获取登录用户wechatId
-			console.log(document.cookie);
+//			console.log(document.cookie);
 //			this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		

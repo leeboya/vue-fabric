@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!--<el-upload> <el-button size="small" @change="upload" type="primary">点击上传</el-button></el-upload>-->
 		<input class="file" name="file" type="file" accept="image/png,image/gif,image/jpeg" @change="upload"/> 
 		<!--<input value="上传图片" @click="upload" type="button" />-->
 		<img id="img" />
@@ -63,7 +64,7 @@
 				})
 			},
 			searchDetail:function(){
-				search("k="+this.keywords+"&c="+this.cId)
+				search("k="+this.keywords+"&c="+(this.cId == "" ? "": this.cId))
 				.then((res)=>{
 					this.searchResult = res.data;
 //					console.log(res.data)

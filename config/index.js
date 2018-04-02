@@ -36,37 +36,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-    	 '/designer/getDesignerByUid': {
-        // target: 'http://120.27.215.62:8420/',
-        target: 'http://192.168.14.175:8420/', //赵玉
-        changeOrigin: true,
+      // '/boards/images': {
+      //   target: 'http://192.168.3.249:8904/', //赵玉
+      //   changeOrigin: true,
       
-      },
-      '/boards': {
-        target: 'http://192.168.3.249:8904/', //赵玉
-        changeOrigin: true,
-      
-      },
-      '/boards/shared': {
-        target: 'http://192.168.3.249:8904/', //赵玉
-        changeOrigin: true,
-      
-      },
-      '/boards/unshared': {
-        target: 'http://192.168.3.249:8904/', //赵玉
-        changeOrigin: true,
-      
-      },
-      '/boards/images/isPrimary': {
-        target: 'http://192.168.3.249:8904/', //赵玉
-        changeOrigin: true,
-      
-      },
-      '/boards/images': {
-        target: 'http://192.168.3.249:8904/', //赵玉
-        changeOrigin: true,
-      
-      },
+      // },
       '/api': { //替换代理地址名称
         target: 'http://192.168.14.174:8999', //代理地址
         changeOrigin: true, //可否跨域
