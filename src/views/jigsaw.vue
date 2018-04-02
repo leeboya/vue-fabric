@@ -8,11 +8,6 @@
               <div class="top-bar">
                   <el-button type="text" @click="open" class="creare-case">{{this.caseBasic.title}}</el-button>
               </div>
-                <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
-                  <span id="cancle" class="optionElem" @click="cutCancle()"> <img src="@/assets/icon/cancle.png" /> </span> 
-                  <span id="sure" class="optionElem" @click="cutSure()"> <img src="@/assets/icon/sure.png" /> </span> 
-                </div> 
-              
               <div class="black-board">
                 <option-nav :config="config"></option-nav>
                 <canvas id="canvas" width='861' height='589'></canvas>
