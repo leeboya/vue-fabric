@@ -316,15 +316,15 @@ export default {
     this.updateImg();
     //监听canvas 事件
     this.canvasDataChange();
-    this.createCase({
-      description: "这是测试的", //描述
-      isEditable: 0, //是否可以修改
-      isPrivate: 0, //是否私有
-      memberId: "00001", //会员ID
-      refId: "a001", //引用ID
-      thumb: "", // 缩略图url
-      title: "第一条案例" //案例主题或者名称吧
-    }); 
+    // this.createCase({
+    //   description: "这是测试的", //描述
+    //   isEditable: 0, //是否可以修改
+    //   isPrivate: 0, //是否私有
+    //   memberId: "00001", //会员ID
+    //   refId: "a001", //引用ID
+    //   thumb: "", // 缩略图url
+    //   title: "第一条案例" //案例主题或者名称吧
+    // }); 
     //创建案例
 
     // this.saveData({
