@@ -108,6 +108,9 @@
 			getUserId(this);
 			//todos 获取登录用户wechatId
 //			console.log(document.cookie);
+				let cookies = document.cookie
+				let token = cookies.split("Token=")[1];
+				localStorage.setItem('token',"Bearer "+token);
 //			this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		
