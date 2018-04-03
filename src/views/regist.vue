@@ -84,7 +84,7 @@
 							 this.$message('注册成功');
 //							console.log(_this.$store.getters.getUserId);
 							setTimeout(function(){
-								_this.$router.push({path:'/'});
+								_this.$router.push({path:'/login'});
 							},2000)
 						}else if(res.data.code == "12004"){
 							this.tip = "用户已经存在";
