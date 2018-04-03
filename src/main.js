@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import {getUserId} from "@/api/user";
 require('@/styles/index.css');
 Vue.config.productionTip = false;
 Vue.use(Element)
@@ -18,7 +19,10 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  mounted(){
+  	getUserId(this)
+  }
 })
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

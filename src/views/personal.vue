@@ -36,7 +36,7 @@
 			 <input value="绑定" type="button" @click="bindPhone" />-->
 			 <div>
 			 	<p>微信绑定</p>
-			 	 <el-button type="primary" @click="">微信绑定接口</el-button>
+			 	 <el-button type="primary" @click="bindwechat">微信绑定接口</el-button>
 			 	<!--<input type="button"  value="微信绑定接口" />-->
 			 	
 			 </div>
@@ -112,6 +112,9 @@
 		},
 		
 		methods:{
+			bindwechat:function(){
+				window.location.href = "http://mz.wesetup.cn/api/v1/user/wechat/bind?redirectUrl=http://mz.wesetup.cn/personal"
+			},
 			getUserInfo:function(){
 				getUser(this.$store.getters.user.userId)
 				.then((res)=>{
