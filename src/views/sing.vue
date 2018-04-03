@@ -8,7 +8,7 @@
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
             <div class="top-bar">
                 <el-button type="text" @click="open" class="creare-case">{{caseBasic.title}}</el-button>
-                 <el-button type="primary" class="save-btn" @click="saveCase(this)">保存案例</el-button>
+                 <el-button type="primary" class="save-btn" @click="saveCase()">保存案例</el-button>
             </div>
             <div class="opton"></div>
             <div class="black-board">
@@ -159,7 +159,7 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-            _this.saveCase(_this);
+            _this.saveCase();
         })
         .catch(() => {
           this.$message({
@@ -182,12 +182,8 @@ export default {
     getSearchList(keywords) {
       this.searchPdts(keywords); //搜索单品
     },
-    saveCase(_this){
-           _this.caseBasic.title = document.getElementById("caseTitle").value;
-          _this.caseBasic.description = document.getElementById(
-            "caseMemo"
-          ).value;
-
+    saveCase(){
+          var _this=this;
           if (!_this.caseBasic.paletteId) {
             create({
               description: _this.caseBasic.description, //描述

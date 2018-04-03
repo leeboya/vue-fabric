@@ -7,7 +7,7 @@
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <div class="top-bar">
                   <el-button type="text" @click="open" class="creare-case">{{this.caseBasic.title}}</el-button>
-                  <el-button type="primary" class="save-btn" @click="saveCase(this)">保存案例</el-button>
+                  <el-button type="primary" class="save-btn" @click="saveCase()">保存案例</el-button>
               </div>
               <div class="black-board">
                 <option-nav :config="config"></option-nav>
@@ -171,7 +171,7 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-          _this.saveCase(_this)
+          _this.saveCase()
         })
         .catch(() => {
           this.$message({
@@ -189,11 +189,12 @@ export default {
         }
       );
     },
-    saveCase(_this){
-      _this.caseBasic.title = document.getElementById("caseTitle").value;
-      _this.caseBasic.description = document.getElementById(
-        "caseMemo"
-      ).value;
+    saveCase(){
+      var _this=this
+      // _this.caseBasic.title = document.getElementById("caseTitle").value;
+      // _this.caseBasic.description = document.getElementById(
+      //   "caseMemo"
+      // ).value;
       if (!_this.caseBasic.paletteId) {
         return;
       }
