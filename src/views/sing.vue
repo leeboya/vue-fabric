@@ -8,6 +8,7 @@
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
             <div class="top-bar">
                 <el-button type="text" @click="open" class="creare-case">{{caseBasic.title}}</el-button>
+                 <el-button type="primary" class="save-btn" @click="saveCase(this)">保存案例</el-button>
             </div>
             <div class="opton"></div>
             <div class="black-board">
@@ -158,7 +159,31 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-          _this.caseBasic.title = document.getElementById("caseTitle").value;
+            _this.saveCase(_this);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已经取消"
+          });
+        });
+    },
+    searchPdts: function(keywords) {
+      let name = this.$store.getters.images.currentClass.name;
+      search(
+        "k=" + keywords + "&c=" + (name == "" || name == undefined ? "" : name)
+      ).then(
+        res => {
+          this.productList = res.data;
+        },
+        err => {}
+      );
+    },
+    getSearchList(keywords) {
+      this.searchPdts(keywords); //搜索单品
+    },
+    saveCase(_this){
+           _this.caseBasic.title = document.getElementById("caseTitle").value;
           _this.caseBasic.description = document.getElementById(
             "caseMemo"
           ).value;
@@ -188,27 +213,6 @@ export default {
             temp.paletteId = _this.caseBasic.paletteId;
             updateCanvas(temp);
           });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已经取消"
-          });
-        });
-    },
-    searchPdts: function(keywords) {
-      let name = this.$store.getters.images.currentClass.name;
-      search(
-        "k=" + keywords + "&c=" + (name == "" || name == undefined ? "" : name)
-      ).then(
-        res => {
-          this.productList = res.data;
-        },
-        err => {}
-      );
-    },
-    getSearchList(keywords) {
-      this.searchPdts(keywords); //搜索单品
     }
   }
 };
@@ -220,6 +224,10 @@ export default {
   position: relative;
   overflow: hidden;
   background: #000;
+  .save-btn {
+    margin-left:10px;
+    margin-top:10px;
+  }
   .product-list {
     background: #fff;
     &.open {

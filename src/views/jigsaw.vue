@@ -7,6 +7,7 @@
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <div class="top-bar">
                   <el-button type="text" @click="open" class="creare-case">{{this.caseBasic.title}}</el-button>
+                  <el-button type="primary" class="save-btn" @click="saveCase(this)">保存案例</el-button>
               </div>
               <div class="black-board">
                 <option-nav :config="config"></option-nav>
@@ -170,19 +171,7 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-          _this.caseBasic.title = document.getElementById("caseTitle").value;
-          _this.caseBasic.description = document.getElementById(
-            "caseMemo"
-          ).value;
-          if (!_this.caseBasic.paletteId) {
-            return;
-          }
-          _this.caseBasic.memberId = this.$store.state.user.userId;
-          updateCaseBasic(_this.caseBasic).then(() => {
-            let temp = this.$store.state.fabricObj.canvas.toObject();
-            temp.paletteId = _this.caseBasic.paletteId;
-            updateCanvas(temp);
-          });
+          _this.saveCase(_this)
         })
         .catch(() => {
           this.$message({
@@ -199,6 +188,21 @@ export default {
           //					console.log(err)
         }
       );
+    },
+    saveCase(_this){
+      _this.caseBasic.title = document.getElementById("caseTitle").value;
+      _this.caseBasic.description = document.getElementById(
+        "caseMemo"
+      ).value;
+      if (!_this.caseBasic.paletteId) {
+        return;
+      }
+      _this.caseBasic.memberId = this.$store.state.user.userId;
+      updateCaseBasic(_this.caseBasic).then(() => {
+        let temp = this.$store.state.fabricObj.canvas.toObject();
+        temp.paletteId = _this.caseBasic.paletteId;
+        updateCanvas(temp);
+      });
     },
 
     /**@augments
@@ -308,7 +312,10 @@ export default {
   position: relative;
   overflow: hidden;
   background: #000;
-
+  .save-btn {
+    margin-left:10px;
+    margin-top:10px;
+  }
   .product-list {
     background: #fff;
     &.open {
