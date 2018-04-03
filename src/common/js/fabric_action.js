@@ -8,6 +8,7 @@ const createFabricObj = function (imgId, pos) {
     width: pos.width,
     height: pos.height,
     angle: pos.angle
+  
   });
 }
 

@@ -2,7 +2,7 @@
     <div class="p-index">
         <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <top-bar></top-bar>
-              <single-product :list="productList" :type="listType" @setCaseBasic="getCaseBasic" @refrashList="refrashList"> </single-product>
+              <single-product :dataList="productList" :type="listType" @setCaseBasic="getCaseBasic" @refrashList="refrashList" @setSearchList="getSearchList"> </single-product>
         </div>
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
               <div class="top-bar">
@@ -88,6 +88,7 @@ export default {
       this.firstBindEvent();
     }, 300);
     this.getCaseList("00001"); //获取案例列表
+    
   },
 
   methods: {
@@ -170,15 +171,6 @@ export default {
             "caseMemo"
           ).value;
           if (!_this.caseBasic.paletteId) {
-            _this.createCase({
-              description: _this.caseBasic.description, //描述
-              isEditable: 0, //是否可以修改
-              isPrivate: 0, //是否私有
-              memberId: "00001", //会员ID
-              refId: "a001", //引用ID
-              thumb: "", // 缩略图url
-              title: _this.caseBasic.title //案例主题或者名称吧
-            });
             return;
           }
           updateCaseBasic(_this.caseBasic).then(() => {
@@ -283,6 +275,9 @@ export default {
           //					console.log(err)
         }
       );
+    },
+    getSearchList(keywords){
+
     }
   }
 };

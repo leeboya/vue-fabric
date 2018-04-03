@@ -3,12 +3,11 @@
      <div class="wrap">
         <div class="search-box">
                 <input type="text" v-model="keywords" class="search" placeholder="请输入">
-                <span class="btn" @click="searchPdts">筛选</span>
+                <span class="btn" @click="searchList(keywords)" >筛选</span>
         </div>
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
-            <div class="pin" v-for="item in searchResult"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
-              <!-- <span @click="collection">收藏</span> -->
+            <div class="pin" v-for="item in dataList"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img :src="item.img" > 
                 <p>{{item.name}}</p> 
@@ -21,20 +20,19 @@
  
 </template>
 <script>
-	import {search} from "@/api/image"
+
 //import Vue from "vue";
 var vm = {};
 import { caseBasic,del } from "@/api/case";
 export default {
-  props: ["list", "type"],
+  props: ["dataList","type"],
   data() {
     return {
       leftBar: {}, //左侧宽高
       canvasPos: {}, //canvas 宽高
       mouseImgPos: {}, // 鼠标拖拽相对图片的位置
-      keywords:"",
-      searchResult:null,
-      
+      keywords:''
+   
     };
   },
   created(){
@@ -42,20 +40,11 @@ export default {
   },
   mounted() {
     this.drawObj();
-    this.searchPdts();
+   
     vm = this;
   },
   methods: {
-  	searchPdts:function(){
-  		let name = this.$store.getters.images.currentClass.name;
-  		search("k="+this.keywords+"&c="+((name == "" || name == undefined) ? "": name))
-  		.then((res)=>{
-					this.searchResult = res.data;
-//					console.log(res.data)
-				},(err)=>{
-					
-				})
-  	},
+ 
     /**@augments
      * function 收藏图片到个人中心
      */
@@ -89,7 +78,6 @@ export default {
       };
       if (ev.clientX > this.canvasPos.x && ev.clientX < this.canvasPos.r) {
         if (this.type == "jigsaw") {
-          //vm.$store.state.fabricObj.canvas.loadFromJSON(obj);
            vm.getCaseBasic(paletteId); //获取案例基础信息
           return;
         }
@@ -101,7 +89,6 @@ export default {
     	let _this = this;
     	let canvas = _this.$store.state.fabricObj.canvas;
 		fabric.util.loadImage(url,function(oimg){
-			
 			var imgInstance = new fabric.Image(oimg,{  //设置图片在canvas中的位置和样子  
 				     left:ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x,  
 				     top:ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y,  
@@ -109,7 +96,6 @@ export default {
 				});  
 			canvas.add(imgInstance);
 		},canvas.getContext(),true)
-
     },
     drop(ev) {
       ev.preventDefault();
@@ -143,6 +129,9 @@ export default {
     delCase(paletteId){
         del(paletteId);
         this.$emit('refrashList');
+    },
+    searchList(keywords){
+         this.$emit('setSearchList',keywords);
     }
   }
 };
