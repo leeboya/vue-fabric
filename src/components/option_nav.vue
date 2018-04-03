@@ -49,34 +49,31 @@
 </template>
 <script>
 export default {
-    props: ["config"],
-    data(){
-        return {
-            showFilterList: false,
-            lightnum: 0,
-            contrastnum: 0,
-            saturationnum: 0,
-            blurnum: 0,
-            colornum: 0,
-            opacitynum: 0,
-            filter: fabric.Image.filters,
-            cutRect: {
-              el: "",
-              object: "",
-              lastActive: "",
-              object1: "",
-              object2: "",
-              cntObj: "",
-              selection_object_left: "",
-              selection_object_top: ""
-            },
-        }
-    },
-    mounted(){
-        
-    },
-    methods:{
-
+  props: ["config"],
+  data() {
+    return {
+      showFilterList: false,
+      lightnum: 0,
+      contrastnum: 0,
+      saturationnum: 0,
+      blurnum: 0,
+      colornum: 0,
+      opacitynum: 0,
+      filter: fabric.Image.filters,
+      cutRect: {
+        el: "",
+        object: "",
+        lastActive: "",
+        object1: "",
+        object2: "",
+        cntObj: "",
+        selection_object_left: "",
+        selection_object_top: ""
+      }
+    };
+  },
+  mounted() {},
+  methods: {
     clone() {
       var _this = this;
       var timestamp = Date.parse(new Date());
@@ -180,66 +177,81 @@ export default {
         !this.$store.state.fabricObj.forWrodBoxShow
       );
     },
-    changeForWord(style){
-         this.fabricAction.fabricForward(this,style);
-
+    changeForWord(style) {
+      this.fabricAction.fabricForward(this, style);
     },
     /**@augments
      * anthor lifq
      * @param
-     * @return 
+     * @return
      */
-    clip(){
-      this.fabricAction.clip(this)
+    clip() {
+      this.fabricAction.clip(this);
     },
-    hide(){
-        this.fabricAction.hide(this)
+    hide() {
+      this.fabricAction.hide(this);
     },
-    display(){
-        this.fabricAction.display(this)
+    display() {
+      this.fabricAction.display(this);
     },
     // 历史记录
-    undo(){
-      let _self =this;
-      if(this.config.undoFinishedStatus){
-        if(this.config.currentStateIndex == -1){
-              this.config.undoStatus = false;
-        }else{
-            if(this.config.canvasState.length >= 1) {
-                this.config.undoFinishedStatus = 0;
-                if(this.config.currentStateIndex != 0){
-                    this.config.undoStatus = true;
-                    this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex-1],function(){
-                        var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex-1]);
-                        _self.$store.state.fabricObj.canvas.renderAll();
-                        _self.config.undoStatus = false;
-                        _self.config.currentStateIndex -= 1;
-                        _self.config.undoFinishedStatus = 1;
-                    });
-                }else if(_self.config.currentStateIndex == 0){
-                    _self.$store.state.fabricObj.canvas.clear();
-                    _self.config.undoFinishedStatus = 1;
-                    _self.config.currentStateIndex -= 1;
+    undo() {
+      let _self = this;
+      this.$store.commit("setOptionSelect", false);
+      this.$store.commit("setCutSelect", true);
+      if (this.config.undoFinishedStatus) {
+        if (this.config.currentStateIndex == -1) {
+          this.config.undoStatus = false;
+        } else {
+          if (this.config.canvasState.length >= 1) {
+            this.config.undoFinishedStatus = 0;
+            if (this.config.currentStateIndex != 0) {
+              this.config.undoStatus = true;
+              this.$store.state.fabricObj.canvas.loadFromJSON(
+                this.config.canvasState[this.config.currentStateIndex - 1],
+                function() {
+                  var jsonData = JSON.parse(
+                    _self.config.canvasState[_self.config.currentStateIndex - 1]
+                  );
+                  _self.$store.state.fabricObj.canvas.renderAll();
+                  _self.config.undoStatus = false;
+                  _self.config.currentStateIndex -= 1;
+                  _self.config.undoFinishedStatus = 1;
                 }
+              );
+            } else if (_self.config.currentStateIndex == 0) {
+              _self.$store.state.fabricObj.canvas.clear();
+              _self.config.undoFinishedStatus = 1;
+              _self.config.currentStateIndex -= 1;
             }
+          }
         }
       }
     },
-    redo(){
+    redo() {
       let _self = this;
-      if(this.config.redoFinishedStatus){
-          if(this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0){
-            this.config.redoFinishedStatus = 0;
-            this.config.redoStatus = true;
-            this.$store.state.fabricObj.canvas.loadFromJSON(this.config.canvasState[this.config.currentStateIndex+1],function(){
-                var jsonData = JSON.parse(_self.config.canvasState[_self.config.currentStateIndex+1]);
-                _self.$store.state.fabricObj.canvas.renderAll();
-                _self.config.redoStatus = false;
-                _self.config.currentStateIndex += 1;
-                _self.config.redoFinishedStatus = 1;
-                      
-            });
-          }
+      this.$store.commit("setOptionSelect", false);
+      this.$store.commit("setCutSelect", true);
+      if (this.config.redoFinishedStatus) {
+        if (
+          this.config.canvasState.length > this.config.currentStateIndex &&
+          this.config.canvasState.length != 0
+        ) {
+          this.config.redoFinishedStatus = 0;
+          this.config.redoStatus = true;
+          this.$store.state.fabricObj.canvas.loadFromJSON(
+            this.config.canvasState[this.config.currentStateIndex + 1],
+            function() {
+              var jsonData = JSON.parse(
+                _self.config.canvasState[_self.config.currentStateIndex + 1]
+              );
+              _self.$store.state.fabricObj.canvas.renderAll();
+              _self.config.redoStatus = false;
+              _self.config.currentStateIndex += 1;
+              _self.config.redoFinishedStatus = 1;
+            }
+          );
+        }
       }
     },
     /**@augments
@@ -261,8 +273,7 @@ export default {
       document.body.appendChild(dlLink);
       dlLink.click();
       document.body.removeChild(dlLink);
-    },
-
+    }
   }
 };
 </script>
@@ -277,34 +288,34 @@ export default {
   z-index: 999;
   padding: 20px 20px 30px 20px;
 }
- .bar-nav {
-      background: #eee;
-      padding: 10px;
-      height: 30px;
-      position: relative;
+.bar-nav {
+  background: #eee;
+  padding: 10px;
+  height: 30px;
+  position: relative;
+}
+.optin-box {
+  display: none;
+  position: relative;
+  span {
+    display: inline-block;
+    width: 25px;
+    margin-right: 20px;
+    vertical-align: middle;
+    &.select {
+      display: block;
     }
-    .optin-box {
-        display: none;
-        position: relative;
-        span {
-        display: inline-block;
-        width: 25px;
-        margin-right: 20px;
-        vertical-align: middle;
-        &.select {
-        display: block;
-        }
-        &.option-special{
-          width:40px;
-        }
-        cursor: pointer;
-        img {
-          display: inline-block;
-          float: left;
-          width: 100%;
-          }
-      }
-    .action {
+    &.option-special {
+      width: 40px;
+    }
+    cursor: pointer;
+    img {
+      display: inline-block;
+      float: left;
+      width: 100%;
+    }
+  }
+  .action {
     width: 220px;
     position: absolute;
     background-color: #eee;
@@ -314,36 +325,36 @@ export default {
     border: #ccc 1px solid;
     display: none;
     &.select {
-    display: block;
-    }
-    span{
-        display: inline-block;
-        img {
-            width: 25px;
-        }
-    }
-        }
-    }
-    .cut-optin {
-      display: none;
-      position: absolute;
-      left: 100px;
-      background: #fff;
-      padding: 2px 10px;
-      border: #eee 1px solid;
-      span {
-        display: inline-block;
-        width: 25px;
-        margin-right: 20px;
-        cursor: pointer;
-        img {
-          display: inline-block;
-          float: left;
-          width: 100%;
-        }
-      }
-    }
-    .select {
       display: block;
     }
+    span {
+      display: inline-block;
+      img {
+        width: 25px;
+      }
+    }
+  }
+}
+.cut-optin {
+  display: none;
+  position: absolute;
+  left: 100px;
+  background: #fff;
+  padding: 2px 10px;
+  border: #eee 1px solid;
+  span {
+    display: inline-block;
+    width: 25px;
+    margin-right: 20px;
+    cursor: pointer;
+    img {
+      display: inline-block;
+      float: left;
+      width: 100%;
+    }
+  }
+}
+.select {
+  display: block;
+}
 </style>
