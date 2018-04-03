@@ -10,8 +10,8 @@
             <div class="pin" v-for="item in list"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
               <!-- <span @click="collection">收藏</span> -->
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
-                <img :src="item.thumb" > 
-                <p>1 convallis timestamp</p> 
+                <img :src="item.img" > 
+                <p>{{item.name}}</p> 
             </div> 
         
         </div> 
@@ -41,6 +41,7 @@ export default {
   },
   mounted() {
     this.drawObj();
+    this.searchPdts();
     vm = this;
   },
   methods: {
@@ -94,18 +95,35 @@ export default {
         vm.cover(url, ev, canvas);
       }
     },
-    cover(url, ev, canvas) {
-      var _this = this;
-      //- _this.mouseImgPos.y
-      new fabric.Image.fromURL(url, function(oImg) {
-        oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
-        oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y;
-        oImg.scale(1);
-        _this.$store.state.fabricObj.canvas.add(oImg);
-        setTimeout(function() {
-          _this.fabricAction.bindSeletUnSelectEvent(oImg, _this);
-        }, 50);
-      });
+    cover(url, ev) {
+    	let _this = this;
+    	let canvas = _this.$store.state.fabricObj.canvas;
+		fabric.util.loadImage(url,function(oimg){
+			
+			var imgInstance = new fabric.Image(oimg,{  //设置图片在canvas中的位置和样子  
+				     left:ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x,  
+				     top:ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y,  
+				     scale:1
+				});  
+			canvas.add(imgInstance);
+		},canvas.getContext(),true)
+    	
+    	
+    	
+    	
+    	
+    	
+//    var _this = this;
+//    //- _this.mouseImgPos.y
+//    new fabric.Image.fromURL(url, function(oImg) {
+//      oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
+//      oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y;
+//      oImg.scale(1);
+//      _this.$store.state.fabricObj.canvas.add(oImg);
+//      setTimeout(function() {
+//        _this.fabricAction.bindSeletUnSelectEvent(oImg, _this);
+//      }, 50);
+//    });
     },
     drop(ev) {
       ev.preventDefault();
