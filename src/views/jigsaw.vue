@@ -191,10 +191,12 @@ export default {
     },
     saveCase(){
       var _this=this
-      // _this.caseBasic.title = document.getElementById("caseTitle").value;
-      // _this.caseBasic.description = document.getElementById(
-      //   "caseMemo"
-      // ).value;
+      if(document.getElementById("caseTitle").length!=0){
+          _this.caseBasic.title = document.getElementById("caseTitle").value;
+          _this.caseBasic.description = document.getElementById(
+            "caseMemo"
+          ).value;
+      }
       if (!_this.caseBasic.paletteId) {
         return;
       }

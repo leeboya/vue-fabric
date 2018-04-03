@@ -183,7 +183,15 @@ export default {
       this.searchPdts(keywords); //搜索单品
     },
     saveCase(){
-          var _this=this;
+      var _this=this;
+      if(document.getElementById("caseTitle").length!=0){
+          _this.caseBasic.title = document.getElementById("caseTitle").value;
+          _this.caseBasic.description = document.getElementById(
+            "caseMemo"
+          ).value;
+      }
+         
+
           if (!_this.caseBasic.paletteId) {
             create({
               description: _this.caseBasic.description, //描述
