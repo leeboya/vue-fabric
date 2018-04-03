@@ -197,12 +197,14 @@ export default {
     // 历史记录
     undo() {
       let _self = this;
-    
+        this.$store.commit("setOptionSelect", false);
+        this.$store.commit("setCutSelect", false);
       if (this.config.undoFinishedStatus) {
         if (this.config.currentStateIndex == -1) {
           this.config.undoStatus = false;
-        } else {
-          if (this.config.canvasState.length >= 1) {
+          return
+        }
+         if (this.config.canvasState.length >= 1) {
             this.config.undoFinishedStatus = 0;
             if (this.config.currentStateIndex != 0) {
               this.config.undoStatus = true;
@@ -218,24 +220,26 @@ export default {
                   _self.config.undoFinishedStatus = 1;
                 }
               );
-            } else if (_self.config.currentStateIndex == 0) {
+              setTimeout(() => {
+                _self.bindOption(_self);
+               
+              }, 200);
+              return
+            } 
+            if (_self.config.currentStateIndex == 0) {
               _self.$store.state.fabricObj.canvas.clear();
               _self.config.undoFinishedStatus = 1;
               _self.config.currentStateIndex -= 1;
+
             }
           }
-        }
       }
     },
     redo() {
       let _self = this;
-     this.$store.commit("setOptionSelect", false);
-      this.$store.commit("setCutSelect", false);
+      
       if (this.config.redoFinishedStatus) {
-        if (
-          this.config.canvasState.length > this.config.currentStateIndex &&
-          this.config.canvasState.length != 0
-        ) {
+        if ( this.config.canvasState.length > this.config.currentStateIndex && this.config.canvasState.length != 0) {
           this.config.redoFinishedStatus = 0;
           this.config.redoStatus = true;
           this.$store.state.fabricObj.canvas.loadFromJSON(
@@ -250,8 +254,28 @@ export default {
               _self.config.redoFinishedStatus = 1;
             }
           );
+          setTimeout(() => {
+            _self.bindOption(_self);
+           
+          }, 200);
         }
       }
+    },
+    /**@augments
+     * fucntion  loadFromJSON 的对象需要遍历循环绑定事件
+     */
+    bindOption(_this) {
+      _this.$store.state.fabricObj.canvas.getObjects().forEach(function(k, i) {
+        // _this.fabricAction.bindSeletUnSelectEvent(k, _this);
+        k
+          .on("selected", function(options) {
+            _this.$store.commit("setOptionSelect", true);
+          })
+          .on("deselected", function(options) {
+            // option.style.display = "none";
+            _this.$store.commit("setOptionSelect", false);
+          });
+      });
     },
     /**@augments
      * fucntion 转为图片并下载到本地
