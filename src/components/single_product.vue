@@ -96,21 +96,7 @@ export default {
         vm.cover(url, ev, canvas);
       }
     },
-<<<<<<< HEAD
-    cover(url, ev, canvas) {
-      var _this = this;
-      //- _this.mouseImgPos.y
-      new fabric.Image.fromURL(url, function(oImg) {
-        oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
-        oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y;
-        oImg.scale(1);
-        debugger
-        _this.$store.state.fabricObj.canvas.add(oImg);
-        setTimeout(function() {
-          _this.fabricAction.bindSeletUnSelectEvent(oImg, _this);
-        }, 50);
-      });
-=======
+
     cover(url, ev) {
     	let _this = this;
     	let canvas = _this.$store.state.fabricObj.canvas;
@@ -123,24 +109,7 @@ export default {
 				});  
 			canvas.add(imgInstance);
 		},canvas.getContext(),true)
-    	
-    	
-    	
-    	
-    	
-    	
-//    var _this = this;
-//    //- _this.mouseImgPos.y
-//    new fabric.Image.fromURL(url, function(oImg) {
-//      oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
-//      oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y;
-//      oImg.scale(1);
-//      _this.$store.state.fabricObj.canvas.add(oImg);
-//      setTimeout(function() {
-//        _this.fabricAction.bindSeletUnSelectEvent(oImg, _this);
-//      }, 50);
-//    });
->>>>>>> b401bba0172f5ee30a25f6afef0f99546e91f4b9
+
     },
     drop(ev) {
       ev.preventDefault();
