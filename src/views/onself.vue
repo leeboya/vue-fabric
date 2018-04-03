@@ -78,16 +78,7 @@ import axios from '@/api/axios'
                             _self.tempData.forEach((element, index) => {
                                 _self.getImg(element.boardId, index);
                                 // 如果 调用图片接口完成
-                                if(index == _self.tempData.length -1){
-                                    setTimeout(function(){
-                                        _self.$message({
-                                            message: '获取收藏夹成功',
-                                            type: 'success'
-                                        });
-                                        _self.collectionList = _self.tempData;
-                                    },500)
-                                    
-                                }
+                                
                             });
 
                         })
@@ -240,7 +231,17 @@ import axios from '@/api/axios'
                 axios.get(`/api/v1/user/boards/images/${boardId}`)
                         .then(function(res){
                             // _self.boardImg[index] = res.data
-                            _self.tempData[index].boardImg = res.data;              
+                            _self.tempData[index].boardImg = res.data; 
+                            if(index == _self.tempData.length -1){
+                                    setTimeout(function(){
+                                        _self.$message({
+                                            message: '获取收藏夹成功',
+                                            type: 'success'
+                                        });
+                                        _self.collectionList = _self.tempData;
+                                    },800)
+                                    
+                                }             
                         })
                         .catch(function(err){
                             console.log(err);
