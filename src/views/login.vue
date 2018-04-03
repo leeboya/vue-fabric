@@ -66,7 +66,7 @@
 				})
 			},
 			loginBywx:function(){
-				window.location.href = "http://6068ab60.ngrok.io/api/v1/user/wechat/login?redirectUrl=http://6068ab60.ngrok.io/personal";
+				window.location.href = "http://mz.wesetup.cn/api/v1/user/wechat/login?redirectUrl=http://mz.wesetup.cn/personal";
 //				loginBywx();
 			}
 		}
