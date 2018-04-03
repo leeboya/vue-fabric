@@ -166,11 +166,12 @@ export default {
               description: _this.caseBasic.description, //描述
               isEditable: 0, //是否可以修改
               isPrivate: 0, //是否私有
-              memberId: "00001", //会员ID
+              memberId: this.$store.state.user.userId, //会员ID
               refId: "a001", //引用ID
               thumb: "", // 缩略图url
               title: _this.caseBasic.title //案例主题或者名称吧
             }).then(res => {
+              _this.caseBasic.memberId=this.$store.state.user.userId;
               _this.caseBasic.paletteId = res.data;
               updateCaseBasic(_this.caseBasic).then(() => {
                 let temp = this.$store.state.fabricObj.canvas.toObject();
@@ -194,7 +195,7 @@ export default {
         });
     },
     searchPdts: function(keywords) {
-      // let name = this.$store.getters.images.currentClass.name;
+      let name = this.$store.getters.images.currentClass.name;
       search(
         "k=" + keywords + "&c=" + (name == "" || name == undefined ? "" : name)
       ).then(

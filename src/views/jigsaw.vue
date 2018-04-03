@@ -87,12 +87,13 @@ export default {
     setTimeout(() => {
       this.firstBindEvent();
     }, 300);
-    this.getCaseList("00001"); //获取案例列表
+
+    this.getCaseList(this.$store.state.user.userId); //获取案例列表
     
   },
   methods: {
     refrashList(){
-      this.getCaseList("00001"); //获取案例列表
+      this.getCaseList(this.$store.state.user.userId); //获取案例列表
     },
     updateImg() {
       this.$store.commit("setCanvas", this.fabricAction.createCanvas("canvas"));
@@ -172,6 +173,7 @@ export default {
           if (!_this.caseBasic.paletteId) {
             return;
           }
+           _this.caseBasic.memberId=this.$store.state.user.userId;
           updateCaseBasic(_this.caseBasic).then(() => {
             let temp =this.$store.state.fabricObj.canvas.toObject();
             temp.paletteId = _this.caseBasic.paletteId;
