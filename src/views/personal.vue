@@ -108,13 +108,29 @@
 			getUserId(this);
 			//todos 获取登录用户wechatId
 //			console.log(document.cookie);
-				let cookies = document.cookie
-				let token = cookies.split("Token=")[1];
-				localStorage.setItem('token',"Bearer "+token);
-//			this.$store.commit('weChatId',{userId:res.data.data})
+//				let cookies = document.cookie
+//				let token = cookies.split("Token=")[1];
+//				if(token.indexOf("=")>-1){
+//					token = token.split(";")[0];
+//				}
+				sessionStorage.setItem("weChatId",this.getCookieByName("wechat_id"));
+				localStorage.setItem('token',"Bearer "+this.getCookieByName("Token"));
+//			  this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		
 		methods:{
+			getCookieByName:function(name){
+				let strcookie = document.cookie;//获取cookie字符串
+				let arrcookie = strcookie.split("; ");//分割
+				//遍历匹配
+				for ( var i = 0; i < arrcookie.length; i++) {
+					let arr = arrcookie[i].split("=");
+					if (arr[0] == name){
+						 return arr[1];
+					}
+				}
+				return "";
+			},
 			bindwechat:function(){
 				window.location.href = "http://mz.wesetup.cn/api/v1/user/wechat/bind?redirectUrl=http://mz.wesetup.cn/personal"
 			},
@@ -160,7 +176,7 @@
 				})
 			},
 			bindPhone:function(){
-				bindPhone({phone:this.phone,code:this.code,password:this.password,wechat_id:this.wechat_id})
+				bindPhone({phone:this.phone,code:this.code,password:this.password,wechat_id:sessionStorage.getItem("weChatId")})
 				.then(res=>{
 					if(res.status == "200"){
 						this.tip = res.data.msg;
