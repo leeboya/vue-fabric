@@ -31,75 +31,75 @@ export default {
       listType: "sing",
       productList: [
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10002.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10004.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10012.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10009.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10003.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m4.cdn.imeijian.cn/categoryImg-10005.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/8dd88ad5c373b5296e7f6a722532c343.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/4bd5609e6a7b2e5241dfa94f5a46103b.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/2f0ce5e3aca9512bcaa3808253894ad0.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/e7f04ea47698663d3bbfbfac6c3a7ac2.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/01764dbb45e867654f2ffea75905a00d.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/9803a7ca868fccaa97f0eb3467ac5cbd.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/e143d3c6c5445a31e898ae89bfaab6e5_M_685630.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/2820dc152aa916d17df24f4afee340b6.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/b3fdc58086f8d77da428ebd3183f88d5.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/669b139694989c3edb30fc039cd478b6.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/83a521cde2fde15343c8b67640e1264d.png?x-oss-process=style/300wh_j"
         },
         {
-          pic:
+          thumb:
             "http://m1.cdn.imeijian.cn/9311e12d6f29953e9652b89f64c8c030.png?x-oss-process=style/300wh_j"
         }
       ],
@@ -325,61 +325,10 @@ export default {
       thumb: "", // 缩略图url
       title: "第一条案例" //案例主题或者名称吧
     }); 
-<<<<<<< HEAD
-    创建案例
-=======
-    //创建案例
->>>>>>> 1b1fbccf61cf0bd60e8b7c0fdc980c19034deba8
 
-//  this.saveData({
-//    caseMO: {
-//      data: "string",
-//      paletteId: "string",
-//      time: "2018-03-28T10:57:41.682Z"
-//    },
-//    palette: {
-//      modificationNumber: 0,
-//      createBy: null,
-//      createDate: null,
-//      updateBy: null,
-//      updateDate: null,
-//      delFlag: 0,
-//      paletteId: "978904609705238530",
-//      refId: "a001",
-//      memberId: "00001",
-//      title: "第一条案例",
-//      thumb: "",
-//      description: "这是测试的",
-//      isPrivate: 0,
-//      dataId: null,
-//      isEditable: 0
-//    }
-//  });
 
-    // this.updateCase("978901410936070145", {
-    //   createBy: "string",
-    //   createDate: "2018-03-28T11:18:26.72226Z",
-    //   dataId: "string",
-    //   delFlag: 0,
-    //   description: "string",
-    //   id: 0,
-    //   isEditable: 0,
-    //   isPrivate: 0,
-    //   memberId: "string",
-    //   modificationNumber: 0,
-    //   paletteId: "string",
-    //   refId: "string",
-    //   thumb: "string",
-    //   title: "string",
-    //   updateBy: "string",
-    //   updateDate: "2018-03-28T11:18:26.796Z"
-    // });
-    // this.getCaseList("00001");
-    // this.delCase("978898061348118530");
-    // this.getCaseBasic("978907450553475073"); //获取案例基础信息
 
-    // this.getCaseDetails("978904609705238530");
-    //初始化的canvas对象事件绑定
+
     setTimeout(() => {
       this.firstBindEvent();
     }, 300);
@@ -485,51 +434,7 @@ export default {
         }
       );
     },
-    getCaseList(memberId) {
-      let _this = this;
-      list(memberId).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    delCase(paletteId) {
-      let _this = this;
-      del(paletteId).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    updateCase(paletteId, params) {
-      let _this = this;
-      update(paletteId, params).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    getCaseBasic(paletteId) {
-      let _this = this;
-      caseBasic(paletteId).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    },
-    getCaseDetails(paletteId) {
-      let _this = this;
-      casedetails(paletteId).then(
-        function(res) {},
-        function(err) {
-          //					console.log(err)
-        }
-      );
-    }
+
   }
 };
 </script>

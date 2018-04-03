@@ -7,7 +7,7 @@
         </div>
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
-            <div class="pin" v-for="item in searchResult"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
+            <div class="pin" v-for="item in list"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
               <!-- <span @click="collection">收藏</span> -->
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img :src="item.thumb" > 
