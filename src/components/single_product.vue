@@ -33,7 +33,8 @@ export default {
       canvasPos: {}, //canvas 宽高
       mouseImgPos: {}, // 鼠标拖拽相对图片的位置
       keywords:"",
-      searchResult:null
+      searchResult:null,
+      
     };
   },
   created(){
@@ -101,6 +102,7 @@ export default {
         oImg.left = ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x;
         oImg.top = ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y;
         oImg.scale(1);
+        debugger
         _this.$store.state.fabricObj.canvas.add(oImg);
         setTimeout(function() {
           _this.fabricAction.bindSeletUnSelectEvent(oImg, _this);

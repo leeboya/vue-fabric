@@ -24,7 +24,7 @@ import topBar from "@/components/top_bar";
 import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
-import { create,list,del,caseBasic,casedetails} from "@/api/case";
+import {create,updateCaseBasic,updateCanvas} from "@/api/case";
 export default {
   data() {
     return {
@@ -113,199 +113,15 @@ export default {
         undoButton: this.$refs.undo,
         redoButton: this.$refs.redo
       },
-      canvasObj: {
-        objects: [
-          {
-            type: "image",
-            version: "2.1.0",
-            originX: "left",
-            originY: "top",
-            left: 100,
-            top: 100,
-            width: 200,
-            height: 198,
-            fill: "rgb(0,0,0)",
-            stroke: null,
-            strokeWidth: 0,
-            strokeDashArray: null,
-            strokeLineCap: "butt",
-            strokeLineJoin: "miter",
-            strokeMiterLimit: 10,
-            scaleX: 1,
-            scaleY: 1,
-            angle: 10,
-            flipX: false,
-            flipY: false,
-            opacity: 1,
-            shadow: null,
-            visible: true,
-            clipTo: null,
-            backgroundColor: "",
-            fillRule: "nonzero",
-            paintFirst: "fill",
-            globalCompositeOperation: "source-over",
-            transformMatrix: null,
-            skewX: 0,
-            skewY: 0,
-            crossOrigin: "",
-            cropX: 0,
-            cropY: 0,
-            src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-            filters: []
-          },
-          {
-            type: "image",
-            version: "2.1.0",
-            originX: "left",
-            originY: "top",
-            left: 400,
-            top: 200,
-            width: 200,
-            height: 198,
-            fill: "rgb(0,0,0)",
-            stroke: null,
-            strokeWidth: 0,
-            strokeDashArray: null,
-            strokeLineCap: "butt",
-            strokeLineJoin: "miter",
-            strokeMiterLimit: 10,
-            scaleX: 1,
-            scaleY: 1,
-            angle: 10,
-            flipX: false,
-            flipY: false,
-            opacity: 1,
-            shadow: null,
-            visible: true,
-            clipTo: null,
-            backgroundColor: "",
-            fillRule: "nonzero",
-            paintFirst: "fill",
-            globalCompositeOperation: "source-over",
-            transformMatrix: null,
-            skewX: 0,
-            skewY: 0,
-            crossOrigin: "",
-            cropX: 0,
-            cropY: 0,
-            src: "http://localhost:9090/static/2.jpg",
-            filters: []
-          },
-          {
-            type: "image",
-            version: "2.1.0",
-            originX: "left",
-            originY: "top",
-            left: 533,
-            top: -62,
-            width: 200,
-            height: 198,
-            fill: "rgb(0,0,0)",
-            stroke: null,
-            strokeWidth: 0,
-            strokeDashArray: null,
-            strokeLineCap: "butt",
-            strokeLineJoin: "miter",
-            strokeMiterLimit: 10,
-            scaleX: 1,
-            scaleY: 1,
-            angle: 0,
-            flipX: false,
-            flipY: false,
-            opacity: 1,
-            shadow: null,
-            visible: true,
-            clipTo: null,
-            backgroundColor: "",
-            fillRule: "nonzero",
-            paintFirst: "fill",
-            globalCompositeOperation: "source-over",
-            transformMatrix: null,
-            skewX: 0,
-            skewY: 0,
-            crossOrigin: "",
-            cropX: 0,
-            cropY: 0,
-            src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-            filters: []
-          },
-          {
-            type: "image",
-            version: "2.1.0",
-            originX: "left",
-            originY: "top",
-            left: 150,
-            top: 150,
-            width: 200,
-            height: 198,
-            fill: "rgb(0,0,0)",
-            stroke: null,
-            strokeWidth: 0,
-            strokeDashArray: null,
-            strokeLineCap: "butt",
-            strokeLineJoin: "miter",
-            strokeMiterLimit: 10,
-            scaleX: 1,
-            scaleY: 1,
-            angle: 10,
-            flipX: false,
-            flipY: false,
-            opacity: 1,
-            shadow: null,
-            visible: true,
-            clipTo: null,
-            backgroundColor: "",
-            fillRule: "nonzero",
-            paintFirst: "fill",
-            globalCompositeOperation: "source-over",
-            transformMatrix: null,
-            skewX: 0,
-            skewY: 0,
-            crossOrigin: "",
-            cropX: 0,
-            cropY: 0,
-            src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-            filters: []
-          },
-          {
-            type: "image",
-            version: "2.1.0",
-            originX: "left",
-            originY: "top",
-            left: 200,
-            top: 200,
-            width: 200,
-            height: 198,
-            fill: "rgb(0,0,0)",
-            stroke: null,
-            strokeWidth: 0,
-            strokeDashArray: null,
-            strokeLineCap: "butt",
-            strokeLineJoin: "miter",
-            strokeMiterLimit: 10,
-            scaleX: 1,
-            scaleY: 1,
-            angle: 10,
-            flipX: false,
-            flipY: false,
-            opacity: 1,
-            shadow: null,
-            visible: true,
-            clipTo: null,
-            backgroundColor: "",
-            fillRule: "nonzero",
-            paintFirst: "fill",
-            globalCompositeOperation: "source-over",
-            transformMatrix: null,
-            skewX: 0,
-            skewY: 0,
-            crossOrigin: "",
-            cropX: 0,
-            cropY: 0,
-            src: "http://ovfllimsi.bkt.clouddn.com/fabricPic1.jpeg",
-            filters: []
-          }
-        ]
+      caseBasic: {
+        description: "",
+        isEditable: "",
+        isEditable: "",
+        isPrivate: "",
+        memberId: "",
+        refId: "",
+        thumb: "",
+        title: "未命名"
       }
     };
   },
@@ -325,10 +141,6 @@ export default {
       thumb: "", // 缩略图url
       title: "第一条案例" //案例主题或者名称吧
     }); 
-
-
-
-
     setTimeout(() => {
       this.firstBindEvent();
     }, 300);
@@ -408,22 +220,56 @@ export default {
       dlLink.click();
       document.body.removeChild(dlLink);
     },
-    open() {
-      var html=['  <div class="case-basic">',
-                '   <div class="name-box">',
-                '    <input class="case-name" value="未命名" />',
-                '    </div>',
-                '      <select><option>简约</option><option>北欧</option></select>',
-                '      <select><option>客厅</option><option>卧室</option></select>',
-                '      <div></div>',
-                '     </div>',
-                '    </div>',
-                '   </div>',
-                '  </div>'].join("");
-    this.$alert(html, {
-          dangerouslyUseHTMLString: true
+ open() {
+      var _this = this;
+      var html = [
+        '  <div class="case-basic">',
+        '     <div class="name-box">',
+        '      <input class="case-name" id="caseTitle" value="' +
+          this.caseBasic.title +
+          '" />',
+        "      </div>",
+        "      <div>",
+        "         <select><option>简约</option></select>",
+        "         <select><option>客厅</option></select>",
+        "      </div>",
+        "     <div class='memo-box'><textarea id='caseMemo' class='area'>" +
+          this.caseBasic.description +
+          "</textarea></div>",
+        "  </div>"
+      ].join("");
+      this.$alert(html, {
+        dangerouslyUseHTMLString: true
+      })
+        .then(() => {
+          _this.caseBasic.title = document.getElementById("caseTitle").value;
+          _this.caseBasic.description = document.getElementById(
+            "caseMemo"
+          ).value;
+          if (!_this.caseBasic.paletteId) {
+            _this.createCase({
+              description: _this.caseBasic.description, //描述
+              isEditable: 0, //是否可以修改
+              isPrivate: 0, //是否私有
+              memberId: "00001", //会员ID
+              refId: "a001", //引用ID
+              thumb: "", // 缩略图url
+              title: _this.caseBasic.title //案例主题或者名称吧
+            });
+            return;
+          }
+          updateCaseBasic(_this.caseBasic).then(() => {
+            let temp =this.$store.state.fabricObj.canvas.toObject();
+            temp.paletteId = _this.caseBasic.paletteId;
+            updateCanvas(temp);
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已经取消"
+          });
         });
-      
     },
     createCase(params) {
       let _this = this;
