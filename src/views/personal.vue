@@ -113,8 +113,12 @@
 //				if(token.indexOf("=")>-1){
 //					token = token.split(";")[0];
 //				}
-				sessionStorage.setItem("weChatId",this.getCookieByName("wechat_id"));
-				localStorage.setItem('token',"Bearer "+this.getCookieByName("Token"));
+				if(this.getCookieByName("wechat_id")!=""){
+					sessionStorage.setItem("weChatId",this.getCookieByName("wechat_id"));
+				}
+				if(this.getCookieByName("Token")!=""){
+					localStorage.setItem('token',"Bearer "+this.getCookieByName("Token"));
+				}
 //			  this.$store.commit('weChatId',{userId:res.data.data})
 		},
 		
