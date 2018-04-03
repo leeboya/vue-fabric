@@ -21,8 +21,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'sing',
-      component: sing,
+      name: 'login',
+      component: login,
       meta: {title: '设计IN-设计师严选平台'}
     },
     {
