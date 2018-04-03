@@ -79,6 +79,7 @@ export default {
   },
   mounted() {
     this.$store.commit("setCurrentNav", "jigsaw");
+    this.$store.commit("setOptionSelect", false);
     //绘制画布
     this.updateImg();
     //监听canvas 事件
@@ -89,10 +90,9 @@ export default {
     }, 300);
 
     this.getCaseList(this.$store.state.user.userId); //获取案例列表
-    
   },
   methods: {
-    refrashList(){
+    refrashList() {
       this.getCaseList(this.$store.state.user.userId); //获取案例列表
     },
     updateImg() {
@@ -177,9 +177,9 @@ export default {
           if (!_this.caseBasic.paletteId) {
             return;
           }
-           _this.caseBasic.memberId=this.$store.state.user.userId;
+          _this.caseBasic.memberId = this.$store.state.user.userId;
           updateCaseBasic(_this.caseBasic).then(() => {
-            let temp =this.$store.state.fabricObj.canvas.toObject();
+            let temp = this.$store.state.fabricObj.canvas.toObject();
             temp.paletteId = _this.caseBasic.paletteId;
             updateCanvas(temp);
           });
@@ -263,8 +263,12 @@ export default {
         function(res) {
           var _data = eval("(" + res.data.data + ")");
           _this.caseDetails = _data;
-          
+
           _this.$store.state.fabricObj.canvas.loadFromJSON(_data);
+          setTimeout(()=>{
+            _this.bindOption(_this)
+          },200)
+
           _this.$store.commit("setCanvas", _this.$store.state.fabricObj.canvas);
         },
         function(err) {
@@ -281,8 +285,19 @@ export default {
         }
       );
     },
-    getSearchList(keywords){
-
+    getSearchList(keywords) {},
+    bindOption(_this) {
+      _this.$store.state.fabricObj.canvas.getObjects().forEach(function(k, i) {
+        // _this.fabricAction.bindSeletUnSelectEvent(k, _this);
+        k
+          .on("selected", function(options) {
+            _this.$store.commit("setOptionSelect", true);
+          })
+          .on("deselected", function(options) {
+            // option.style.display = "none";
+            _this.$store.commit("setOptionSelect", false);
+          });
+      });
     }
   }
 };

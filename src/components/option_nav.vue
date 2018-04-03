@@ -38,6 +38,7 @@
     <span id="backWard" class="elmForWard" @click="changeForWord('backWard')"> <img src="@/assets/icon/backWard.png" /> </span> 
     <span id="toFront" class="elmForWard" @click="changeForWord('toFront')"> <img src="@/assets/icon/toFront.png" /> </span> 
     <span id="toBack" class="elmForWard" @click="changeForWord('toBack')"> <img src="@/assets/icon/toBack.png" /> </span> 
+ 
     </div> 
     </div> 
     <div class="cut-optin" id="cutOptin" :class=" $store.state.fabricObj.cutSelect ? 'select' : '' "> 
@@ -72,6 +73,7 @@ export default {
         }
     },
     mounted(){
+        
     },
     methods:{
 
@@ -261,13 +263,16 @@ export default {
       position: relative;
     }
     .optin-box {
-        // display: none;
+        display: none;
         position: relative;
         span {
         display: inline-block;
         width: 25px;
         margin-right: 20px;
         vertical-align: middle;
+        &.select {
+        display: block;
+        }
         &.option-special{
           width:40px;
         }

@@ -56,6 +56,7 @@ export default {
   components: { topBar, guide, singleProduct, optionNav },
   mounted() {
     this.$store.commit("setCurrentNav", "sing"); //绘制画布
+    this.$store.commit("setOptionSelect", false); 
     this.updateImg();
     this.canvasDataChange(); //监听canvas 事件
     this.searchPdts(""); //搜索单品
@@ -74,6 +75,7 @@ export default {
     canvasDataChange() {
       let _self = this;
       this.$store.state.fabricObj.canvas.on("object:modified", function() {
+       
         _self.updateCanvasState();
       });
       this.$store.state.fabricObj.canvas.on("object:added", function() {

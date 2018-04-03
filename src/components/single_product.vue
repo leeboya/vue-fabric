@@ -34,9 +34,7 @@ export default {
     };
   },
   created() {},
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
     /**@augments
      * function 收藏图片到个人中心
@@ -71,22 +69,18 @@ export default {
       };
       this.drawObj();
       if (ev.clientX > this.canvasPos.x && ev.clientX < this.canvasPos.r) {
-       
         if (this.type == "jigsaw") {
-         
           this.getCaseBasic(paletteId); //获取案例基础信息
           return;
         }
         this.cover(url, ev, canvas);
-       
       }
     },
 
     cover(url, ev) {
+      var _this = this;
+      var canvas = _this.$store.state.fabricObj.canvas;
 
-      let _this = this;
-      let canvas = _this.$store.state.fabricObj.canvas;
-   
       fabric.util.loadImage(
         url,
         function(oimg) {
@@ -96,7 +90,16 @@ export default {
             top: ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y,
             scale: 1
           });
+
           canvas.add(imgInstance);
+          imgInstance
+            .on("selected", function(options) {
+              _this.$store.commit("setOptionSelect", true);
+            })
+            .on("deselected", function(options) {
+              // option.style.display = "none";
+              _this.$store.commit("setOptionSelect", false);
+            });
         },
         canvas.getContext(),
         true
@@ -110,7 +113,7 @@ export default {
         width: this.$refs.getLeftBarWidth.offsetWidth,
         height: this.$refs.getLeftBarWidth.offsetHeight
       };
-      
+
       this.canvasPos = {
         x: document.querySelector("canvas").getBoundingClientRect().left,
         y: document.querySelector("canvas").getBoundingClientRect().top,
