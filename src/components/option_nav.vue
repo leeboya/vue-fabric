@@ -197,8 +197,7 @@ export default {
     // 历史记录
     undo() {
       let _self = this;
-      this.$store.commit("setOptionSelect", true);
-      this.$store.commit("setCutSelect", false);
+    
       if (this.config.undoFinishedStatus) {
         if (this.config.currentStateIndex == -1) {
           this.config.undoStatus = false;
@@ -230,7 +229,7 @@ export default {
     },
     redo() {
       let _self = this;
-      this.$store.commit("setOptionSelect", true);
+     this.$store.commit("setOptionSelect", false);
       this.$store.commit("setCutSelect", false);
       if (this.config.redoFinishedStatus) {
         if (
