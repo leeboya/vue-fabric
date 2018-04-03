@@ -1,76 +1,42 @@
 <template>
   <div class="m-guide" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
       <div class="m" v-for="(item,index) in classFliy" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-          <div class="img-box">
+          <div class="img-box" @click="setSearchCategory(index,$event)"  :id="item.categoryId">
                <img src="@/assets/img/icon1.png">
           </div>   
-          <span>{{item.name}}</span>
+          <span :class="[{'current':cIdx == index}]" @click="setSearchCategory(index,$event)"  :id="item.categoryId">{{item.name}}</span>
       </div>
   </div>
 </template>
 <script>
+	import {uploadImg,getCategory,search,getByItemId} from "@/api/image"
 export default {
     data(){
         return {
-            classFliy:[
-                {
-                    name:'沙发',
-                    icon:'icon1'
-                },
-                {
-                    name:'椅子',
-                    icon:'icon2'
-                },
-                 {
-                    name:'几类'
-                },
-                 {
-                    name:'桌子'
-                },
-                 {
-                    name:'柜子'
-                },
-                 {
-                    name:'架类'
-                },
-                 {
-                    name:'床'
-                },
-                 {
-                    name:'灯具'
-                },
-                 {
-                    name:'配饰'
-                },
-                 {
-                    name:'挂画'
-                },
-                {
-                    name:'花艺'
-                },
-                {
-                    name:'布艺'
-                },
-                {
-                    name:'地毯'
-                },
-                 {
-                    name:'墙纸'
-                },
-                 {
-                    name:'屏风'
-                },
-                 {
-                    name:'户外'
-                },
-                 {
-                    name:'生活'
-                },
-                 {
-                    name:'硬装'
-                }
-            ]
+        		cIdx:null,
+            classFliy:[]
         }
+    },
+    mounted(){
+    	this.getCategory("parentId=");
+    },
+    methods:{
+    	setSearchCategory:function(idx,e){
+    		this.cIdx = idx;
+				this.$store.commit("setClass",this.classFliy[idx]);
+    	},
+    	getCategory:function(param){
+				getCategory(param)
+				.then((res)=>{
+					if(res.status == "200"){
+						this.$store.commit("setClasses",res.data);
+						this.classFliy = this.$store.getters.images.classes;
+					}
+//					console.log(res)
+				},(err)=>{
+					
+				})
+			},
     }
   
 }
@@ -87,6 +53,7 @@ export default {
           margin:27px auto 0 auto;
     }
     .m{
+    		cursor: pointer;
         width:100px;
         text-align: center;
         margin:0 20px 20px 20px;
@@ -107,7 +74,10 @@ export default {
         }
     }
 }
-
+.current{
+	background-color:#1E90FF;
+	color: #fff;
+}
 
 
 </style>

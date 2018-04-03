@@ -1,10 +1,14 @@
 var images = {
 	state:{
-		classes:[]
+		classes:[],
+		currentClass:{}
 	},
 	mutations:{
 		setClasses:(state,data)=>{
 			state.classes = data;
+		},
+		setClass:(state,data)=>{
+			state.currentClass = data;
 		}
 	}
 }
