@@ -2,12 +2,12 @@
 <div class="m-singp">
      <div class="wrap">
         <div class="search-box">
-                <input type="text" class="search" placeholder="请输入">
-                <span class="btn">筛选</span>
+                <input type="text" v-model="keywords" class="search" placeholder="请输入">
+                <span class="btn" @click="searchPdts">筛选</span>
         </div>
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
-            <div class="pin" v-for="item in list"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
+            <div class="pin" v-for="item in searchResult"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
               <!-- <span @click="collection">收藏</span> -->
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img :src="item.thumb" > 
@@ -21,7 +21,8 @@
  
 </template>
 <script>
-import Vue from "vue";
+	import {search} from "@/api/image"
+//import Vue from "vue";
 var vm = {};
 import { caseBasic,del } from "@/api/case";
 export default {
@@ -30,14 +31,29 @@ export default {
     return {
       leftBar: {}, //左侧宽高
       canvasPos: {}, //canvas 宽高
-      mouseImgPos: {} // 鼠标拖拽相对图片的位置
+      mouseImgPos: {}, // 鼠标拖拽相对图片的位置
+      keywords:"",
+      searchResult:null
     };
+  },
+  created(){
+  	
   },
   mounted() {
     this.drawObj();
     vm = this;
   },
   methods: {
+  	searchPdts:function(){
+  		let name = this.$store.getters.images.currentClass.name;
+  		search("k="+this.keywords+"&c="+((name == "" || name == undefined) ? "": name))
+  		.then((res)=>{
+					this.searchResult = res.data;
+//					console.log(res.data)
+				},(err)=>{
+					
+				})
+  	},
     /**@augments
      * function 收藏图片到个人中心
      */
@@ -153,6 +169,7 @@ export default {
         background: #fff;
         border: #ccc 1px solid;
         margin-left: 10px;
+        cursor:pointer
       }
     }
     .container {
