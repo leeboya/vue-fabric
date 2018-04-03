@@ -20,31 +20,24 @@
  
 </template>
 <script>
-
 //import Vue from "vue";
-var vm = {};
-import { caseBasic,del } from "@/api/case";
+
+import { caseBasic, del } from "@/api/case";
 export default {
-  props: ["dataList","type"],
+  props: ["dataList", "type"],
   data() {
     return {
       leftBar: {}, //左侧宽高
       canvasPos: {}, //canvas 宽高
       mouseImgPos: {}, // 鼠标拖拽相对图片的位置
-      keywords:''
-   
+      keywords: ""
     };
   },
-  created(){
-  	
-  },
+  created() {},
   mounted() {
-    this.drawObj();
    
-    vm = this;
   },
   methods: {
- 
     /**@augments
      * function 收藏图片到个人中心
      */
@@ -76,26 +69,38 @@ export default {
         height: 100,
         angle: 0
       };
+      this.drawObj();
       if (ev.clientX > this.canvasPos.x && ev.clientX < this.canvasPos.r) {
+       
         if (this.type == "jigsaw") {
-           vm.getCaseBasic(paletteId); //获取案例基础信息
+         
+          this.getCaseBasic(paletteId); //获取案例基础信息
           return;
         }
-        vm.cover(url, ev, canvas);
+        this.cover(url, ev, canvas);
+       
       }
     },
 
     cover(url, ev) {
-    	let _this = this;
-    	let canvas = _this.$store.state.fabricObj.canvas;
-		fabric.util.loadImage(url,function(oimg){
-			var imgInstance = new fabric.Image(oimg,{  //设置图片在canvas中的位置和样子  
-				     left:ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x,  
-				     top:ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y,  
-				     scale:1
-				});  
-			canvas.add(imgInstance);
-		},canvas.getContext(),true)
+
+      let _this = this;
+      let canvas = _this.$store.state.fabricObj.canvas;
+   
+      fabric.util.loadImage(
+        url,
+        function(oimg) {
+          var imgInstance = new fabric.Image(oimg, {
+            //设置图片在canvas中的位置和样子
+            left: ev.clientX - _this.canvasPos.x - _this.mouseImgPos.x,
+            top: ev.clientY - _this.canvasPos.y - _this.mouseImgPos.y,
+            scale: 1
+          });
+          canvas.add(imgInstance);
+        },
+        canvas.getContext(),
+        true
+      );
     },
     drop(ev) {
       ev.preventDefault();
@@ -105,6 +110,7 @@ export default {
         width: this.$refs.getLeftBarWidth.offsetWidth,
         height: this.$refs.getLeftBarWidth.offsetHeight
       };
+      
       this.canvasPos = {
         x: document.querySelector("canvas").getBoundingClientRect().left,
         y: document.querySelector("canvas").getBoundingClientRect().top,
@@ -120,18 +126,17 @@ export default {
       var _this = this;
       caseBasic(paletteId).then(
         function(res) {
-          _this.$emit('setCaseBasic',res.data);
+          _this.$emit("setCaseBasic", res.data);
         },
-        function(err) {
-        }
+        function(err) {}
       );
     },
-    delCase(paletteId){
-        del(paletteId);
-        this.$emit('refrashList');
+    delCase(paletteId) {
+      del(paletteId);
+      this.$emit("refrashList");
     },
-    searchList(keywords){
-         this.$emit('setSearchList',keywords);
+    searchList(keywords) {
+      this.$emit("setSearchList", keywords);
     }
   }
 };
@@ -162,7 +167,7 @@ export default {
         background: #fff;
         border: #ccc 1px solid;
         margin-left: 10px;
-        cursor:pointer
+        cursor: pointer;
       }
     }
     .container {
@@ -176,13 +181,13 @@ export default {
           position: relative;
           .del {
             position: absolute;
-            right:10px;
-            bottom:10px;
-            width:20px;
+            right: 10px;
+            bottom: 10px;
+            width: 20px;
             cursor: pointer;
             display: inline-block;
             img {
-              width:100%;
+              width: 100%;
             }
           }
           padding: 1em;

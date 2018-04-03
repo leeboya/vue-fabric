@@ -1,7 +1,7 @@
 <template>
   <div class="p-index">
         <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-            <top-bar></top-bar>
+            <top-bar ></top-bar>
             <guide></guide>
             <single-product :dataList="productList" :type="listType" @setSearchList="getSearchList"></single-product>
         </div>
@@ -25,7 +25,7 @@ import guide from "@/components/guide";
 import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
 import { create, updateCaseBasic, updateCanvas } from "@/api/case";
-import {search} from "@/api/image"
+import { search } from "@/api/image";
 export default {
   data() {
     return {
@@ -50,18 +50,15 @@ export default {
         refId: "",
         thumb: "",
         title: "未命名"
-      },
+      }
     };
   },
   components: { topBar, guide, singleProduct, optionNav },
   mounted() {
-    this.$store.commit("setCurrentNav", "sing");  //绘制画布
+    this.$store.commit("setCurrentNav", "sing"); //绘制画布
     this.updateImg();
-    this.canvasDataChange();     //监听canvas 事件
-    setTimeout(() => {
-      this.firstBindEvent();
-    }, 300);
-    this.searchPdts('');//搜索单品
+    this.canvasDataChange(); //监听canvas 事件
+    this.searchPdts(""); //搜索单品
   },
   methods: {
     updateImg() {
@@ -182,13 +179,12 @@ export default {
               });
             });
             return;
-
-            updateCaseBasic(_this.caseBasic).then(() => {
-              let temp = this.$store.state.fabricObj.canvas.toObject();
-              temp.paletteId = _this.caseBasic.paletteId;
-              updateCanvas(temp);
-            });
           }
+          updateCaseBasic(_this.caseBasic).then(() => {
+            let temp = this.$store.state.fabricObj.canvas.toObject();
+            temp.paletteId = _this.caseBasic.paletteId;
+            updateCanvas(temp);
+          });
         })
         .catch(() => {
           this.$message({
@@ -199,15 +195,17 @@ export default {
     },
     searchPdts: function(keywords) {
       // let name = this.$store.getters.images.currentClass.name;
-      search( "k=" +keywords +"&c=" +(name == "" || name == undefined ? "" : name)).then(
+      search(
+        "k=" + keywords + "&c=" + (name == "" || name == undefined ? "" : name)
+      ).then(
         res => {
           this.productList = res.data;
         },
         err => {}
       );
     },
-    getSearchList(keywords){
-         this.searchPdts(keywords);//搜索单品
+    getSearchList(keywords) {
+      this.searchPdts(keywords); //搜索单品
     }
   }
 };
@@ -335,6 +333,14 @@ export default {
   select {
     width: 182px;
     margin-right: 10px;
+  }
+    .memo-box {
+    margin-top: 10px;
+    textarea {
+      width: 386px;
+      height: 60px;
+      border: #eee 1px solid;
+    }
   }
 }
 </style>

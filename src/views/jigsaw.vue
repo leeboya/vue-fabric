@@ -1,7 +1,7 @@
   <template>
     <div class="p-index">
         <div class="product-list" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
-              <top-bar></top-bar>
+              <top-bar ></top-bar>
               <single-product :dataList="productList" :type="listType" @setCaseBasic="getCaseBasic" @refrashList="refrashList" @setSearchList="getSearchList"> </single-product>
         </div>
         <div class="jigsaw" :class="$store.state.fabricObj.jigsawIsOpen ? 'open' : '' ">
@@ -90,7 +90,6 @@ export default {
     this.getCaseList("00001"); //获取案例列表
     
   },
-
   methods: {
     refrashList(){
       this.getCaseList("00001"); //获取案例列表
