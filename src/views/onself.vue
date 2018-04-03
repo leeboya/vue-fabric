@@ -2,12 +2,15 @@
   <div class="onself">
       个人中心
       <p>收藏夹</p>
+       <el-button type="text" @click="dialogFormVisible = true">添加收藏夹</el-button>
+      <hr>
       <ul v-for="(collection, index) in collectionList">
+          
             <li>
                 {{collection.title}}
-                <div class="cover" @click="alertModel()" v-bind:style="{}">
+                <!-- <div class="cover" @click="alertModel()" v-bind:style="{}"> -->
                     <!-- <span class="cover-button" @click="setCover()">设为封面</span> -->
-                </div>
+                <!-- </div> -->
                 <div class="sm-img-icon">
                     <div class="img-icon"  v-for="img in collection.boardImg"
                     v-bind:style="{ backgroundImage: 'url('+img.imgUrl+')'}">
@@ -24,9 +27,11 @@
             <span class="chg" :data-boardId="collection.boardId" @click="detail()">详情</span>
             <span class="chg" :data-boardId="collection.boardId" @click="toAddImg()">添加图片</span>
             </li>
+            <hr>
       </ul>
+      
       <!-- <button @click="newCollection()">添加收藏夹</button> -->
-      <el-button type="text" @click="dialogFormVisible = true">添加收藏夹</el-button>
+     
       <el-dialog title="收藏夹" :visible.sync="dialogFormVisible">
           名称<el-input v-model="getCollectionTitle" placeholder="请输入收藏夹名称" ref="getCollectionTitle">
               
@@ -38,6 +43,8 @@
                 <el-button type="primary" @click="newCollection()">确 定</el-button>
             </div>
       </el-dialog>
+
+      
   </div>
 </template>
 <script>
@@ -78,7 +85,7 @@ import axios from '@/api/axios'
                                             type: 'success'
                                         });
                                         _self.collectionList = _self.tempData;
-                                    },100)
+                                    },500)
                                     
                                 }
                             });
@@ -232,7 +239,7 @@ import axios from '@/api/axios'
                 let _self = this;
                 axios.get(`/api/v1/user/boards/images/${boardId}`)
                         .then(function(res){
-                            _self.boardImg[index] = res.data
+                            // _self.boardImg[index] = res.data
                             _self.tempData[index].boardImg = res.data;              
                         })
                         .catch(function(err){
@@ -272,6 +279,13 @@ import axios from '@/api/axios'
     }
 </script>
 <style lang="scss" scoped>
+
+ul, li{
+    list-style:none;
+}
+.onself{
+    margin-left: 20px;
+}
 .del{
     cursor: pointer;
     &:hover{
@@ -307,11 +321,14 @@ import axios from '@/api/axios'
 }
 .sm-img-icon{
     display: flex;
+    flex-wrap:wrap ;
     .img-icon{
         position: relative;
         background-size: cover;
-        width:50px;
-        height: 50px;
+        width:100px;
+        height: 100px;
+        border: 1px solid #000;
+        margin: 4px;
     }
     .cover-button-set{
         font-size: 12px;
@@ -323,6 +340,7 @@ import axios from '@/api/axios'
         }
     }
 }
+
 </style>
 
 
