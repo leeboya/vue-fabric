@@ -243,12 +243,9 @@ export default {
           -webkit-column-break-inside: avoid;
           break-inside: avoid;
           background: white;
-          -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
-            0 1px 2px 0 rgba(0, 0, 0, 0.24);
-          -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
-            0 1px 2px 0 rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
-            0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    
+          // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
+          //   0 1px 2px 0 rgba(0, 0, 0, 0.24);
           img {
             width: 100%;
             padding-bottom: 1em;
