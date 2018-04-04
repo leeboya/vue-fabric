@@ -250,7 +250,6 @@ export default {
             width: 100%;
             padding-bottom: 1em;
             margin-bottom: 0.5em;
-            border-bottom: 1px solid #cccccc;
           }
           span {
             position: absolute;
