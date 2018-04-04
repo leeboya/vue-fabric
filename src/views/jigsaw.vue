@@ -30,7 +30,7 @@ import {
   casedetails,
   updateCanvas
 } from "@/api/case";
-import {qiniuToken,uploadToqiniu,getUrl} from "@/api/qiniu"
+import { qiniuToken, uploadToqiniu, getUrl } from "@/api/qiniu";
 export default {
   components: { topBar, guide, singleProduct, optionNav },
   data() {
@@ -172,7 +172,7 @@ export default {
         dangerouslyUseHTMLString: true
       })
         .then(() => {
-          _this.saveCase()
+          _this.saveCase();
         })
         .catch(() => {
           this.$message({
@@ -190,23 +190,21 @@ export default {
         }
       );
     },
-    saveCase(){
-      var _this=this
-      if(document.getElementById("caseTitle").length!=0){
-          _this.caseBasic.title = document.getElementById("caseTitle").value;
-          _this.caseBasic.description = document.getElementById(
-            "caseMemo"
-          ).value;
+    saveCase() {
+      var _this = this;
+      if (document.getElementById("caseTitle")&&document.getElementById("caseTitle").length != 0) {
+        _this.caseBasic.title = document.getElementById("caseTitle").value;
+        _this.caseBasic.description = document.getElementById("caseMemo").value;
       }
       if (!_this.caseBasic.paletteId) {
         return;
       }
       _this.caseBasic.memberId = this.$store.state.user.userId;
-      updateCaseBasic(_this.caseBasic).then(() => {
-        let temp = this.$store.state.fabricObj.canvas.toObject();
-        temp.paletteId = _this.caseBasic.paletteId;
-        updateCanvas(temp);
-      });
+      _this.caseBasic.paletteId = res.data;
+      var MIME_TYPE = "image/png";
+      var _base64 = _this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
+      _this.uploadQiNiu(_base64);
+
     },
 
     /**@augments
@@ -252,9 +250,9 @@ export default {
           _this.caseDetails = _data;
 
           _this.$store.state.fabricObj.canvas.loadFromJSON(_data);
-          setTimeout(()=>{
-            _this.bindOption(_this)
-          },200)
+          setTimeout(() => {
+            _this.bindOption(_this);
+          }, 200);
 
           _this.$store.commit("setCanvas", _this.$store.state.fabricObj.canvas);
         },
@@ -285,6 +283,32 @@ export default {
             _this.$store.commit("setOptionSelect", false);
           });
       });
+    },
+    uploadQiNiu(base64Data) {
+      var domain = "";
+      var _this = this;
+      var base64 = base64Data.split("base64,")[1];
+      let url = getUrl("thum" + new Date().getTime() + ".png");
+      qiniuToken() //通过后台获取七牛云token
+        .then(res => {
+          //获取token成功后发送请求到七牛添加图片
+          domain = res.data.domain;
+          let config = {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: "UpToken " + res.data.uptoken
+            }
+          };
+          return uploadToqiniu(url, base64, config).then(res => {
+            _this.caseBasic.thumb = domain + res.data.key;
+            debugger;
+            updateCaseBasic(_this.caseBasic).then(() => {
+              let temp = this.$store.state.fabricObj.canvas.toObject();
+              temp.paletteId =_this.caseBasic.paletteId;
+              updateCanvas(temp);
+            });
+          });
+        });
     }
   }
 };
@@ -296,8 +320,8 @@ export default {
   overflow: hidden;
   background: #000;
   .save-btn {
-    margin-left:10px;
-    margin-top:10px;
+    margin-left: 10px;
+    margin-top: 10px;
   }
   .product-list {
     background: #fff;

@@ -191,67 +191,59 @@ export default {
             "caseMemo"
           ).value;
       }
-         
+        if (!_this.caseBasic.paletteId) {
+          create({
+            description: _this.caseBasic.description, //描述
+            isEditable: 0, //是否可以修改
+            isPrivate: 0, //是否私有
+            memberId: this.$store.state.user.userId, //会员ID
+            refId: "a001", //引用ID
+            thumb: "", // 缩略图url
+            title: _this.caseBasic.title //案例主题或者名称吧
+          }).then(res => {
+            _this.caseBasic.memberId=this.$store.state.user.userId;
+            _this.caseBasic.paletteId = res.data;
+            var MIME_TYPE = "image/png";
+            var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
+            _this.uploadQiNiu(_base64);
 
-          if (!_this.caseBasic.paletteId) {
-            create({
-              description: _this.caseBasic.description, //描述
-              isEditable: 0, //是否可以修改
-              isPrivate: 0, //是否私有
-              memberId: this.$store.state.user.userId, //会员ID
-              refId: "a001", //引用ID
-              thumb: "", // 缩略图url
-              title: _this.caseBasic.title //案例主题或者名称吧
-            }).then(res => {
-              var MIME_TYPE = "image/png";
-              var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
-              if(_base64){
-                  _this.uploadQiNiu(_base64);
-                  return
-              }
-               _this.caseBasic.memberId=this.$store.state.user.userId;
-              _this.caseBasic.paletteId = res.data;
-              updateCaseBasic(_this.caseBasic).then(() => {
-                let temp = this.$store.state.fabricObj.canvas.toObject();
-                temp.paletteId = res.data;
-                updateCanvas(temp);
-              });
-          
-             
-            });
-            return;
-          }
-          updateCaseBasic(_this.caseBasic).then(() => {
-            let temp = this.$store.state.fabricObj.canvas.toObject();
-            temp.paletteId = _this.caseBasic.paletteId;
-            updateCanvas(temp);
           });
+          return;
+        }
+        updateCaseBasic(_this.caseBasic).then(() => {
+          let temp = this.$store.state.fabricObj.canvas.toObject();
+          temp.paletteId = _this.caseBasic.paletteId;
+          updateCanvas(temp);
+        });
     },
     uploadQiNiu(base64Data){
+        var domain ='';
           var _this=this;
           var  base64 =  base64Data.split("base64,")[1]
-           let url = getUrl("个人画板_" + new Date().getTime() + ".png");
+           let url = getUrl("thum" + new Date().getTime() + ".png");
           qiniuToken()//通过后台获取七牛云token
           .then((res)=>{
 						//获取token成功后发送请求到七牛添加图片
-						var domain = res.domain;
+						 domain = res.data.domain;
 						let config={
 							headers:{
 								'Content-Type':'multipart/form-data',
-								"Authorization":"UpToken "+res.uptoken
+								"Authorization":"UpToken "+res.data.uptoken
 							}
-						}
-						return uploadToqiniu(url,base64,config);
-					})
-					.then((res)=>{
-              _this.caseBasic.memberId=this.$store.state.user.userId;
-              _this.caseBasic.paletteId = res.data;
+            }
+            return uploadToqiniu(url,base64,config)
+            .then((res)=>{
+          
+              _this.caseBasic.thumb=domain+res.data.key;
+    
               updateCaseBasic(_this.caseBasic).then(() => {
                 let temp = this.$store.state.fabricObj.canvas.toObject();
-                temp.paletteId = res.data;
+                temp.paletteId = _this.caseBasic.paletteId;
                 updateCanvas(temp);
               });
 					})
+					})
+				
 				
     }
   }
