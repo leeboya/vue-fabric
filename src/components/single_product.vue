@@ -8,6 +8,10 @@
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
             <div class="pin" v-for="item in dataList"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
+                <span class="collection" @click="addImageToCollection" :data-itemId="item.itemId">
+                  收藏
+                  <!-- <img src="http://ovfllimsi.bkt.clouddn.com/love.jpg" alt=""> -->
+                  </span>
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img :src="item.img||'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522757523364&di=f78444b0ec36366afa8d8cbd5a2d722f&imgtype=0&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150122%2F0020032986643717_b.jpg'" > 
                 <p>{{item.name}}</p> 
@@ -21,7 +25,7 @@
 </template>
 <script>
 //import Vue from "vue";
-
+import axios from '@/api/axios'
 import { caseBasic, del } from "@/api/case";
 export default {
   props: ["dataList", "type"],
@@ -30,11 +34,14 @@ export default {
       leftBar: {}, //左侧宽高
       canvasPos: {}, //canvas 宽高
       mouseImgPos: {}, // 鼠标拖拽相对图片的位置
-      keywords: ""
+      keywords: "",
+      boardId: null
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    this.boardId = this.$route.query.boardId
+  },
   methods: {
     /**@augments
      * function 收藏图片到个人中心
@@ -140,7 +147,30 @@ export default {
     },
     searchList(keywords) {
       this.$emit("setSearchList", keywords);
-    }
+    },
+    //添加图片到收藏夹
+    addImageToCollection(){
+          let _self = this;
+          if(!this.boardId){
+            this.$notify.info({
+                title: '提示',
+                message: '请指定添加的位置'
+              });
+            return  _self.$router.push({path:'/onself'});
+          }
+          axios.post('/api/v1/user/boards/images',{
+                boardId: _self.boardId,
+                itemId : event.target.getAttribute("data-itemId")
+            })
+            .then(function(res){
+                if(res.data){
+                    _self.$router.push({path:'/onself'});
+                }  
+            })
+            .catch(function(err){
+                console.log(err);
+        });
+      }
   }
 };
 </script>
@@ -183,6 +213,15 @@ export default {
         column-gap: 1em;
         .pin {
           position: relative;
+          .collection{
+            position: absolute;
+            top:0px;
+            right: 0;
+            width: 42px;
+            &:hover{
+              background: #ccc;
+            }
+          }
           .del {
             position: absolute;
             right: 10px;
