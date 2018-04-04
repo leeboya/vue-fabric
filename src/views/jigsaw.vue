@@ -250,6 +250,7 @@ export default {
           _this.caseDetails = _data;
 
           _this.$store.state.fabricObj.canvas.loadFromJSON(_data);
+           _this.$store.state.fabricObj.canvas.renderAll();
           setTimeout(() => {
             _this.bindOption(_this);
           }, 200);

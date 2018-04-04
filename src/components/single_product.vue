@@ -103,6 +103,7 @@ export default {
           });
 
           canvas.add(imgInstance);
+          imgInstance.crossOrigin = "Anonymous";
           imgInstance
             .on("selected", function(options) {
               _this.$store.commit("setOptionSelect", true);
