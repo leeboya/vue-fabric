@@ -218,7 +218,7 @@ export default {
       overflow: hidden;
       width:1440px;
       margin: 0 auto;
-      .el-autocomplet{
+      .el-autocomplete{
         width:80%;
       }
       .search {
