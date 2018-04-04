@@ -215,8 +215,12 @@ export default {
     padding: 48px 0;
     margin: 0 auto;
     .search-box {
-      margin: 0 20px;
       overflow: hidden;
+      width:1440px;
+      margin: 0 auto;
+      .el-autocomplet{
+        width:80%;
+      }
       .search {
         float: left;
         width: 70%;
