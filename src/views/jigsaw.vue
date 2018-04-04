@@ -200,7 +200,7 @@ export default {
         return;
       }
       _this.caseBasic.memberId = this.$store.state.user.userId;
-      _this.caseBasic.paletteId = res.data;
+      // _this.caseBasic.paletteId = res.data;
       var MIME_TYPE = "image/png";
       var _base64 = _this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
       _this.uploadQiNiu(_base64);

@@ -2,8 +2,17 @@
 <div class="m-singp">
      <div class="wrap">
         <div class="search-box">
-                <input type="text" v-model="keywords" class="search" placeholder="请输入">
-                <span class="btn" @click="searchList(keywords)" >筛选</span>
+        		<el-autocomplete
+			      class="inline-input "
+			      v-model="keywords"
+			      :fetch-suggestions="querySearch"
+			      placeholder="请输入内容"
+			      :trigger-on-focus="false"
+			      @select="handleSelect"
+			    ></el-autocomplete>
+			    <el-button type="primary" @click="searchList(keywords)"   >筛选</el-button>
+                <!--<input type="text" v-model="keywords" class="search" placeholder="请输入">-->
+                <!--<span class="btn" @click="searchList(keywords)" >筛选</span>-->
         </div>
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
@@ -30,16 +39,19 @@
 <script>
 //import Vue from "vue";
 import axios from '@/api/axios'
+import {query} from "@/api/image";
 import { caseBasic, del } from "@/api/case";
 export default {
   props: ["dataList", "type"],
   data() {
     return {
+    	state1:"",
       leftBar: {}, //左侧宽高
       canvasPos: {}, //canvas 宽高
       mouseImgPos: {}, // 鼠标拖拽相对图片的位置
       keywords: "",
-      boardId: null
+      boardId: null,
+      list:[]
     };
   },
   created() {},
@@ -47,6 +59,22 @@ export default {
     this.boardId = this.$route.query.boardId
   },
   methods: {
+  	handleSelect:function(){},
+  	querySearch:function(queryString,cb){
+  		query(queryString)
+  		.then(res=>{
+  			if(res.status == "200"){
+  				this.list = [];
+  				let data = res.data;
+  				for(let i of data){
+  					let temp ={};
+  					temp.value =  i;
+  					this.list.push(temp);
+  				}
+  				cb(this.list);  
+  			}
+  		})
+  	},
     /**@augments
      * function 收藏图片到个人中心
      */

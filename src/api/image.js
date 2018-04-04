@@ -14,3 +14,7 @@ export function search(params){
 export function getByItemId(id){
 	return axios.get("/api/v1/tuku/item/"+id);
 }
+
+export function query(params){
+	return axios.get("/api/v1/products/research?d="+params);
+}
