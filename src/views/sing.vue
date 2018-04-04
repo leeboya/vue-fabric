@@ -203,6 +203,7 @@ export default {
               thumb: "", // 缩略图url
               title: _this.caseBasic.title //案例主题或者名称吧
             }).then(res => {
+              var MIME_TYPE = "image/png";
               var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
               if(_base64){
                   _this.uploadQiNiu();
