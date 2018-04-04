@@ -217,13 +217,15 @@ export default {
         column-gap: 1em;
         .pin {
           position: relative;
+           font-size:14px;
           .collection{
             position: absolute;
-            top:0px;
-            right: 0;
+            top:2px;
+            right: 10px;
             width: 42px;
+            color:#677baf;
             &:hover{
-              background: #ccc;
+              background: #868686;
             }
           }
           .del {
