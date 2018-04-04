@@ -206,7 +206,7 @@ export default {
               var MIME_TYPE = "image/png";
               var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
               if(_base64){
-                  _this.uploadQiNiu();
+                  _this.uploadQiNiu(_base64);
                   return
               }
                _this.caseBasic.memberId=this.$store.state.user.userId;
