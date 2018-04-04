@@ -205,7 +205,6 @@ export default {
             }).then(res => {
               var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
               if(_base64){
-                  var MIME_TYPE = "image/png";
                   _this.uploadQiNiu();
                   return
               }
