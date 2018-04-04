@@ -139,7 +139,7 @@
 				window.location.href = "http://mz.wesetup.cn/api/v1/user/wechat/bind?redirectUrl=http://mz.wesetup.cn/personal"
 			},
 			getUserInfo:function(){
-				getUser(this.$store.getters.user.userId)
+				getUser()
 				.then((res)=>{
 					this.u_phone = res.data.data.phone;
 					this.u_name = res.data.data.nickname;
