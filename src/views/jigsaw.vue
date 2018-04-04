@@ -30,6 +30,7 @@ import {
   casedetails,
   updateCanvas
 } from "@/api/case";
+import {qiniuToken,uploadToqiniu,getUrl} from "@/api/qiniu"
 export default {
   components: { topBar, guide, singleProduct, optionNav },
   data() {

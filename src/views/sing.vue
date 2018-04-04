@@ -27,6 +27,7 @@ import singleProduct from "@/components/single_product";
 import optionNav from "@/components/option_nav";
 import { create, updateCaseBasic, updateCanvas } from "@/api/case";
 import { search } from "@/api/image";
+import {qiniuToken,uploadToqiniu,getUrl} from "@/api/qiniu"
 export default {
   data() {
     return {
@@ -184,7 +185,7 @@ export default {
     },
     saveCase(){
       var _this=this;
-      if(document.getElementById("caseTitle").length!=0){
+      if(document.getElementById("caseTitle")&&document.getElementById("caseTitle").length!=0){
           _this.caseBasic.title = document.getElementById("caseTitle").value;
           _this.caseBasic.description = document.getElementById(
             "caseMemo"
@@ -202,13 +203,21 @@ export default {
               thumb: "", // 缩略图url
               title: _this.caseBasic.title //案例主题或者名称吧
             }).then(res => {
-              _this.caseBasic.memberId=this.$store.state.user.userId;
+              var MIME_TYPE = "image/png";
+              var _base64=_this.$store.state.fabricObj.canvas.toDataURL(MIME_TYPE);
+              if(_base64){
+                  _this.uploadQiNiu(_base64);
+                  return
+              }
+               _this.caseBasic.memberId=this.$store.state.user.userId;
               _this.caseBasic.paletteId = res.data;
               updateCaseBasic(_this.caseBasic).then(() => {
                 let temp = this.$store.state.fabricObj.canvas.toObject();
                 temp.paletteId = res.data;
                 updateCanvas(temp);
               });
+          
+             
             });
             return;
           }
@@ -217,6 +226,33 @@ export default {
             temp.paletteId = _this.caseBasic.paletteId;
             updateCanvas(temp);
           });
+    },
+    uploadQiNiu(base64Data){
+          var _this=this;
+          var  base64 =  base64Data.split("base64,")[1]
+           let url = getUrl("个人画板_" + new Date().getTime() + ".png");
+          qiniuToken()//通过后台获取七牛云token
+          .then((res)=>{
+						//获取token成功后发送请求到七牛添加图片
+						var domain = res.domain;
+						let config={
+							headers:{
+								'Content-Type':'multipart/form-data',
+								"Authorization":"UpToken "+res.uptoken
+							}
+						}
+						return uploadToqiniu(url,base64,config);
+					})
+					.then((res)=>{
+              _this.caseBasic.memberId=this.$store.state.user.userId;
+              _this.caseBasic.paletteId = res.data;
+              updateCaseBasic(_this.caseBasic).then(() => {
+                let temp = this.$store.state.fabricObj.canvas.toObject();
+                temp.paletteId = res.data;
+                updateCanvas(temp);
+              });
+					})
+				
     }
   }
 };
