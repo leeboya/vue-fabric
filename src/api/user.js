@@ -32,8 +32,8 @@ export function bindPhone(params){
 export function updateUser(params){
 	return axios.put("/api/v1/user/info/update",params);
 }
-export function getUser(params){
-	return axios.get("/api/v1/user/info/"+params);
+export function getUser(){
+	return axios.get("/api/v1/user/info/getInfo");
 }
 
 export function getUserId(vm){

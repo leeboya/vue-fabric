@@ -22,6 +22,11 @@
 			<el-button type="primary" @click="login" style="width:100%"  >登录</el-button>
 			<br />
 			<br />
+			<router-link to="regist">
+				<el-button type="success"  style="width:100%"  >注册</el-button>
+			</router-link>
+			<br />
+			<br />
 			<el-button type="success" @click="loginBywx" style="width:100%"  >微信登录</el-button>
 		</div>
 		
