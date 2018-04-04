@@ -273,7 +273,7 @@ import axios from '@/api/axios'
             toAddImg(){
                 console.log(event.target.getAttribute("data-boardId"))
                 var boardId = event.target.getAttribute("data-boardId");
-                this.$router.push({path:'/addImage',query:{boardId:boardId}});//类似post传参
+                this.$router.push({path:'/sing',query:{boardId:boardId}});//类似post传参
             },
         }
     
