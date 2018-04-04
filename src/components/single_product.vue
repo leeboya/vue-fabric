@@ -10,16 +10,14 @@
             <div class="pin" v-for="item in dataList"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
                 
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
-<<<<<<< HEAD
                 <img v-if="type=='sing'" :src="item.img||'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522757523364&di=f78444b0ec36366afa8d8cbd5a2d722f&imgtype=0&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150122%2F0020032986643717_b.jpg'" > 
                 <img v-if="type=='jigsaw'" :src="item.thumb||'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522757523364&di=f78444b0ec36366afa8d8cbd5a2d722f&imgtype=0&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150122%2F0020032986643717_b.jpg'" > 
-=======
+
                 <span class="collection" @click="addImageToCollection" v-else :data-itemId="item.itemId">
                   收藏
                   <!-- <img src="http://ovfllimsi.bkt.clouddn.com/love.jpg" alt=""> -->
                   </span>
-                <img :src="item.img||'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522757523364&di=f78444b0ec36366afa8d8cbd5a2d722f&imgtype=0&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150122%2F0020032986643717_b.jpg'" > 
->>>>>>> 159f4d00873022f8aea549e3b5f97e940292352f
+         
                 <p>{{item.name}}</p> 
             </div> 
         
