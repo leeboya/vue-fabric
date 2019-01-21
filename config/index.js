@@ -37,10 +37,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       
-      '/api': { //替换代理地址名称
-        target: '', //代理地址  
-        changeOrigin: true, //可否跨域
-      }
+//       '/api': { //替换代理地址名称
+//         target: '', //代理地址  
+//         changeOrigin: true, //可否跨域
+//       }
       
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
