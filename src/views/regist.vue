@@ -80,9 +80,7 @@
 				.then((res)=>{
 					if(res && res.data){
 						if(res.data.code == "10000"){
-//							_this.$store.commit('saveUserId',res.data.data)
 							 this.$message('注册成功');
-//							console.log(_this.$store.getters.getUserId);
 							setTimeout(function(){
 								_this.$router.push({path:'/login'});
 							},2000)
@@ -91,7 +89,6 @@
 						}
 					}
 				},(err)=>{
-//					console.log(err)
 				})
 			}
 		}

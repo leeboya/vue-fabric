@@ -73,7 +73,6 @@ import axios from '@/api/axios'
                 let _self = this; 
                 axios.get('/api/v1/user/boards')
                         .then(function(response){
-                            // _self.collectionList = response.data;
                             _self.tempData = response.data;
                             _self.tempData.forEach((element, index) => {
                                 _self.getImg(element.boardId, index);
@@ -134,7 +133,6 @@ import axios from '@/api/axios'
             chgCollection(){
                 let _self = this;
                 var title=prompt("修改标题");
-                // var description=prompt("description");
                 axios.put('/api/v1/user/boards',{
                         boardId : event.target.getAttribute("data-boardId"),
                         title : title,

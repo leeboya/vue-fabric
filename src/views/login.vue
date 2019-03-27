@@ -55,9 +55,6 @@
 						if(res.data.code == "13001"){
 							_this.tip = res.data.msg;
 							 _this.$message(res.data.msg);
-//							_this.$store.commit('saveUserId',res.data.data);
-//							console.log(_this.$store.getters.userId)
-//							console.log(_this.$store.getters.user.userId)
 							setTimeout(function(){
 								_this.$router.push({path:'/sing'});
 							},2000)
@@ -65,15 +62,11 @@
 							_this.tip = res.data.msg;
 						}
 					}
-//					console.log(res)
 				},function(err){
-//					console.log(err)
 				})
 			},
 			loginBywx:function(){
-//				this.$store.commit('saveUserId',"");
 				window.location.href = "http://mz.wesetup.cn/api/v1/user/wechat/login?redirectUrl=http://mz.wesetup.cn/personal";
-//				loginBywx();
 			}
 		}
 	}

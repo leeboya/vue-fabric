@@ -153,7 +153,6 @@
 					if(res.status == "200"){
 						this.tip = res.data.msg
 					}
-//					console.log(res)
 				},err=>{
 					
 				})
@@ -164,7 +163,6 @@
 					if(res.status == "200"){
 						this.tip = res.data.msg
 					}
-//					console.log(res)
 				},err=>{
 					
 				})
