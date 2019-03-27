@@ -128,7 +128,7 @@ export default {
 			}
             _self.config.currentStateIndex = _self.config.canvasState.length-1;
             if((_self.config.currentStateIndex == _self.config.canvasState.length-1) && _self.config.currentStateIndex != -1){
-                // _self.config.redoButton.disabled= true
+                
             }
 		}
     }, 
@@ -148,11 +148,7 @@ export default {
                                 _self.canvas.renderAll();
                                 _self.config.undoStatus = false;
                                 _self.config.currentStateIndex -= 1;
-                                    // _self.config.undoButton.removeAttribute("disabled");
-                                    // _self.config.undoButton.disabled = false;
                                     if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
-                                        // _self.config.redoButton.removeAttribute('disabled');
-                                        // _self.config.redoButton.disabled = false;
                                     }
                                 _self.config.undoFinishedStatus = 1;
                         });
@@ -160,9 +156,6 @@ export default {
                     else if(_self.config.currentStateIndex == 0){
                         _self.canvas.clear();
                         _self.config.undoFinishedStatus = 1;
-                        // _self.config.undoButton.disabled= "disabled";
-                        // _self.config.redoButton.removeAttribute('disabled');
-                        // _self.config.redoButton.disabled = false;
                         _self.config.currentStateIndex -= 1;
                     }
                 }
@@ -212,7 +205,6 @@ export default {
       }
     },
     cover(url,ev, canvas){
-      // var canvas = new fabric.Canvas('canvas');
       let _self = this;
       return new fabric.Image.fromURL(url, function(oImg){
           oImg.left = ev.offsetX -  _self.leftBar.width - _self.mouseImgPos.x ;
@@ -223,11 +215,9 @@ export default {
         
     },
     drop(ev){
-      // console.log('拖拽元素进入目标元素头上，同时鼠标松开的时候');
       ev.preventDefault();
     },
     dragover(ev){
-      // console.log('拖拽元素在目标元素头上移动的时候');
       ev.preventDefault();
     },
     paste(_clipboard){
@@ -241,12 +231,10 @@ export default {
                 evented: true,
             });
             if (clonedObj.type === 'activeSelection') {
-                // active selection needs a reference to the canvas.
                 clonedObj.canvas = canvas;
                 clonedObj.forEachObject(function(obj) {
                     canvas.add(obj);
                 });
-                // this should solve the unselectability
                 clonedObj.setCoords();
             } else {
                 canvas.add(clonedObj);
@@ -254,7 +242,6 @@ export default {
             _clipboard.top += 20;
             _clipboard.left += 20;
             canvas.setActiveObject(clonedObj);
-            // canvas.requestRenderAll();
         });
     }, 
     copy(){
@@ -282,7 +269,6 @@ export default {
 .leftBar{
   width: 400px;
   height: 400px;
-  /* background:#ccc; */
   border:1px solid red;
 }
 .imgBox{
