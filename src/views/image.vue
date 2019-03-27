@@ -58,7 +58,6 @@
 				getByItemId(id)
 				.then((res)=>{
 					this.detail =res.data;
-//					console.log(res)
 				},(err)=>{
 					
 				})
@@ -67,7 +66,6 @@
 				search("k="+this.keywords+"&c="+(this.cId == "" ? "": this.cId))
 				.then((res)=>{
 					this.searchResult = res.data;
-//					console.log(res.data)
 				},(err)=>{
 					
 				})
@@ -84,7 +82,6 @@
 						this.$store.commit("setClasses",res.data);
 						this.categoryList = this.$store.getters.images.classes;
 					}
-//					console.log(res)
 				},(err)=>{
 					
 				})
@@ -94,7 +91,6 @@
 			},
 			upload:function(e){
 				let file = e.target.files[0];
-//			    let param = {}; //创建form对象
 			    let url = getUrl(file.name);
 			    let base64;
 			    let reader = new FileReader();
@@ -124,14 +120,9 @@
 						
 					})
 					.then((res)=>{
-//						console.log(res)
-//						console.log(domain);
-//						console.log(_this.$store.getters.userId)
-						
 						//在将七牛返回的信息回传给后台
 						return uploadImg({
 							'imgUrl':(domain+res.data.key),
-//							'memberId':_this.$store.getters.user.userId,
 							'imgHash':res.data.hash
 						})
 					},(err)=>{

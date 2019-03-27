@@ -23,56 +23,56 @@ export default new Router({
       path: '/',
       name: 'login',
       component: login,
-      meta: {title: '设计IN-设计师严选平台'}
+      meta: {title: ''}
     },
     {
       path: '/sing',
       name: 'sing',
       component: sing,
-      meta: {title: '设计IN-设计师严选平台'}
+      meta: {title: ''}
     },
     {
       path: '/index',
       name: 'index',
       component: Index,
-      meta: {title: '设计IN-设计师严选平台', keepAlive: true}
+      meta: {title: '', keepAlive: true}
     },
     {
       path: '/drag',
       name: 'drag',
       component: drag,
-      meta: {title: '设计IN-设计师严选平台', keepAlive: true}
+      meta: {title: '', keepAlive: true}
     },
     {
       path: '/history',
       name: 'history',
       component: history,
-      meta: {title: '设计IN-设计师严选平台'}
+      meta: {title: ''}
     },
     {
       path: '/onself',
       name: 'onself',
       component: onself,
-      meta: {title: '设计IN-个人中心'}
+      meta: {title: ''}
     },
     {
 
       path: '/addImage',
       name: 'addImage',
       component: addImage,
-      meta: {title: '设计IN-个人中心'}
+      meta: {title: ''}
     },
 
     {path: '/upload',
       name: 'upload',
       component: upload,
-      meta: {title: '设计IN-上传'}
+      meta: {title: ''}
     },
     {
       path: '/jigsaw',
       name: 'jigsaw',
       component: jigsaw,
-      meta: {title: '设计IN-拼图'}
+      meta: {title: ''}
     },
    
 
@@ -81,24 +81,24 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login,
-      meta: {title: '设计IN-设计师严选平台 | 登录'}
+      meta: {title: ''}
     },
     {
       path: '/regist',
       name: 'regist',
       component: regist,
-      meta: {title: '设计IN-设计师严选平台 | 注册'}
+      meta: {title: ''}
     },{
       path: '/personal',
       name: 'personal',
       component: personal,
-      meta: {title: '设计IN-设计师严选平台 | 个人中心'}
+      meta: {title: ''}
     },
 		{
       path: '/images',
       name: 'images',
       component: images,
-      meta: {title: '设计IN-设计师严选平台 | 图库'}
+      meta: {title: ''}
     },
   ],
 
