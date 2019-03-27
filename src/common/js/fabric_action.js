@@ -1,26 +1,3 @@
-
-// const createFabricObj = function (imgId, pos) {
-//   var dom = document.getElementById(imgId);
-//   var instance = new fabric.Image(dom, {
-//     //设置图片在canvas中的位置和样子
-//     left: pos.left,
-//     top: pos.top,
-//     width: pos.width,
-//     height: pos.height,
-//     angle: pos.angle
-
-//   })
-//   instance.on("selected", function (options) {
-//     _this.$store.commit("setOptionSelect", true);
-//   })
-//     .on("deselected", function (options) {
-//       // option.style.display = "none";
-//       _this.$store.commit("setOptionSelect", false);
-//     });
-
-//   return instance
-// }
-
 const bindSeletUnSelectEvent = function (imgObj, _this) {
   imgObj.on("selected", function (options) {
     _this.$store.commit("setOptionSelect", true);
