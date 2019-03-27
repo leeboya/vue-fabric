@@ -8,7 +8,6 @@
     <button class="btn" @click="toSVG">toSVG</button>
     <button class="btn" @click="toSVGLocal">SVG保存到本地</button>
     <button class="btn" @click="canvasToImage">转化为图片</button>
-<!-- canvasToImage -->
   </header>
   <div class="contain">
     <div class="leftBar" ref="getLeftBarWidth">
@@ -162,12 +161,10 @@ export default {
                 evented: true,
             });
             if (clonedObj.type === 'activeSelection') {
-                // active selection needs a reference to the canvas.
                 clonedObj.canvas = canvas;
                 clonedObj.forEachObject(function(obj) {
                     canvas.add(obj);
                 });
-                // this should solve the unselectability
                 clonedObj.setCoords();
             } else {
                 canvas.add(clonedObj);
@@ -175,14 +172,12 @@ export default {
             _clipboard.top += 20;
             _clipboard.left += 20;
             canvas.setActiveObject(clonedObj);
-            // canvas.requestRenderAll();
         });
     }, 
     copy(){
        let canvas = this.canvas;
        var _self = this;
         canvas.getActiveObject().clone(function(cloned){
-            // let _clipboard = cloned;
               _self.paste(cloned);
             
         })
@@ -198,7 +193,6 @@ export default {
       console.log(JSON.stringify(this.canvas.toJSON()));
     },
     toSVG(){
-      // return this.canvas.toSVG()
       console.log(this.canvas.toSVG());
     },
     toSVGLocal(){
