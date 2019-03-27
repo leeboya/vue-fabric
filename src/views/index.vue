@@ -621,11 +621,7 @@ export default {
                                   _self.$store.state.fabricObj.canvas.renderAll();
                                   _self.config.undoStatus = false;
                                   _self.config.currentStateIndex -= 1;
-                                      // _self.config.undoButton.removeAttribute("disabled");
-                                      // _self.config.undoButton.disabled = false;
                                       if(_self.config.currentStateIndex !== _self.config.canvasState.length-1){
-                                          // _self.config.redoButton.removeAttribute('disabled');
-                                          // _self.config.redoButton.disabled = false;
                                       }
                                   _self.config.undoFinishedStatus = 1;
                           });
@@ -633,9 +629,6 @@ export default {
                       else if(_self.config.currentStateIndex == 0){
                           _self.$store.state.fabricObj.canvas.clear();
                           _self.config.undoFinishedStatus = 1;
-                          // _self.config.undoButton.disabled= "disabled";
-                          // _self.config.redoButton.removeAttribute('disabled');
-                          // _self.config.redoButton.disabled = false;
                           _self.config.currentStateIndex -= 1;
                       }
                   }
