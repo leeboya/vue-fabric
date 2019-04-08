@@ -12,12 +12,10 @@
 			      @select="handleSelect"
 			    ></el-autocomplete>
 			    <el-button type="primary" @click="searchList(keywords)" >筛选</el-button>
-                <!--<input type="text" v-model="keywords" class="search" placeholder="请输入">-->
-                <!--<span class="btn" @click="searchList(keywords)" >筛选</span>-->
         </div>
      <div class="container"> 
         <div class="waterfall" ref="getLeftBarWidth"> 
-            <div class="pin" v-for="item in dataList"  draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
+            <div class="pin" v-for="(item,index) in dataList" :key="index" draggable="true" @dragstart="dragstart($event)" @dragend="dragend($event,item.paletteId)"> 
                 
                 <span class="del" @click="delCase((item.paletteId))" v-if="type=='jigsaw'"><img src="@/assets/icon/del.png" alt=""></span>
                 <img v-if="type=='sing'" :src="item.img||'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1522757523364&di=f78444b0ec36366afa8d8cbd5a2d722f&imgtype=0&src=http%3A%2F%2Fpic34.photophoto.cn%2F20150122%2F0020032986643717_b.jpg'" > 
@@ -25,7 +23,6 @@
 
                 <span class="collection" @click="addImageToCollection" v-else :data-itemId="item.itemId">
                   收藏
-                  <!-- <img src="http://ovfllimsi.bkt.clouddn.com/love.jpg" alt=""> -->
                   </span>
          
                 <p>{{item.name}}</p> 
@@ -80,7 +77,6 @@ export default {
      * function 收藏图片到个人中心
      */
     collection() {
-      console.log(1);
       // 判断是否登陆 无 跳登陆注册   添加收藏夹 或者取消收藏
     },
 
@@ -282,9 +278,6 @@ export default {
           -webkit-column-break-inside: avoid;
           break-inside: avoid;
           background: white;
-    
-          // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
-          //   0 1px 2px 0 rgba(0, 0, 0, 0.24);
           img {
             width: 100%;
             padding-bottom: 1em;
