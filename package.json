@@ -2,7 +2,7 @@
   "name": "mint",
   "version": "1.0.0",
   "description": "mintaWeb",
-  "author": "tangjuan",
+  "author": "afacode",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
