@@ -9,13 +9,15 @@ instance.defaults.headers.common["Authorization"] = AUTH_TOKEN;
 instance.interceptors.request.use(function(config){
 	let url = config.url;
 	config.headers.Authorization = "";
+
 	if(url.indexOf("login")>-1){
 		localStorage.setItem('token',"");
-		
 	}
+
 	if(url.indexOf("user")>-1 && url.indexOf("login")<0){
 		config.headers.Authorization =localStorage.getItem("token");
 	}
+
 	return config;
 },function(err){
 	return Promise.reject(err);

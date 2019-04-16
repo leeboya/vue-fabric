@@ -3,17 +3,15 @@ import axios from 'axios'
 export function create(params){
 	return axios.post("/api/v1/tuku/palettes/palette",params);
 }
+
 export function list(){
 	return axios.get("/api/v1/tuku/palettes/palette");
 }
-// export function save(params){
-// 	return axios.post("/api/v1/tuku/palettes/save",params);
-// }
 
 export function del(paletteId){
-	
 	return axios.put("/api/v1/tuku/palettes/"+paletteId);
 }
+
 export function updateCaseBasic(params){
 	return axios.put("/api/v1/tuku/palettes/palette/"+params.paletteId,params);
 }

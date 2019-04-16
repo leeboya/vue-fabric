@@ -1,8 +1,6 @@
 import axios from 'axios';
 export function qiniuToken(){
-//	window.location.href = '/wechat/login';
 	return axios.get('/api/v1/core/upload/genUpToken/')
-	
 }
 export function uploadToqiniu(url,params,config={}){
 	return axios.post(url,params,config)
